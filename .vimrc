@@ -12,6 +12,14 @@ syntax on                       " Syntax highlighting
 set background=dark
 colo evening
 
+" Changes all the tab-width settings at once.
+function! SetTab (tabwidth)
+    let s:width=a:tabwidth
+    let &shiftwidth=s:width
+    let &tabstop=s:width
+    let &softtabstop=s:width
+endfunction
+ 
 " General Settings
 set wildmenu
 set showcmd                     " Shows the commands you type at the bottom
@@ -32,31 +40,27 @@ compiler gcc                    " gcc by default
 
 " Indentation
 set expandtab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+call SetTab(4)
 
 " Shortcut for editing .vimrc and .gvimrc
-nnoremap <silent> <LEADER>vimrc     :e ~/.vimrc<CR>
-nnoremap <silent> <LEADER>svimrc    :vsplit ~/.vimrc<CR>
-nnoremap <silent> <LEADER>gvimrc    :e ~/.gvimrc<CR>
-nnoremap <silent> <LEADER>sgvimrc   :vsplit ~/.gvimrc<CR>
+nnoremap <silent> <LEADER>vimrc     :split ~/.vimrc<CR>
+nnoremap <silent> <LEADER>vvimrc    :vsplit ~/.vimrc<CR>
+nnoremap <silent> <LEADER>gvimrc    :split ~/.gvimrc<CR>
+nnoremap <silent> <LEADER>vgvimrc   :vsplit ~/.gvimrc<CR>
 
-" Search Hilightning
+" Search Hilightning (SPACE to clear highlighting)
 nnoremap <SPACE>    :noh<CR>
 
 " Automatic bracket completion
 inoremap {  {}<LEFT>
 inoremap {{ {
-inoremap {<CR>  {<CR>}<ESC><UP>o
+inoremap {<CR>  {<CR>}<ESC>ko
 inoremap {} {}
 
-" Handy Select-All
+" Handy Select-All (\a)
 nnoremap <LEADER>a ggVG
 
-fu! PythonConfig(tabwidth)
-    let width=a:tabwidth
-    set expandtab
-    set shiftwidth=width
-    set tabstop=width
+" Replace all tabs with four spaces in the current file.
+function! ExpandTabs ()
+    %s/\t/    /g
 endfunction
