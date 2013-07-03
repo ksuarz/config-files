@@ -12,14 +12,6 @@ syntax on                       " Syntax highlighting
 set background=dark
 colo evening
 
-" Changes all the tab-width settings at once.
-function! SetTab (tabwidth)
-    let s:width=a:tabwidth
-    let &shiftwidth=s:width
-    let &tabstop=s:width
-    let &softtabstop=s:width
-endfunction
- 
 " General Settings
 set wildmenu
 set showcmd                     " Shows the commands you type at the bottom
@@ -38,6 +30,14 @@ set number                      " Show line numbers
 set nohidden                    " No hiding buffers after they're abandoned
 compiler gcc                    " gcc by default
 
+" Changes all the tab-width settings at once.
+function! SetTab (tabwidth)
+    let s:width=a:tabwidth
+    let &shiftwidth=s:width
+    let &tabstop=s:width
+    let &softtabstop=s:width
+endfunction
+ 
 " Indentation
 set expandtab
 call SetTab(4)
