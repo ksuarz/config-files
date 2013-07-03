@@ -1,17 +1,14 @@
-" Start-up
 set nocompatible
 filetype indent plugin on
 syntax on
 
-" Colors
-set background=dark
-colo solarized
-
-" Lines, Searching, Other General Settings
+" General Settings
+colo busybee
 set wildmenu
 set showcmd
 set hlsearch
-set cursorline
+
+" Lines and Searching
 set ignorecase
 set smartcase
 set backspace=indent,eol,start
@@ -22,29 +19,11 @@ set confirm
 set visualbell
 set mouse=a
 set number
-set nohidden
-compiler gcc
+set notimeout ttimeout ttimeoutlen=200
 
 " Indentation
-set expandtab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-
-" Shortcut for editing .vimrc and .gvimrc
-nnoremap <silent> <LEADER>vimrc     :e ~/.vimrc<CR>
-nnoremap <silent> <LEADER>svimrc    :vsplit ~/.vimrc<CR>
-nnoremap <silent> <LEADER>gvimrc    :e ~/.gvimrc<CR>
-nnoremap <silent> <LEADER>sgvimrc   :vsplit ~/.gvimrc<CR>
+set shiftwidth=8
+set tabstop=8
 
 " Search Hilightning
-nnoremap <SPACE>    :noh<CR>
-
-" Automatic bracket completion
-inoremap {  {}<LEFT>
-inoremap {{ {
-inoremap {<CR>  {<CR>}<ESC><UP>o
-inoremap {} {}
-
-" Handy Select-All
-nnoremap <LEADER>a ggVG
+map <SPACE> :noh<CR>
