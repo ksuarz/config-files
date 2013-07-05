@@ -51,11 +51,43 @@ nnoremap <silent> <LEADER>vgvimrc   :vsplit ~/.gvimrc<CR>
 " Search Hilightning (SPACE to clear highlighting)
 nnoremap <SPACE>    :noh<CR>
 
-" Automatic bracket completion
+" Inspired by Eclipse
+map <C-d>   dd
+nmap <C-D>  o<ESC>
+
+" Automatic matching completion for...
+" Curly braces!
 inoremap {  {}<LEFT>
 inoremap {{ {
 inoremap {<CR>  {<CR>}<ESC>ko
 inoremap {} {}
+
+" Square brackets!
+inoremap [  []<LEFT>
+inoremap [[ [
+inoremap [<CR>  [<CR>]<ESC>ko
+inoremap [] []
+
+" Parentheses!
+inoremap (  ()<LEFT>
+inoremap (( (
+inoremap (<CR>  (<CR>)<ESC>ko
+inoremap () ()
+inoremap \( \(
+
+" TODO: angle brackets
+
+" Single Quotes! Won't mess with contractions/possessives
+inoremap '  ''<LEFT>
+inoremap n' n'
+inoremap s' s'
+inoremap 's 's
+inoremap '' ''
+
+" Double Quotes! (and Python long strings)
+inoremap "  ""<LEFT>
+inoremap "" ""
+inoremap """<CR>    """<CR>"""<ESC>ko
 
 " Handy Select-All (\a)
 nnoremap <LEADER>a ggVG
