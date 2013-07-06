@@ -1,24 +1,158 @@
-" Start-up
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" .vimrc - Vim configuration settings
+" Kyle Suarez
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
-filetype indent plugin on       " Indent based on detected filetype
-syntax on                       " Syntax highlighting
 
-" Backup
-"set backup
-"set backupdir=~/.vim/backup
-"set directory=~/.vim/tmp
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Function Definitions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Changes all the tab-width settings at once.
+function! SetTab(tabwidth)
+    let s:width=a:tabwidth
+    let &shiftwidth=s:width
+    let &tabstop=s:width
+    let &softtabstop=s:width
+endfunction
 
+" Replace all tabs with four spaces in the current file.
+function! ExpandTabs()
+    try
+        %s/\t/    /g
+    catch
+        " Ignore the error if the pattern does not exist.
+    endtry
+endfunction
+
+" Toggles curly brace autocompletion.
+function! AutocompleteBraces()
+    if !maparg("{<CR>")
+        " Completion for curly braces
+        inoremap {  {}<LEFT>
+        inoremap {{ {
+        inoremap {<CR>  {<CR>}<ESC>ko
+        inoremap {} {}
+        echo "Brace completion turned on."
+    else
+        iunmap {
+        iunmap {{
+        iunmap {<CR>
+        iunmap {}
+        echo "Brace completion turned off."
+    endif
+endfunction
+
+
+" Toggles quote autocompletion on and off. Mostly for Python
+function! AutocompleteQuotes()
+    if !maparg("'")
+        " Completion for single and double quotes
+        inoremap '  ''<LEFT>
+        inoremap n' n'
+        inoremap s' s'
+        inoremap 's 's
+        inoremap '' ''
+        inoremap "  ""<LEFT>
+        inoremap "" ""
+        inoremap """<CR>    """<CR>"""<ESC>ko
+        echo "Quote completion turned on."
+    else
+        iunmap '
+        iunmap n'
+        iunmap s'
+        iunmap 's
+        iunmap ''
+        iunmap "
+        iunmap ""
+        iunmap """<CR>
+        echo "Quote completion turned off."
+    endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom keybindings and mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Reload config file
+nmap <C-r> :source ~/.vimrc<CR>
+
+" Shift-E to expand all tabs
+nmap <C-E> :call ExpandTabs()<CR>
+
+" More common mappings. Will need something to pass on C-a in screen or tmux
+nmap <C-Z> :undo<CR>
+nmap <C-s> :w<CR>
+nnoremap <C-a> ggVG
+
+" Search Hilightning (SPACE to clear highlighting)
+nnoremap <SPACE>    :noh<CR>
+
+" Adding, deleting, and moving lines around
+nmap <C-d>  dd
+nmap <C-D>  o<ESC>
+nmap <SILENT> <C-UP>    :m -2<CR>
+nmap <SILENT> <C-DOWN>  :m +1<CR>
+
+" Automatic matching completion for...
+" Square brackets
+inoremap [  []<LEFT>
+inoremap [[ [
+inoremap [<CR>  [<CR>]<ESC>ko
+inoremap [] []
+
+" Parentheses
+inoremap (  ()<LEFT>
+inoremap (( (
+inoremap (<CR>  (<CR>)<ESC>ko
+inoremap () ()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocommands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General filetype detection
+autocmd! BufRead,BufNewFile *.md set filetype=markdown
+autocmd! BufRead,BufNewFile *.py call AutocompleteQuotes()
+autocmd! BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
+
+" Create these files from templates
+"if filereadable("~/.vim/templates/C.vim")
+"    autocmd BufNewFile *.ino source "~/.vim/templates/Arduino.vim"
+"    autocmd BufNewFile *.c source "~/.vim/templates/C.vim"
+"    autocmd BufNewFile *.cpp source "~/.vim/templates/C++.vim"
+"    autocmd BufNewFile *.html source "~/.vim/templates/HTML.vim"
+"    autocmd BufNewFile *.java source "~/.vim/templates/Java.vim"
+"    autocmd BufNewFile *.mkd,*.md source "~/.vim/templates/Markdown.vim"
+"    au BufNewFile Makefile,makefile,*.mak so "~/.vim/templates/Makefile.vim"
+"endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-colo evening
+colorscheme evening
 
-" General Settings
+" Command line completion
 set wildmenu
+set wildignore=*.o,*.jpg,*.png,*.gif
+
+" Indentation
+set expandtab                   " Spaces instead of tabs
+call SetTab(4)                  " 4 spaces to a tab
+
+" Turn on brace completion
+if !maparg("{<CR>")
+    silent call AutocompleteBraces()
+endif
+
+" More settings
+filetype indent plugin on       " Indent based on detected filetype
+syntax on                       " Syntax highlighting
 set showcmd                     " Shows the commands you type at the bottom
 set hlsearch                    " Search highlighting
 set cursorline                  " Highlight current line
 set ignorecase
-set smartcase
+set smartcase                   " I believe it's case sensitive only sometimes
+set nowrap                      " No line wrapping
 set backspace=indent,eol,start  " Backspace works intuitively
 set autoindent
 set nostartofline               " Movements don't auto-jump to line start
@@ -29,70 +163,3 @@ set mouse=a                     " Use the mouse in all modes
 set number                      " Show line numbers
 set nohidden                    " No hiding buffers after they're abandoned
 compiler gcc                    " gcc by default
-
-" Changes all the tab-width settings at once.
-function! SetTab (tabwidth)
-    let s:width=a:tabwidth
-    let &shiftwidth=s:width
-    let &tabstop=s:width
-    let &softtabstop=s:width
-endfunction
- 
-" Indentation
-set expandtab
-call SetTab(4)
-
-" Shortcut for editing .vimrc and .gvimrc
-nnoremap <silent> <LEADER>vimrc     :split ~/.vimrc<CR>
-nnoremap <silent> <LEADER>vvimrc    :vsplit ~/.vimrc<CR>
-nnoremap <silent> <LEADER>gvimrc    :split ~/.gvimrc<CR>
-nnoremap <silent> <LEADER>vgvimrc   :vsplit ~/.gvimrc<CR>
-
-" Search Hilightning (SPACE to clear highlighting)
-nnoremap <SPACE>    :noh<CR>
-
-" Inspired by Eclipse
-map <C-d>   dd
-nmap <C-D>  o<ESC>
-
-" Automatic matching completion for...
-" Curly braces!
-inoremap {  {}<LEFT>
-inoremap {{ {
-inoremap {<CR>  {<CR>}<ESC>ko
-inoremap {} {}
-
-" Square brackets!
-inoremap [  []<LEFT>
-inoremap [[ [
-inoremap [<CR>  [<CR>]<ESC>ko
-inoremap [] []
-
-" Parentheses!
-inoremap (  ()<LEFT>
-inoremap (( (
-inoremap (<CR>  (<CR>)<ESC>ko
-inoremap () ()
-inoremap \( \(
-
-" TODO: angle brackets
-
-" Single Quotes! Won't mess with contractions/possessives
-inoremap '  ''<LEFT>
-inoremap n' n'
-inoremap s' s'
-inoremap 's 's
-inoremap '' ''
-
-" Double Quotes! (and Python long strings)
-inoremap "  ""<LEFT>
-inoremap "" ""
-inoremap """<CR>    """<CR>"""<ESC>ko
-
-" Handy Select-All (\a)
-nnoremap <LEADER>a ggVG
-
-" Replace all tabs with four spaces in the current file.
-function! ExpandTabs ()
-    %s/\t/    /g
-endfunction
