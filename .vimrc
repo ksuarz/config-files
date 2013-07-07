@@ -73,24 +73,25 @@ endfunction
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Reload config file
-nmap <C-r> :source ~/.vimrc<CR>
+nnoremap <C-r> :source ~/.vimrc<CR>
 
 " Shift-E to expand all tabs
-nmap <C-E> :call ExpandTabs()<CR>
+nnoremap <C-E> :call ExpandTabs()<CR>
 
 " More common mappings. Will need something to pass on C-a in screen or tmux
-nmap <C-Z> :undo<CR>
-nmap <C-s> :w<CR>
+nnoremap <C-z>  :undo<CR>
+nnoremap <C-Z>  :redo<CR>
+nnoremap <C-s> :w<CR>
 nnoremap <C-a> ggVG
 
 " Search Hilightning (SPACE to clear highlighting)
 nnoremap <SPACE>    :noh<CR>
 
 " Adding, deleting, and moving lines around
-nmap <C-d>  dd
-nmap <C-D>  o<ESC>
-nmap <SILENT> <C-UP>    :m -2<CR>
-nmap <SILENT> <C-DOWN>  :m +1<CR>
+nnoremap <C-d>  dd
+nnoremap <C-D>  o<ESC>
+nnoremap <SILENT> <C-UP>    :m -2<CR>
+nnoremap <SILENT> <C-DOWN>  :m +1<CR>
 
 " Automatic matching completion for...
 " Square brackets
