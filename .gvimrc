@@ -1,8 +1,15 @@
-" Start-up
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" .gvimrc - Vim configuration settings
+" See .vimrc for most settings, mappings, and function definitions.
+" Kyle Suarez
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 
-" Use the rest of my vim settings.
-source ~/.vimrc
+" Use common vim settings.
+if filereadable(glob("~/.vimrc"))
+    source ~/.vimrc
+endif
 
-" GVim will use a different color scheme (override the other one)
-colo solarized
+" GVim-specific settings
+colorscheme solarized
+nmap <C-r> :source ~/.gvimrc<CR>
