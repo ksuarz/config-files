@@ -110,8 +110,9 @@ inoremap () ()
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General filetype detection
+" TODO add markdown syntax file
 autocmd! BufRead,BufNewFile *.md set filetype=markdown
-autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=makefile
+autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
 autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
 autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
 

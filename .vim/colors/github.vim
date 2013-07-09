@@ -70,7 +70,7 @@ hi IncSearch	guibg=#cdcdfd guifg=#000000 gui=italic
 hi Search		guibg=#cdcdfd guifg=#000000 gui=italic
 " }}}
 
-" {{{ Syntax groups
+" {{{ Syntax groupsi
 hi Ignore		guifg=#808080
 hi Identifier	guifg=#0086B3
 hi PreProc		guifg=#A0A0A0 gui=bold
@@ -81,11 +81,11 @@ hi Function		guifg=#990000 gui=bold
 hi Statement	guifg=#000000 gui=bold
 hi Type			guifg=#445588 gui=bold
 hi Number		guifg=#1C9898
-hi Todo			guifg=#FFFFFF guibg=#990000 gui=bold
+"hi Todo			guifg=#FFFFFF guibg=#990000 gui=bold
 hi Special		guifg=#159828 gui=bold
 hi rubySymbol   guifg=#960B73
 hi Error        guibg=#f8f8ff guifg=#ff1100 gui=undercurl
-hi Todo         guibg=#f8f8ff guifg=#ff1100 gui=underline
+hi Todo         guibg=#f8f8ff guifg=#3333DD gui=underline,bold
 hi Label        guifg=#000000 gui=bold
 hi StorageClass guifg=#000000 gui=bold
 hi Structure    guifg=#000000 gui=bold
