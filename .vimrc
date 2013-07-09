@@ -89,7 +89,7 @@ nnoremap <SPACE>    :nohlsearch<CR>
 
 " Adding, deleting, and moving lines around
 nnoremap <C-d>  dd
-nnoremap <C-S-D>  o<ESC>
+"nnoremap <C-S-D>  o<ESC>
 nnoremap <SILENT> <C-UP>    :m -2<CR>
 nnoremap <SILENT> <C-DOWN>  :m +1<CR>
 
@@ -111,8 +111,9 @@ inoremap () ()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General filetype detection
 autocmd! BufRead,BufNewFile *.md set filetype=markdown
-autocmd! BufRead,BufNewFile *.py silent call AutocompleteQuotes()
-autocmd! BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
+autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=makefile
+autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
+autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
 
 " Create these files from templates
 "if filereadable("~/.vim/templates/C.vim")
