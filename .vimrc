@@ -45,7 +45,7 @@ endfunction
 
 " Toggles quote autocompletion on and off. Mostly for Python
 function! AutocompleteQuotes()
-    if !maparg("'")
+    if !maparg("n'")
         " Completion for single and double quotes
         inoremap '  ''<LEFT>
         inoremap n' n'
@@ -81,17 +81,17 @@ nnoremap <C-E> :call ExpandTabs()<CR>
 " More common mappings. Will need something to pass on C-a in screen or tmux
 nnoremap <C-z>  :undo<CR>
 nnoremap <C-Z>  :redo<CR>
-nnoremap <C-s> :w<CR>
-nnoremap <C-a> ggVG
+nnoremap <C-s>  :w<CR>
+nnoremap <C-a>  ggVG
 
 " Search Hilightning (SPACE to clear highlighting)
-nnoremap <SPACE>    :noh<CR>
+nnoremap <SPACE>    :nohlsearch<CR>
 
 " Adding, deleting, and moving lines around
 nnoremap <C-d>  dd
-nnoremap <C-D>  o<ESC>
-nnoremap <SILENT> <C-UP>    :m -2<CR>
-nnoremap <SILENT> <C-DOWN>  :m +1<CR>
+" nnoremap <C-S-D>  o<ESC>
+nnoremap <C-UP>    :m -2<CR>
+nnoremap <C-DOWN>  :m +1<CR>
 
 " Automatic matching completion for...
 " Square brackets
@@ -110,9 +110,11 @@ inoremap () ()
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General filetype detection
+" TODO add markdown syntax file
 autocmd! BufRead,BufNewFile *.md set filetype=markdown
-autocmd! BufRead,BufNewFile *.py call AutocompleteQuotes()
-autocmd! BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
+autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
+autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
+autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
 
 " Create these files from templates
 "if filereadable("~/.vim/templates/C.vim")
