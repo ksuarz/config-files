@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer: Martin Baeuml <baeuml@gmail.com>
-" Last Change: 2008-02-09
+" Last Change: 2013-07-10
 "
 " This color file is a modification of the "summerfruit" color scheme by Armin Ronacher
 " so that it can be used on 88- and 256-color xterms. The colors are translated
@@ -11,6 +11,8 @@
 " comment-coloring because that looks odd on my console.
 "
 " The original "summerfruit" color scheme and "desert256" are available from vim.org.
+"
+" Change: Make background not pure white, thanks.
 
 set background=light
 if version > 580
@@ -234,7 +236,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     " }}}
 
     " Global
-    call <SID>X("Normal", "000000", "ffffff", "")
+    call <SID>X("Normal", "000000", "fafaff", "")
     call <SID>X("NonText", "438ec3", "b7dce8", "")
 
     " Search

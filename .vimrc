@@ -80,7 +80,7 @@ nnoremap <C-E> :call ExpandTabs()<CR>
 
 " More common mappings. Will need something to pass on C-a in screen or tmux
 nnoremap <C-z>  :undo<CR>
-nnoremap <C-Z>  :redo<CR>
+nnoremap <C-y>  :redo<CR>
 nnoremap <C-s>  :w<CR>
 nnoremap <C-a>  ggVG
 
