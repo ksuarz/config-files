@@ -13,7 +13,7 @@ endif
 
 let colors_name = "evening"
 
-hi Normal ctermfg=White guifg=White guibg=grey20
+hi Normal ctermbg=DarkGrey ctermfg=White guifg=White guibg=grey20
 
 " Groups used in the 'highlight' and 'guicursor' options default value.
 hi ErrorMsg term=standout ctermbg=DarkRed ctermfg=White guibg=Red guifg=White
@@ -43,7 +43,7 @@ hi DiffAdd term=bold ctermbg=DarkBlue guibg=DarkBlue
 hi DiffChange term=bold ctermbg=DarkMagenta guibg=DarkMagenta
 hi DiffDelete term=bold ctermfg=Blue ctermbg=DarkCyan gui=bold guifg=Blue guibg=DarkCyan
 hi CursorColumn term=reverse ctermbg=Black guibg=grey40
-hi CursorLine cterm=bold ctermbg=DarkBlue guibg=grey40
+hi CursorLine term=underline cterm=underline guibg=grey40
 
 " Groups for syntax highlighting
 hi Constant term=underline ctermfg=Magenta guifg=#ffa0a0 guibg=grey5
@@ -54,3 +54,4 @@ endif
 hi Ignore ctermfg=DarkGrey guifg=grey20
 
 " vim: sw=2
+
