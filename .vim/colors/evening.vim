@@ -13,7 +13,7 @@ endif
 
 let colors_name = "evening"
 
-hi Normal ctermbg=DarkGrey ctermfg=White guifg=White guibg=grey20
+hi Normal ctermfg=White guifg=White guibg=grey20
 
 " Groups used in the 'highlight' and 'guicursor' options default value.
 hi ErrorMsg term=standout ctermbg=DarkRed ctermfg=White guibg=Red guifg=White
