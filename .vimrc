@@ -80,7 +80,7 @@ nnoremap <C-E> :call ExpandTabs()<CR>
 
 " More common mappings. Will need something to pass on C-a in screen or tmux
 nnoremap <C-z>  :undo<CR>
-nnoremap <C-Z>  :redo<CR>
+nnoremap <C-y>  :redo<CR>
 nnoremap <C-s>  :w<CR>
 nnoremap <C-a>  ggVG
 
@@ -89,9 +89,9 @@ nnoremap <SPACE>    :nohlsearch<CR>
 
 " Adding, deleting, and moving lines around
 nnoremap <C-d>  dd
-"nnoremap <C-S-D>  o<ESC>
-nnoremap <SILENT> <C-UP>    :m -2<CR>
-nnoremap <SILENT> <C-DOWN>  :m +1<CR>
+" nnoremap <C-S-D>  o<ESC>
+nnoremap <C-UP>    :m -2<CR>
+nnoremap <C-DOWN>  :m +1<CR>
 
 " Automatic matching completion for...
 " Square brackets
