@@ -1,3 +1,5 @@
 [user]
 	name = Kyle Suarez
 	email = ksuarz@gmail.com
+[alias]
+	unstage = reset HEAD --

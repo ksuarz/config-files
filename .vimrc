@@ -3,16 +3,17 @@
 " Kyle Suarez
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
+let g:is_silent=1               " Controls whether some functions show output
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Changes all the tab-width settings at once.
 function! SetTab(tabwidth)
-    let s:width=a:tabwidth
-    let &shiftwidth=s:width
-    let &tabstop=s:width
-    let &softtabstop=s:width
+    let l:width=a:tabwidth
+    let &shiftwidth=l:width
+    let &tabstop=l:width
+    let &softtabstop=l:width
 endfunction
 
 " Replace all tabs with four spaces in the current file.
@@ -20,7 +21,7 @@ function! ExpandTabs()
     try
         %s/\t/    /g
     catch
-        " Ignore the error if the pattern does not exist.
+        call Talk("No tabs to expand.")
     endtry
 endfunction
 
@@ -32,40 +33,66 @@ function! AutocompleteBraces()
         inoremap {{ {
         inoremap {<CR>  {<CR>}<ESC>ko
         inoremap {} {}
-        echo "Brace completion turned on."
+        call Talk("Brace completion turned on.")
     else
         iunmap {
         iunmap {{
         iunmap {<CR>
         iunmap {}
-        echo "Brace completion turned off."
+        call Talk("Brace completion turned off.")
     endif
 endfunction
-
 
 " Toggles quote autocompletion on and off. Mostly for Python
 function! AutocompleteQuotes()
     if !maparg("n'")
         " Completion for single and double quotes
-        inoremap '  ''<LEFT>
-        inoremap n' n'
-        inoremap s' s'
-        inoremap 's 's
-        inoremap '' ''
-        inoremap "  ""<LEFT>
-        inoremap "" ""
+        " These can get annoying; uncomment to activate.
+"        inoremap '  ''<LEFT>
+"        inoremap n' n'
+"        inoremap s' s'
+"        inoremap 's 's
+"        inoremap '' ''
+"        inoremap "  ""<LEFT>
+"        inoremap "" ""
         inoremap """<CR>    """<CR>"""<ESC>ko
-        echo "Quote completion turned on."
+        call Talk("Quote completion turned on.")
     else
-        iunmap '
-        iunmap n'
-        iunmap s'
-        iunmap 's
-        iunmap ''
-        iunmap "
-        iunmap ""
+"        iunmap '
+"        iunmap n'
+"        iunmap s'
+"        iunmap 's
+"        iunmap ''
+"        iunmap "
+"        iunmap ""
         iunmap """<CR>
-        echo "Quote completion turned off."
+        call Talk("Quote completion turned off.")
+    endif
+endfunction
+
+" Show us when lines go over 80 characters in length.
+function! ShowLongLines()
+    try
+        /\%>80v.\+
+    catch
+        call Talk("All lines are within 80 characters.")
+        return
+    endtry
+    match ErrorMsg '\%>80v.\+'
+endfunction
+
+" Controls whether or not we say something for custom functions.
+function! BeQuiet()
+    if exists("g:is_silent") && g:is_silent!=0
+        let g:is_silent=0
+        echo "Shutting up now."
+    endif
+endfunction
+
+" Utility method for printing info back.
+function! Talk(message)
+    if exists("g:is_silent") && g:is_silent==1
+        echo a:message
     endif
 endfunction
 
@@ -75,8 +102,8 @@ endfunction
 " Reload config file
 nnoremap <C-r> :source ~/.vimrc<CR>
 
-" Shift-E to expand all tabs
-nnoremap <C-E> :call ExpandTabs()<CR>
+" C-e to expand all tabs
+nnoremap <C-e> :call ExpandTabs()<CR>
 
 " More common mappings. Will need something to pass on C-a in screen or tmux
 nnoremap <C-z>  :undo<CR>
@@ -89,7 +116,7 @@ nnoremap <SPACE>    :nohlsearch<CR>
 
 " Adding, deleting, and moving lines around
 nnoremap <C-d>  dd
-" nnoremap <C-S-D>  o<ESC>
+nnoremap <C-f>  o<ESC>
 nnoremap <C-UP>    :m -2<CR>
 nnoremap <C-DOWN>  :m +1<CR>
 
@@ -115,6 +142,7 @@ autocmd! BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
 autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
 autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
+autocmd BufRead,BufNewFile *.c compiler gcc
 
 " Create these files from templates
 "if filereadable("~/.vim/templates/C.vim")
@@ -161,8 +189,6 @@ set autoindent
 set nostartofline               " Movements don't auto-jump to line start
 set ruler
 set confirm                     " Confirm quit if dirty and :q is used
-set visualbell                  " Flash instead of beep
 set mouse=a                     " Use the mouse in all modes
 set number                      " Show line numbers
 set nohidden                    " No hiding buffers after they're abandoned
-compiler gcc                    " gcc by default
