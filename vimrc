@@ -162,6 +162,9 @@ autocmd BufRead,BufNewFile *.c compiler gcc
 set background=dark
 colorscheme evening
 
+" Pathogen, from https://github.com/tpope/vim-pathogen 
+" execute pathogen#infect()       
+
 " Command line completion
 set wildmenu
 set wildignore=*.o,*.jpg,*.png,*.gif
