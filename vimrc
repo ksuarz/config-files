@@ -145,15 +145,15 @@ autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
 autocmd BufRead,BufNewFile *.c compiler gcc
 
 " Create these files from templates
-"if filereadable("~/.vim/templates/C.vim")
-"    autocmd BufNewFile *.ino source "~/.vim/templates/Arduino.vim"
-"    autocmd BufNewFile *.c source "~/.vim/templates/C.vim"
-"    autocmd BufNewFile *.cpp source "~/.vim/templates/C++.vim"
-"    autocmd BufNewFile *.html source "~/.vim/templates/HTML.vim"
-"    autocmd BufNewFile *.java source "~/.vim/templates/Java.vim"
-"    autocmd BufNewFile *.mkd,*.md source "~/.vim/templates/Markdown.vim"
-"    au BufNewFile Makefile,makefile,*.mak so "~/.vim/templates/Makefile.vim"
-"endif
+if filereadable(glob("~/.vim/templates/C.vim"))
+    autocmd BufNewFile *.ino source "~/.vim/templates/Arduino.vim"
+    autocmd BufNewFile *.c source "~/.vim/templates/C.vim"
+    autocmd BufNewFile *.cpp source "~/.vim/templates/C++.vim"
+    autocmd BufNewFile *.html source "~/.vim/templates/HTML.vim"
+    autocmd BufNewFile *.java source "~/.vim/templates/Java.vim"
+    autocmd BufNewFile *.mkd,*.md source "~/.vim/templates/Markdown.vim"
+    au BufNewFile Makefile,makefile,*.mak so "~/.vim/templates/Makefile.vim"
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
@@ -163,7 +163,9 @@ set background=dark
 colorscheme evening
 
 " Pathogen, from https://github.com/tpope/vim-pathogen 
-" execute pathogen#infect()       
+if filereadable(glob("~/.vim/autoload/pathogen.vim"))
+    execute pathogen#infect()       
+endif
 
 " Command line completion
 set wildmenu
