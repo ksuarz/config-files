@@ -116,7 +116,7 @@ nnoremap <C-s>  :w<CR>
 
 " Reload config file
 nnoremap <C-r> :source ~/.vimrc<CR>
-
+"
 " Clear search and match highlighting
 nnoremap <SPACE>    :match none<CR>:nohlsearch<CR>
 
