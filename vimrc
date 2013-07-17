@@ -55,6 +55,7 @@ function! AutocompleteQuotes()
 "        inoremap "  ""<LEFT>
 "        inoremap "" ""
         inoremap """<CR>    """<CR>"""<ESC>ko
+        inoremap '''<CR>    '''<CR>'''<ESC>ko
         call Talk("Quote completion turned on.")
     else
 "        iunmap '
@@ -65,6 +66,7 @@ function! AutocompleteQuotes()
 "        iunmap "
 "        iunmap ""
         iunmap """<CR>
+        iunmap '''<CR>
         call Talk("Quote completion turned off.")
     endif
 endfunction
@@ -98,17 +100,22 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Reload config file
-nnoremap <C-r> :source ~/.vimrc<CR>
-
 " Automatic tab expansion
-nnoremap <C-e> :call ExpandTabs()<CR>
+nnoremap <LEADER>exp    :call ExpandTabs()<CR>
 
-" More common mappings. Will need something to pass on C-a in screen or tmux
+" Show long lines
+nnoremap <LEADER>long   :call ShowLongLines()<CR>
+
+" Select all (ditched the C-a)
+nnoremap <LEADER>all    ggVG
+
+" More common mappings.
 nnoremap <C-z>  :undo<CR>
 nnoremap <C-y>  :redo<CR>
 nnoremap <C-s>  :w<CR>
-nnoremap <C-a>  ggVG
+
+" Reload config file
+nnoremap <C-r> :source ~/.vimrc<CR>
 
 " Clear search and match highlighting
 nnoremap <SPACE>    :match none<CR>:nohlsearch<CR>
@@ -118,6 +125,13 @@ nnoremap <C-d>  dd
 nnoremap <C-f>  o<ESC>
 nnoremap <C-UP>    :m -2<CR>
 nnoremap <C-DOWN>  :m +1<CR>
+
+" Automatic block commenting and uncommenting
+vnoremap <LEADER>#  :norm 0i#<CR>
+vnoremap <LEADER>/  :norm 0i//<CR>
+vnoremap <LEADER>"  :norm 0i"<CR>
+vnoremap <LEADER>x  :norm 0x<CR>
+vnoremap <LEADER>2x :norm 02x<CR>
 
 " Automatic matching completion for...
 " Square brackets
@@ -180,10 +194,12 @@ if !maparg("{<CR>")
 endif
 
 " More settings
-filetype indent plugin on       " Indent based on detected filetype
+filetype indent on              " Indent based on detected filetype
+filetype plugin on              " Allow filetype plugins
 syntax on                       " Syntax highlighting
 set showcmd                     " Shows the commands you type at the bottom
 set hlsearch                    " Search highlighting
+set incsearch                   " Instant searching
 set cursorline                  " Highlight current line
 set ignorecase
 set smartcase                   " I believe it's case sensitive only sometimes
@@ -196,3 +212,7 @@ set confirm                     " Confirm quit if dirty and :q is used
 set mouse=a                     " Use the mouse in all modes
 set number                      " Show line numbers
 set nohidden                    " No hiding buffers after they're abandoned
+set notimeout                   " Don't time out on mappings
+set ttimeout                    " Quick timeout on keycodes
+set ttimeoutlen=100
+set autoread                    " Reload the file if changed from outisde
