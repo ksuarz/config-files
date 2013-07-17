@@ -27,8 +27,8 @@ endfunction
 
 " Toggles curly brace autocompletion.
 function! AutocompleteBraces()
+    " TODO some systems don't like maparg
     if !maparg("{<CR>")
-        " Completion for curly braces
         inoremap {  {}<LEFT>
         inoremap {{ {
         inoremap {<CR>  {<CR>}<ESC>ko
@@ -46,7 +46,6 @@ endfunction
 " Toggles quote autocompletion on and off. Mostly for Python
 function! AutocompleteQuotes()
     if !maparg("n'")
-        " Completion for single and double quotes
         " These can get annoying; uncomment to activate.
 "        inoremap '  ''<LEFT>
 "        inoremap n' n'
@@ -102,7 +101,7 @@ endfunction
 " Reload config file
 nnoremap <C-r> :source ~/.vimrc<CR>
 
-" C-e to expand all tabs
+" Automatic tab expansion
 nnoremap <C-e> :call ExpandTabs()<CR>
 
 " More common mappings. Will need something to pass on C-a in screen or tmux
@@ -111,8 +110,8 @@ nnoremap <C-y>  :redo<CR>
 nnoremap <C-s>  :w<CR>
 nnoremap <C-a>  ggVG
 
-" Search Hilightning (SPACE to clear highlighting)
-nnoremap <SPACE>    :nohlsearch<CR>
+" Clear search and match highlighting
+nnoremap <SPACE>    :match none<CR>:nohlsearch<CR>
 
 " Adding, deleting, and moving lines around
 nnoremap <C-d>  dd
@@ -137,7 +136,6 @@ inoremap () ()
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General filetype detection
-" TODO add markdown syntax file
 autocmd! BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
 autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
@@ -145,6 +143,7 @@ autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
 autocmd BufRead,BufNewFile *.c compiler gcc
 
 " Create these files from templates
+" TODO fix the template files
 if filereadable(glob("~/.vim/templates/C.vim"))
     autocmd BufNewFile *.ino source "~/.vim/templates/Arduino.vim"
     autocmd BufNewFile *.c source "~/.vim/templates/C.vim"
