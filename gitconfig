@@ -1,8 +1,21 @@
 [user]
-	name = Kyle Suarez
-	email = ksuarz@gmail.com
+        name = Kyle Suarez
+        email = ksuarz@gmail.com
+	
+[core]
+        editor = vim
+	
 [alias]
-	unstage = reset HEAD --
-    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate)
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat)
-    alias = "!git config -l | grep alias | cut -c 7-"
+        unstage = reset HEAD --
+        undo = checkout --
+        ready = rebase -i @{u}
+        alias = "!git config -l | grep alias | cut -c 7-"
+    	
+[color]
+        ui = auto
+	
+[url "git@github.com:"]
+        insteadOf = "github:"
+    
+[url "git@gist.github.com:"]
+        insteadOf = "gist:"
