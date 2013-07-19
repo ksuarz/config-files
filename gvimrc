@@ -6,10 +6,11 @@
 set nocompatible
 
 " Use common vim settings.
-if filereadable(glob("~/.vimrc"))
+if filereadable(glob('~/.vimrc'))
     source ~/.vimrc
 endif
 
 " GVim-specific settings
+set background=light
 colorscheme solarized
 nmap <C-r> :source ~/.gvimrc<CR>

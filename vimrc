@@ -3,7 +3,7 @@
 " Kyle Suarez
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
-let g:is_silent=1               " Controls whether some functions show output
+let g:is_silent=0               " Controls whether some functions show output
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
@@ -21,53 +21,37 @@ function! ExpandTabs()
     try
         %s/\t/    /g
     catch
-        call Talk("No tabs to expand.")
+        call Talk('No tabs to expand.')
     endtry
 endfunction
 
 " Toggles curly brace autocompletion.
 function! AutocompleteBraces()
-    " TODO some systems don't like maparg
-    if !maparg("{<CR>")
+    if maparg('{<CR>', 'i') == ''
         inoremap {  {}<LEFT>
         inoremap {{ {
         inoremap {<CR>  {<CR>}<ESC>ko
         inoremap {} {}
-        call Talk("Brace completion turned on.")
+        call Talk('Brace completion turned on.')
     else
         iunmap {
         iunmap {{
         iunmap {<CR>
         iunmap {}
-        call Talk("Brace completion turned off.")
+        call Talk('Brace completion turned off.')
     endif
 endfunction
 
-" Toggles quote autocompletion on and off. Mostly for Python
+" Toggles quote autocompletion for Python long strings.
 function! AutocompleteQuotes()
-    if !maparg("n'")
-        " These can get annoying; uncomment to activate.
-"        inoremap '  ''<LEFT>
-"        inoremap n' n'
-"        inoremap s' s'
-"        inoremap 's 's
-"        inoremap '' ''
-"        inoremap "  ""<LEFT>
-"        inoremap "" ""
+    if maparg('"""<CR>', 'i') == ''
         inoremap """<CR>    """<CR>"""<ESC>ko
         inoremap '''<CR>    '''<CR>'''<ESC>ko
-        call Talk("Quote completion turned on.")
+        call Talk('Quote completion turned on.')
     else
-"        iunmap '
-"        iunmap n'
-"        iunmap s'
-"        iunmap 's
-"        iunmap ''
-"        iunmap "
-"        iunmap ""
         iunmap """<CR>
         iunmap '''<CR>
-        call Talk("Quote completion turned off.")
+        call Talk('Quote completion turned off.')
     endif
 endfunction
 
@@ -76,23 +60,32 @@ function! ShowLongLines()
     try
         /\%>80v.\+
     catch
-        call Talk("All lines are within 80 characters.")
+        call Talk('All lines are within 80 characters.')
         return
     endtry
     match ErrorMsg '\%>80v.\+'
 endfunction
 
+function! ShowTrailingWhitespace()
+    try
+        /\s\+$
+    catch
+        call Talk('No trailing whitespace.')
+    endtry
+    match ErrorMsg '\s\+$'
+endfunction
+
 " Controls whether or not we say something for custom functions.
 function! BeQuiet()
-    if exists("g:is_silent") && g:is_silent!=0
-        let g:is_silent=0
-        echo "Shutting up now."
+    if exists('g:is_silent') && g:is_silent!=1
+        let g:is_silent=1
+        echo 'Shutting up now.'
     endif
 endfunction
 
 " Utility method for printing info back.
 function! Talk(message)
-    if exists("g:is_silent") && g:is_silent==1
+    if exists('g:is_silent') && g:is_silent==0
         echo a:message
     endif
 endfunction
@@ -100,16 +93,8 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Automatic tab expansion
-nnoremap <LEADER>exp    :call ExpandTabs()<CR>
-
-" Show long lines
-nnoremap <LEADER>long   :call ShowLongLines()<CR>
-
-" Select all (ditched the C-a)
-nnoremap <LEADER>all    ggVG
-
-" More common mappings.
+" Common mappings
+nnoremap <C-a>  ggVG
 nnoremap <C-z>  :undo<CR>
 nnoremap <C-y>  :redo<CR>
 nnoremap <C-s>  :w<CR>
@@ -119,6 +104,10 @@ nnoremap <C-r> :source ~/.vimrc<CR>
 "
 " Clear search and match highlighting
 nnoremap <SPACE>    :match none<CR>:nohlsearch<CR>
+
+" Find annoying things in code
+nnoremap <C-l>  :call ShowLongLines()<CR>
+nnoremap <C-w>  :call ShowTrailingWhitespace()<CR>
 
 " Adding, deleting, and moving lines around
 nnoremap <C-d>  dd
@@ -149,23 +138,23 @@ inoremap () ()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General filetype detection
+" Do something when detecting particular filetypes
 autocmd! BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
 autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
-autocmd BufRead,BufNewFile *.java,*.c silent call AutocompleteBraces()
 autocmd BufRead,BufNewFile *.c compiler gcc
+autocmd BufRead,BufNewFile *.c set cindent
+autocmd BufRead,BufNewFile *.ino set filetype=java
 
 " Create these files from templates
-" TODO fix the template files
-if filereadable(glob("~/.vim/templates/C.vim"))
-    autocmd BufNewFile *.ino source "~/.vim/templates/Arduino.vim"
-    autocmd BufNewFile *.c source "~/.vim/templates/C.vim"
-    autocmd BufNewFile *.cpp source "~/.vim/templates/C++.vim"
-    autocmd BufNewFile *.html source "~/.vim/templates/HTML.vim"
-    autocmd BufNewFile *.java source "~/.vim/templates/Java.vim"
-    autocmd BufNewFile *.mkd,*.md source "~/.vim/templates/Markdown.vim"
-    au BufNewFile Makefile,makefile,*.mak so "~/.vim/templates/Makefile.vim"
+if filereadable(glob('~/.vim/templates/c.template'))
+    autocmd BufNewFile *.c 0r ~/.vim/templates/c.template
+    autocmd BufNewFile *.ino 0r ~/.vim/templates/arduino.template
+    autocmd BufNewFile *.cpp 0r ~/.vim/templates/c.template
+    autocmd BufNewFile *.html 0r ~/.vim/templates/html.template
+    autocmd BufNewFile *.java 0r ~/.vim/templates/java.template
+    autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/markdown.template
+    au BufNewFile Makefile,makefile,*.mak 0r ~/.vim/templates/makefile.template
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -175,44 +164,43 @@ endif
 set background=dark
 colorscheme evening
 
-" Pathogen, from https://github.com/tpope/vim-pathogen 
-if filereadable(glob("~/.vim/autoload/pathogen.vim"))
-    execute pathogen#infect()       
+" Pathogen, from https://github.com/tpope/vim-pathogen
+if filereadable(glob('~/.vim/autoload/pathogen.vim'))
+    execute pathogen#infect()
 endif
 
 " Command line completion
 set wildmenu
-set wildignore=*.o,*.jpg,*.png,*.gif
+set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip
 
 " Indentation
 set expandtab                   " Spaces instead of tabs
 call SetTab(4)                  " 4 spaces to a tab
 
 " Turn on brace completion
-if !maparg("{<CR>")
+if maparg('{<CR>', 'i') == ''
     silent call AutocompleteBraces()
 endif
 
 " More settings
 filetype indent on              " Indent based on detected filetype
 filetype plugin on              " Allow filetype plugins
-syntax on                       " Syntax highlighting
-set showcmd                     " Shows the commands you type at the bottom
-set hlsearch                    " Search highlighting
-set incsearch                   " Instant searching
-set cursorline                  " Highlight current line
-set ignorecase
-set smartcase                   " I believe it's case sensitive only sometimes
-set nowrap                      " No line wrapping
-set backspace=indent,eol,start  " Backspace works intuitively
 set autoindent
-set nostartofline               " Movements don't auto-jump to line start
-set ruler
-set confirm                     " Confirm quit if dirty and :q is used
-set mouse=a                     " Use the mouse in all modes
-set number                      " Show line numbers
-set nohidden                    " No hiding buffers after they're abandoned
-set notimeout                   " Don't time out on mappings
-set ttimeout                    " Quick timeout on keycodes
-set ttimeoutlen=100
 set autoread                    " Reload the file if changed from outisde
+set backspace=indent,eol,start  " Backspace works intuitively
+set confirm                     " Confirm quit if dirty and :q is used
+set cursorline                  " Highlight current line
+set hlsearch                    " Search highlighting
+set ignorecase
+set nohidden                    " No hiding buffers after they're abandoned
+set nostartofline               " Movements don't auto-jump to line start
+set nowrap                      " No line wrapping
+set number                      " Show line numbers
+set mouse=a                     " Use the mouse in all modes
+set ruler
+set showcmd                     " Shows incomplete commands
+set smartcase                   " Case sensitive depending on search
+set smartindent                 " Adds indents based on context
+set timeout                     " Time out on both mappings and keycodes
+set timeoutlen=200              " 200ms time-out length
+syntax on                       " Syntax highlighting

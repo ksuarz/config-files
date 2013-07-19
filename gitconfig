@@ -8,7 +8,7 @@
 [alias]
         unstage = reset HEAD --
         undo = checkout --
-        ready = rebase -i @{u}
+        squash = rebase --interactive --autosquash @{u}
         alias = "!git config -l | grep alias | cut -c 7-"
     	
 [color]
