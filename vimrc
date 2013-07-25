@@ -4,6 +4,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
 let g:is_silent=0               " Controls whether some functions show output
+autocmd!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
@@ -66,11 +67,13 @@ function! ShowLongLines()
     match ErrorMsg '\%>80v.\+'
 endfunction
 
+" Displays trailing whitespace except for blank lines.
 function! ShowTrailingWhitespace()
     try
         /\s\+$
     catch
         call Talk('No trailing whitespace.')
+        return
     endtry
     match ErrorMsg '\s\+$'
 endfunction
@@ -139,7 +142,7 @@ inoremap () ()
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Do something when detecting particular filetypes
-autocmd! BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.md,*.mkd set filetype=markdown
 autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
 autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
 autocmd BufRead,BufNewFile *.c compiler gcc
@@ -150,7 +153,7 @@ autocmd BufRead,BufNewFile *.ino set filetype=java
 if filereadable(glob('~/.vim/templates/c.template'))
     autocmd BufNewFile *.c 0r ~/.vim/templates/c.template
     autocmd BufNewFile *.ino 0r ~/.vim/templates/arduino.template
-    autocmd BufNewFile *.cpp 0r ~/.vim/templates/c.template
+    autocmd BufNewFile *.cpp 0r ~/.vim/templates/c++.template
     autocmd BufNewFile *.html 0r ~/.vim/templates/html.template
     autocmd BufNewFile *.java 0r ~/.vim/templates/java.template
     autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/markdown.template
@@ -175,6 +178,7 @@ set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip
 
 " Indentation
 set expandtab                   " Spaces instead of tabs
+set smarttab
 call SetTab(4)                  " 4 spaces to a tab
 
 " Turn on brace completion
