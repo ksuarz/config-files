@@ -1,8 +1,5 @@
 " Vim color file
 " Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last Change:	2006 Apr 14
-
-" This color scheme uses a dark grey background.
 
 " First remove all existing highlighting.
 set background=dark
@@ -46,6 +43,8 @@ hi CursorColumn term=reverse ctermbg=Black guibg=grey40
 hi CursorLine cterm=bold ctermbg=DarkBlue term=underline
 
 " Groups for syntax highlighting
+hi clear Todo
+hi Todo ctermfg=Red guifg=Red
 hi Constant term=underline ctermfg=Magenta guifg=#ffa0a0 guibg=grey5
 hi Special term=bold ctermfg=LightRed guifg=Orange guibg=grey5
 if &t_Co > 8

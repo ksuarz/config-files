@@ -4,7 +4,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
 let g:is_silent=0               " Controls whether some functions show output
-autocmd!
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
@@ -96,27 +95,31 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets the value of <LEADER> (default is the backslash)
+let mapleader = ","
+
 " Common mappings
-nnoremap <C-a>  ggVG
+map Y y$
 nnoremap <C-z>  :undo<CR>
 nnoremap <C-y>  :redo<CR>
-nnoremap <C-s>  :w<CR>
+nnoremap <LEADER>s  :w<CR>
+nnoremap <LEADER>a  ggVG
 
 " Reload config file
 nnoremap <C-r> :source ~/.vimrc<CR>
 "
 " Clear search and match highlighting
-nnoremap <SPACE>    :match none<CR>:nohlsearch<CR>
+nnoremap <SPACE> :match none<CR>:nohlsearch<CR>
 
 " Find annoying things in code
-nnoremap <C-l>  :call ShowLongLines()<CR>
-nnoremap <C-w>  :call ShowTrailingWhitespace()<CR>
+nnoremap <LEADER>l  :call ShowLongLines()<CR>
+nnoremap <LEADER>w  :call ShowTrailingWhitespace()<CR>
 
 " Adding, deleting, and moving lines around
-nnoremap <C-d>  dd
-nnoremap <C-f>  o<ESC>
-nnoremap <C-UP>    :m -2<CR>
-nnoremap <C-DOWN>  :m +1<CR>
+nnoremap <LEADER>d  dd
+nnoremap <LEADER>f  o<ESC>
+nnoremap <LEADER>k  :m +1<CR>
+nnoremap <LEADER>j    :m -2<CR>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :norm 0i#<CR>
@@ -141,6 +144,9 @@ inoremap () ()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" First, clear out old autocommands
+autocmd!
+
 " Do something when detecting particular filetypes
 autocmd BufRead,BufNewFile *.md,*.mkd set filetype=markdown
 autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
@@ -157,7 +163,7 @@ if filereadable(glob('~/.vim/templates/c.template'))
     autocmd BufNewFile *.html 0r ~/.vim/templates/html.template
     autocmd BufNewFile *.java 0r ~/.vim/templates/java.template
     autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/markdown.template
-    au BufNewFile Makefile,makefile,*.mak 0r ~/.vim/templates/makefile.template
+    au BufNewFile Makefile,makefile,*.mak 0r ~/.vim/templates/make.template
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -178,7 +184,7 @@ set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip
 
 " Indentation
 set expandtab                   " Spaces instead of tabs
-set smarttab
+set smarttab                    " Intelligent tab insertion/deletion
 call SetTab(4)                  " 4 spaces to a tab
 
 " Turn on brace completion

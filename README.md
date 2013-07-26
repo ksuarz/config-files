@@ -2,10 +2,8 @@ config-files
 ============
 A place for configuration files and settings.
 
-Clone your own config file repository to wherever you want, then add symlinks
-with
+To automatically install all of the files, just type
 ```
-ln -s path/to/file newname
+$ make install
 ```
-
-If you use multiple machines often, you can keep all of your settings in sync.
+and this will create all of the required symbolic links in your home directory.
