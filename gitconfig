@@ -6,10 +6,10 @@
         editor = vim
 	
 [alias]
-        unstage = reset HEAD --
-        undo = checkout --
-        squash = rebase --interactive --autosquash @{u}
         alias = "!git config -l | grep alias | cut -c 7-"
+        squash = rebase --interactive --autosquash @{u}
+        undo = checkout --
+        unstage = reset HEAD --
     	
 [color]
         ui = auto

@@ -59,22 +59,20 @@ endfunction
 function! ShowLongLines()
     try
         /\%>80v.\+
+        match ErrorMsg '\%>80v.\+'
     catch
         call Talk('All lines are within 80 characters.')
-        return
     endtry
-    match ErrorMsg '\%>80v.\+'
 endfunction
 
 " Displays trailing whitespace except for blank lines.
 function! ShowTrailingWhitespace()
     try
         /\s\+$
+        match ErrorMsg '\s\+$'
     catch
         call Talk('No trailing whitespace.')
-        return
     endtry
-    match ErrorMsg '\s\+$'
 endfunction
 
 " Controls whether or not we say something for custom functions.
@@ -96,7 +94,7 @@ endfunction
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets the value of <LEADER> (default is the backslash)
-let mapleader = ","
+let mapleader = ','
 
 " Common mappings
 map Y y$
@@ -118,8 +116,8 @@ nnoremap <LEADER>w  :call ShowTrailingWhitespace()<CR>
 " Adding, deleting, and moving lines around
 nnoremap <LEADER>d  dd
 nnoremap <LEADER>f  o<ESC>
-nnoremap <LEADER>k  :m +1<CR>
-nnoremap <LEADER>j    :m -2<CR>
+nnoremap <LEADER>j  :m +1<CR>
+nnoremap <LEADER>k  :m -2<CR>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :norm 0i#<CR>
