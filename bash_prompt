@@ -2,15 +2,6 @@
 # https://github.com/twolfson/sexy-bash-prompt
 # Forked from gf3, https://gist.github.com/gf3/306785
 
-# Determine what type of terminal we are using for `tput`
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]]  && infocmp gnome-256color >/dev/null 2>&1
-then
-    export TERM=gnome-256color
-elif [[ $TERM != dumb ]] && infocmp xterm-256color >/dev/null 2>&1
-then
-    export TERM=xterm-256color
-fi
-
 # Use this to turn color on and off.
 COLORS_ON="0"
 
@@ -92,7 +83,7 @@ parse_git_ahead () {
   # If the remote branch is behind the local branch
   [[ -n $(is_branch1_behind_branch2 $REMOTE_BRANCH $BRANCH) ]] ||
     # or it has not been merged into origin
-    [[ $(git branch -r --no-color 2> /dev/null | grep origin/$BRANCH 2> /dev/null | tail -n1) == "" ]] &&
+    [[ $(git branch -r --no-color 2> /dev/null | grep origin/$BRANCH 2> /dev/null | tail -n 1) == "" ]] &&
     # echo our character
     echo 1
 }
@@ -118,7 +109,7 @@ parse_git_behind () {
 parse_git_dirty () {
   # nothing to commit, working directory clean
   # nothing to commit (working directory clean)
-  [[ $(git status 2> /dev/null | tail -n1 | sed -r "s/nothing to commit..working directory clean.?/1/") != "1" ]] && echo 1
+  [[ $(git status 2> /dev/null | tail -n 1 | sed -r "s/nothing to commit..working directory clean.?/1/") != "1" ]] && echo 1
 }
 
 function is_on_git() {

@@ -20,7 +20,7 @@ endfunction
 function! ExpandTabs()
     try
         %s/\t/    /g
-    catch
+    catch E486
         call Talk('No tabs to expand.')
     endtry
 endfunction
@@ -34,24 +34,42 @@ function! AutocompleteBraces()
         inoremap {} {}
         call Talk('Brace completion turned on.')
     else
-        iunmap {
-        iunmap {{
-        iunmap {<CR>
-        iunmap {}
+        silent! iunmap {
+        silent! iunmap {{
+        silent! iunmap {<CR>
+        silent! iunmap {}
         call Talk('Brace completion turned off.')
     endif
 endfunction
 
-" Toggles quote autocompletion for Python long strings.
+" Toggles quote autocompletion for Python long strings. You can add more
+" general quote completion, but it tends to get very annoying.
 function! AutocompleteQuotes()
     if maparg('"""<CR>', 'i') == ''
         inoremap """<CR>    """<CR>"""<ESC>ko
         inoremap '''<CR>    '''<CR>'''<ESC>ko
         call Talk('Quote completion turned on.')
     else
-        iunmap """<CR>
-        iunmap '''<CR>
+        silent! iunmap """<CR>
+        silent! iunmap '''<CR>
         call Talk('Quote completion turned off.')
+    endif
+endfunction
+
+" Turns on and off intuitive j/k movement when in wrap mode.
+function! WrapMode(arg)
+    if a:arg == 'off' || a:arg == '0'
+        let &wrap=0
+        silent! unmap j
+        silent! unmap k
+        call Talk('Wrap mode turned off.')
+    elseif a:arg == 'on' || a:arg == '1'
+        let &wrap=1
+        noremap j gj
+        noremap k gk
+        call Talk('Smart wrap mode turned on.')
+    else
+        call Talk('Argument must be either "off" or "on".')
     endif
 endfunction
 
@@ -60,7 +78,7 @@ function! ShowLongLines()
     try
         /\%>80v.\+
         match ErrorMsg '\%>80v.\+'
-    catch
+    catch E486
         call Talk('All lines are within 80 characters.')
     endtry
 endfunction
@@ -70,9 +88,25 @@ function! ShowTrailingWhitespace()
     try
         /\s\+$
         match ErrorMsg '\s\+$'
-    catch
+    catch E486
         call Talk('No trailing whitespace.')
     endtry
+endfunction
+
+" Forces some PEP8 style guidelines. It will probably get annoying
+function! PEP8()
+    if &filetype == 'python'
+        %s/"/'/ge
+        set textwidth=79
+        set colorcolumn=79
+        inoremap '''<CR> '''<CR>'''<ESC>ko
+        call Talk('PEP8 compliance activated.')
+    else
+        set textwidth=0
+        set colorcolumn=0
+        silent! iunmap '''<CR>
+        call Talk('Not a Python file. PEP8 deactivated.')
+    endif
 endfunction
 
 " Controls whether or not we say something for custom functions.
@@ -120,11 +154,11 @@ nnoremap <LEADER>j  :m +1<CR>
 nnoremap <LEADER>k  :m -2<CR>
 
 " Automatic block commenting and uncommenting
-vnoremap <LEADER>#  :norm 0i#<CR>
-vnoremap <LEADER>/  :norm 0i//<CR>
-vnoremap <LEADER>"  :norm 0i"<CR>
-vnoremap <LEADER>x  :norm 0x<CR>
-vnoremap <LEADER>2x :norm 02x<CR>
+vnoremap <LEADER>#  :normal 0i#<CR>
+vnoremap <LEADER>/  :normal 0i//<CR>
+vnoremap <LEADER>"  :normal 0i"<CR>
+vnoremap <LEADER>x  :normal 0x<CR>
+vnoremap <LEADER>2x :normal 02x<CR>
 
 " Automatic matching completion for...
 " Square brackets
@@ -146,22 +180,24 @@ inoremap () ()
 autocmd!
 
 " Do something when detecting particular filetypes
-autocmd BufRead,BufNewFile *.md,*.mkd set filetype=markdown
-autocmd BufRead,BufNewFile Makefile,makefile,*.mak set filetype=make
-autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
 autocmd BufRead,BufNewFile *.c compiler gcc
 autocmd BufRead,BufNewFile *.c set cindent
 autocmd BufRead,BufNewFile *.ino set filetype=java
+autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
+autocmd BufRead,BufNewFile Makefile*,makefile*,*.mak set filetype=make
 
 " Create these files from templates
-if filereadable(glob('~/.vim/templates/c.template'))
-    autocmd BufNewFile *.c 0r ~/.vim/templates/c.template
-    autocmd BufNewFile *.ino 0r ~/.vim/templates/arduino.template
-    autocmd BufNewFile *.cpp 0r ~/.vim/templates/c++.template
-    autocmd BufNewFile *.html 0r ~/.vim/templates/html.template
-    autocmd BufNewFile *.java 0r ~/.vim/templates/java.template
-    autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/markdown.template
-    au BufNewFile Makefile,makefile,*.mak 0r ~/.vim/templates/make.template
+if filereadable(glob('~/.vim/templates/template.c'))
+    au BufNewFile Makefile*,makefile*,*.mak 0r ~/.vim/templates/template.make
+    autocmd BufNewFile *.c 0r ~/.vim/templates/template.c
+    autocmd BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
+    autocmd BufNewFile *.html 0r ~/.vim/templates/template.html
+    autocmd BufNewFile *.ino 0r ~/.vim/templates/template.ino
+    autocmd BufNewFile *.java 0r ~/.vim/templates/template.java
+    autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/template.mkd
+    autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
+    autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -200,11 +236,11 @@ set confirm                     " Confirm quit if dirty and :q is used
 set cursorline                  " Highlight current line
 set hlsearch                    " Search highlighting
 set ignorecase
+set mouse=a                     " Use the mouse in all modes
 set nohidden                    " No hiding buffers after they're abandoned
 set nostartofline               " Movements don't auto-jump to line start
 set nowrap                      " No line wrapping
 set number                      " Show line numbers
-set mouse=a                     " Use the mouse in all modes
 set ruler
 set showcmd                     " Shows incomplete commands
 set smartcase                   " Case sensitive depending on search
