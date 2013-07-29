@@ -118,7 +118,7 @@ parse_git_behind () {
 parse_git_dirty () {
   # nothing to commit, working directory clean
   # nothing to commit (working directory clean)
-  [[ $(git status 2> /dev/null | tail -n1 | sed -E "s/nothing to commit..working directory clean.?/1/") != "1" ]] && echo 1
+  [[ $(git status 2> /dev/null | tail -n1 | sed -r "s/nothing to commit..working directory clean.?/1/") != "1" ]] && echo 1
 }
 
 function is_on_git() {
