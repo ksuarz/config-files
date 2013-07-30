@@ -198,6 +198,7 @@ if filereadable(glob('~/.vim/templates/template.c'))
     autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/template.mkd
     autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
     autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
+    autocmd BufNewFile *.spec 0r ~/.vim/templates/template.spec
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
