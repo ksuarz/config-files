@@ -52,7 +52,7 @@ endfunction
 
 " Controls whether or not we say something for custom functions.
 function! BeQuiet()
-    if exists('g:is_silent') && g:is_silent!=1
+    if exists('g:is_silent') && g:is_silent != 1
         let g:is_silent=1
         echo 'Shutting up now.'
     endif
@@ -71,7 +71,7 @@ endfunction
 function! NewJavaFile()
     if filereadable(glob('~/.vim/templates/template.java'))
         read ~/.vim/templates/template.java
-        let l:classname = substitute(@%, '.java', '', 'ge')
+        let l:classname=substitute(@%, '.java', '', 'ge')
         %s/$CLASSNAME/\=l:classname/ge
         %s/$USERNAME/\=$USER/ge
         normal ggdd6G
@@ -124,7 +124,7 @@ endfunction
 
 " Utility method for printing info back.
 function! Talk(message)
-    if exists('g:is_silent') && g:is_silent==0
+    if exists('g:is_silent') && g:is_silent == 0
         echomsg a:message
     endif
 endfunction
@@ -150,7 +150,7 @@ endfunction
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets the value of <LEADER> (default is the backslash)
-let mapleader = ','
+let mapleader=','
 
 " Common mappings
 map Y y$
@@ -193,11 +193,10 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
-    autocmd BufRead,BufNewFile *.txt,README* set spell
 augroup end
 
 " Create these files from templates. (Note the 'r' is short for 'read')
-let s:templates = '~/.vim/templates/template.'
+let s:templates='~/.vim/templates/template.'
 if filereadable(glob('~/.vim/templates/template.c'))
     augroup templates
         autocmd!
