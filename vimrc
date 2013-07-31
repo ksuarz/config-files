@@ -36,7 +36,7 @@ function! AutocompleteParens()
         inoremap (( (
         inoremap (<CR>  (<CR>)<ESC>ko
         inoremap () ()
-        call Talk('Bracket and parenthesis completion turned on.')
+        call Talk('Bracket/parenthesis completion turned on.')
     else
         silent! iunmap [
         silent! iunmap [[
@@ -46,7 +46,7 @@ function! AutocompleteParens()
         silent! iunmap ((
         silent! iunmap (<CR>
         silent! iunmap ()
-        call Talk('Bracket and parenthesis completion turned off.')
+        call Talk('Bracket/parenthesis completion turned off.')
     endif
 endfunction
 
@@ -54,7 +54,7 @@ endfunction
 function! BeQuiet()
     if exists('g:is_silent') && g:is_silent != 1
         let g:is_silent=1
-        echo 'Shutting up now.'
+        echomsg 'Shutting up now.'
     endif
 endfunction
 
@@ -67,21 +67,34 @@ function! ExpandTabs()
     endtry
 endfunction
 
-" Does some cool stuff when you open a new Java file
+" Does some cool stuff when you open a new Java file.
 function! NewJavaFile()
     if filereadable(glob('~/.vim/templates/template.java'))
         read ~/.vim/templates/template.java
-        let l:classname=substitute(@%, '.java', '', 'ge')
+        let l:classname=fnamemodify(@%, ':t:r')
         %s/$CLASSNAME/\=l:classname/ge
         %s/$USERNAME/\=$USER/ge
         normal ggdd6G
     endif
 endfunction
 
+" More cool stuff for Markdown and readme files.
+function! NewMarkdownFile()
+    if filereadable(glob('~/.vim/templates/template.md'))
+        read ~/.vim/templates/template.md
+        let l:flags=(fnamemodify(@%, ':t:r') =~? 'README' ? ':p:h:t' : ':t:r')
+        let l:title=fnamemodify(@%, l:flags)
+        let l:header=repeat('=', len(l:title))
+        %s/$TITLE/\=l:title/ge
+        %s/$HEADER/\=l:header/ge
+        normal ggddG
+    endif
+endfunction
+
 " Forces some PEP8 style guidelines. It will probably get annoying
 function! PEP8()
     if &filetype == 'python'
-        %s/"/'/ge
+        match ErrorMsg '"'
         set textwidth=79
         set colorcolumn=79
         inoremap '''<CR> '''<CR>'''<ESC>ko
@@ -138,6 +151,7 @@ function! WrapMode(opt)
         call Talk('Wrap mode turned off.')
     elseif a:opt == 'on' || a:opt == '1'
         let &wrap=1
+        let &linebreak=1
         noremap j gj
         noremap k gk
         call Talk('Smart wrap mode turned on.')
@@ -185,7 +199,7 @@ vnoremap <LEADER>2x :normal 02x<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Do something when detecting particular filetypes
+" Do something when detecting particular filetypes.
 augroup detect_filetype
     autocmd!
     autocmd BufRead,BufNewFile *.c compiler gcc
@@ -193,23 +207,29 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+    autocmd BufRead,BufNewFile *.txt silent call WrapMode('on')
+    autocmd BufRead,BufNewFile README,Readme set filetype=markdown
 augroup end
 
-" Create these files from templates. (Note the 'r' is short for 'read')
-let s:templates='~/.vim/templates/template.'
-if filereadable(glob('~/.vim/templates/template.c'))
-    augroup templates
+" Create these files from templates. (Note the 'r' stands for 'read')
+let s:template='~/.vim/templates/template.'
+if glob('~/.vim/templates/') != ''
+    " These follow a simple pattern we can use to grab the template
+    augroup simple_templates
         autocmd!
-        autocmd BufNewFile *.c silent! exec '0r'.s:templates.'c'
-        autocmd BufNewFile *.cpp,*.cc silent! exec '0r'.s:templates.'cpp'
-        autocmd BufNewFile *.htm,*.html silent! exec '0r'.s:templates.'html'
-        autocmd BufNewFile *.ino silent! exec '0r'.s:templates.'ino'
+        autocmd BufNewFile *.c,*.cpp,*.html,*.ino,*.py,*.sh,*.spec
+                    \ silent! exec '0r '.s:template.fnamemodify(@%, ':e')
+    augroup end
+
+    " These files have a different file extension or call a function
+    augroup super_templates
+        autocmd!
+        autocmd BufNewFile *.cc silent! exec '0r '.s:template.'cpp'
+        autocmd BufNewFile *.htm silent! exec '0r '.s:template.'html'
         autocmd BufNewFile *.java silent! call NewJavaFile()
-        autocmd BufNewFile *.mkd,*.md silent! exec '0r'.s:templates.'mkd'
-        autocmd BufNewFile *.py silent! exec '0r'.s:templates.'py'
-        autocmd BufNewFile *.sh silent! exec '0r'.s:templates.'sh'
-        autocmd BufNewFile *.spec silent! exec '0r'.s:templates.'spec'
-        autocmd BufNewFile [Mm]akefile* silent! exec '0r '.s:templates.'make'
+        autocmd BufNewFile *.mkd,*.md silent! call NewMarkdownFile()
+        autocmd BufNewFile README,Readme silent! call NewMarkdownFile()
+        autocmd BufNewFile [Mm]akefile* silent! exec '0r '.s:template.'make'
     augroup end
 endif
 
@@ -253,6 +273,7 @@ set cursorline                  " Highlight current line
 set hlsearch                    " Search highlighting
 set ignorecase
 set mouse=a                     " Use the mouse in all modes
+set nofoldenable                " Open folds; use `set foldenable` to close
 set nohidden                    " No hiding buffers after they're abandoned
 set nostartofline               " Movements don't auto-jump to line start
 set nowrap                      " No line wrapping

@@ -13,7 +13,7 @@ let colors_name = "evening"
 " Groups used in the 'highlight' and 'guicursor' options default value.
 hi ColorColumn ctermbg=Black cterm=bold
 hi Cursor guibg=Green guifg=Black
-hi CursorColumn term=reverse ctermbg=Black guibg=grey40
+hi CursorColumn term=reverse ctermbg=DarkBlue guibg=grey40
 hi CursorLine cterm=bold ctermbg=DarkBlue term=underline
 hi DiffAdd term=bold ctermbg=DarkBlue guibg=DarkBlue
 hi DiffChange term=bold ctermbg=DarkMagenta guibg=DarkMagenta
@@ -36,7 +36,7 @@ hi StatusLine term=reverse,bold cterm=reverse,bold gui=reverse,bold
 hi StatusLineNC term=reverse cterm=reverse gui=reverse
 hi Title term=bold ctermfg=LightMagenta gui=bold guifg=Magenta
 hi VertSplit term=reverse cterm=reverse gui=reverse
-hi Visual term=reverse ctermbg=black guibg=grey60
+hi Visual term=reverse ctermbg=DarkMagenta guibg=grey60
 hi VisualNOS term=underline,bold cterm=underline,bold gui=underline,bold
 hi WarningMsg term=standout ctermfg=LightRed guifg=Red
 hi WildMenu term=standout ctermbg=Yellow ctermfg=Black guibg=Yellow guifg=Black
