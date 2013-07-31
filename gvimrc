@@ -10,7 +10,9 @@ if filereadable(glob('~/.vimrc'))
     source ~/.vimrc
 endif
 
-" GVim-specific settings
-set background=light
+" GVim-specific color scheme settings
 colorscheme solarized
-nmap <C-r> :source ~/.gvimrc<CR>
+set background=light
+
+" We need to point our reload mapping to gvimrc
+nnoremap <LEADER>r :source ~/.gvimrc<CR>

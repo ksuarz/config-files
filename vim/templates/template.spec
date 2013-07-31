@@ -2,13 +2,11 @@ Name:
 Version:	
 Release:	1%{?dist}
 Summary:	
-
 Group:		
 License:	
 URL:		
 Source0:	
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-
 BuildRequires:	
 Requires:	
 
@@ -36,7 +34,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc
-
 
 
 %changelog

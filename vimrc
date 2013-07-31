@@ -8,23 +8,6 @@ let g:is_silent=0               " Controls whether some functions show output
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Changes all the tab-width settings at once.
-function! SetTab(tabwidth)
-    let l:width=a:tabwidth
-    let &shiftwidth=l:width
-    let &tabstop=l:width
-    let &softtabstop=l:width
-endfunction
-
-" Replace all tabs with four spaces in the current file.
-function! ExpandTabs()
-    try
-        %s/\t/    /g
-    catch E486
-        call Talk('No tabs to expand.')
-    endtry
-endfunction
-
 " Toggles curly brace autocompletion.
 function! AutocompleteBraces()
     if maparg('{<CR>', 'i') == ''
@@ -42,35 +25,81 @@ function! AutocompleteBraces()
     endif
 endfunction
 
-" Toggles quote autocompletion for Python long strings. You can add more
-" general quote completion, but it tends to get very annoying.
-function! AutocompleteQuotes()
-    if maparg('"""<CR>', 'i') == ''
-        inoremap """<CR>    """<CR>"""<ESC>ko
-        inoremap '''<CR>    '''<CR>'''<ESC>ko
-        call Talk('Quote completion turned on.')
+" Toggles parenthesis and bracket autocompletion
+function! AutocompleteParens()
+    if maparg('(', 'i') == ''
+        inoremap [  []<LEFT>
+        inoremap [[ [
+        inoremap [<CR>  [<CR>]<ESC>ko
+        inoremap [] []
+        inoremap (  ()<LEFT>
+        inoremap (( (
+        inoremap (<CR>  (<CR>)<ESC>ko
+        inoremap () ()
+        call Talk('Bracket and parenthesis completion turned on.')
     else
-        silent! iunmap """<CR>
-        silent! iunmap '''<CR>
-        call Talk('Quote completion turned off.')
+        silent! iunmap [
+        silent! iunmap [[
+        silent! iunmap [<CR>
+        silent! iunmap []
+        silent! iunmap (
+        silent! iunmap ((
+        silent! iunmap (<CR>
+        silent! iunmap ()
+        call Talk('Bracket and parenthesis completion turned off.')
     endif
 endfunction
 
-" Turns on and off intuitive j/k movement when in wrap mode.
-function! WrapMode(arg)
-    if a:arg == 'off' || a:arg == '0'
-        let &wrap=0
-        silent! unmap j
-        silent! unmap k
-        call Talk('Wrap mode turned off.')
-    elseif a:arg == 'on' || a:arg == '1'
-        let &wrap=1
-        noremap j gj
-        noremap k gk
-        call Talk('Smart wrap mode turned on.')
-    else
-        call Talk('Argument must be either "off" or "on".')
+" Controls whether or not we say something for custom functions.
+function! BeQuiet()
+    if exists('g:is_silent') && g:is_silent!=1
+        let g:is_silent=1
+        echo 'Shutting up now.'
     endif
+endfunction
+
+" Replace all tabs with four spaces in the current file.
+function! ExpandTabs()
+    try
+        %s/\t/    /g
+    catch E486
+        call Talk('No tabs to expand.')
+    endtry
+endfunction
+
+" Does some cool stuff when you open a new Java file
+function! NewJavaFile()
+    if filereadable(glob('~/.vim/templates/template.java'))
+        read ~/.vim/templates/template.java
+        let l:classname = substitute(@%, '.java', '', 'ge')
+        %s/$CLASSNAME/\=l:classname/ge
+        %s/$USERNAME/\=$USER/ge
+        normal ggdd6G
+    endif
+endfunction
+
+" Forces some PEP8 style guidelines. It will probably get annoying
+function! PEP8()
+    if &filetype == 'python'
+        %s/"/'/ge
+        set textwidth=79
+        set colorcolumn=79
+        inoremap '''<CR> '''<CR>'''<ESC>ko
+        call Talk('PEP8 compliance activated.')
+    else
+        set textwidth=0
+        set colorcolumn=0
+        silent! iunmap '''<CR>
+        call Talk('Not a Python file. PEP8 deactivated.')
+    endif
+endfunction
+
+" Changes all the tab-width settings at once.
+function! SetTab(tabwidth)
+    let l:width=a:tabwidth
+    let &shiftwidth=l:width
+    let &tabstop=l:width
+    let &softtabstop=l:width
 endfunction
 
 " Show us when lines go over 80 characters in length.
@@ -93,34 +122,27 @@ function! ShowTrailingWhitespace()
     endtry
 endfunction
 
-" Forces some PEP8 style guidelines. It will probably get annoying
-function! PEP8()
-    if &filetype == 'python'
-        %s/"/'/ge
-        set textwidth=79
-        set colorcolumn=79
-        inoremap '''<CR> '''<CR>'''<ESC>ko
-        call Talk('PEP8 compliance activated.')
-    else
-        set textwidth=0
-        set colorcolumn=0
-        silent! iunmap '''<CR>
-        call Talk('Not a Python file. PEP8 deactivated.')
-    endif
-endfunction
-
-" Controls whether or not we say something for custom functions.
-function! BeQuiet()
-    if exists('g:is_silent') && g:is_silent!=1
-        let g:is_silent=1
-        echo 'Shutting up now.'
-    endif
-endfunction
-
 " Utility method for printing info back.
 function! Talk(message)
     if exists('g:is_silent') && g:is_silent==0
-        echo a:message
+        echomsg a:message
+    endif
+endfunction
+
+" Turns on and off intuitive j/k movement when in wrap mode.
+function! WrapMode(opt)
+    if a:opt == 'off' || a:opt == '0'
+        let &wrap=0
+        silent! unmap j
+        silent! unmap k
+        call Talk('Wrap mode turned off.')
+    elseif a:opt == 'on' || a:opt == '1'
+        let &wrap=1
+        noremap j gj
+        noremap k gk
+        call Talk('Smart wrap mode turned on.')
+    else
+        call Talk('Argument must be either "off" or "on".')
     endif
 endfunction
 
@@ -134,11 +156,11 @@ let mapleader = ','
 map Y y$
 nnoremap <C-z>  :undo<CR>
 nnoremap <C-y>  :redo<CR>
-nnoremap <LEADER>s  :w<CR>
+nnoremap <LEADER>s  :write<CR>
 nnoremap <LEADER>a  ggVG
 
 " Reload config file
-nnoremap <C-r> :source ~/.vimrc<CR>
+nnoremap <LEADER>r :source ~/.vimrc<CR>
 "
 " Clear search and match highlighting
 nnoremap <SPACE> :match none<CR>:nohlsearch<CR>
@@ -150,8 +172,8 @@ nnoremap <LEADER>w  :call ShowTrailingWhitespace()<CR>
 " Adding, deleting, and moving lines around
 nnoremap <LEADER>d  dd
 nnoremap <LEADER>f  o<ESC>
-nnoremap <LEADER>j  :m +1<CR>
-nnoremap <LEADER>k  :m -2<CR>
+nnoremap <LEADER>j  :move +1<CR>
+nnoremap <LEADER>k  :move -2<CR>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :normal 0i#<CR>
@@ -160,45 +182,36 @@ vnoremap <LEADER>"  :normal 0i"<CR>
 vnoremap <LEADER>x  :normal 0x<CR>
 vnoremap <LEADER>2x :normal 02x<CR>
 
-" Automatic matching completion for...
-" Square brackets
-inoremap [  []<LEFT>
-inoremap [[ [
-inoremap [<CR>  [<CR>]<ESC>ko
-inoremap [] []
-
-" Parentheses
-inoremap (  ()<LEFT>
-inoremap (( (
-inoremap (<CR>  (<CR>)<ESC>ko
-inoremap () ()
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" First, clear out old autocommands
-autocmd!
-
 " Do something when detecting particular filetypes
-autocmd BufRead,BufNewFile *.c compiler gcc
-autocmd BufRead,BufNewFile *.c set cindent
-autocmd BufRead,BufNewFile *.ino set filetype=java
-autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
-autocmd BufRead,BufNewFile *.py silent call AutocompleteQuotes()
-autocmd BufRead,BufNewFile Makefile*,makefile*,*.mak set filetype=make
+augroup detect_filetype
+    autocmd!
+    autocmd BufRead,BufNewFile *.c compiler gcc
+    autocmd BufRead,BufNewFile *.c set cindent
+    autocmd BufRead,BufNewFile *.ino set filetype=java
+    autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
+    autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+    autocmd BufRead,BufNewFile *.txt,README* set spell
+augroup end
 
-" Create these files from templates
+" Create these files from templates. (Note the 'r' is short for 'read')
+let s:templates = '~/.vim/templates/template.'
 if filereadable(glob('~/.vim/templates/template.c'))
-    au BufNewFile Makefile*,makefile*,*.mak 0r ~/.vim/templates/template.make
-    autocmd BufNewFile *.c 0r ~/.vim/templates/template.c
-    autocmd BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
-    autocmd BufNewFile *.html 0r ~/.vim/templates/template.html
-    autocmd BufNewFile *.ino 0r ~/.vim/templates/template.ino
-    autocmd BufNewFile *.java 0r ~/.vim/templates/template.java
-    autocmd BufNewFile *.mkd,*.md 0r ~/.vim/templates/template.mkd
-    autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
-    autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
-    autocmd BufNewFile *.spec 0r ~/.vim/templates/template.spec
+    augroup templates
+        autocmd!
+        autocmd BufNewFile *.c silent! exec '0r'.s:templates.'c'
+        autocmd BufNewFile *.cpp,*.cc silent! exec '0r'.s:templates.'cpp'
+        autocmd BufNewFile *.htm,*.html silent! exec '0r'.s:templates.'html'
+        autocmd BufNewFile *.ino silent! exec '0r'.s:templates.'ino'
+        autocmd BufNewFile *.java silent! call NewJavaFile()
+        autocmd BufNewFile *.mkd,*.md silent! exec '0r'.s:templates.'mkd'
+        autocmd BufNewFile *.py silent! exec '0r'.s:templates.'py'
+        autocmd BufNewFile *.sh silent! exec '0r'.s:templates.'sh'
+        autocmd BufNewFile *.spec silent! exec '0r'.s:templates.'spec'
+        autocmd BufNewFile [Mm]akefile* silent! exec '0r '.s:templates.'make'
+    augroup end
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -222,16 +235,19 @@ set expandtab                   " Spaces instead of tabs
 set smarttab                    " Intelligent tab insertion/deletion
 call SetTab(4)                  " 4 spaces to a tab
 
-" Turn on brace completion
+" Turn on our completions
 if maparg('{<CR>', 'i') == ''
     silent call AutocompleteBraces()
+endif
+if maparg('(', 'i') == ''
+    silent call AutocompleteParens()
 endif
 
 " More settings
 filetype indent on              " Indent based on detected filetype
 filetype plugin on              " Allow filetype plugins
 set autoindent
-set autoread                    " Reload the file if changed from outisde
+set autoread                    " Reload the file if changed from outside
 set backspace=indent,eol,start  " Backspace works intuitively
 set confirm                     " Confirm quit if dirty and :q is used
 set cursorline                  " Highlight current line
@@ -246,6 +262,7 @@ set ruler
 set showcmd                     " Shows incomplete commands
 set smartcase                   " Case sensitive depending on search
 set smartindent                 " Adds indents based on context
+set spelllang=en_us             " Sets language if `set spell` is on
 set timeout                     " Time out on both mappings and keycodes
 set timeoutlen=200              " 200ms time-out length
-syntax on                       " Syntax highlighting
+syntax enable                   " Syntax highlighting

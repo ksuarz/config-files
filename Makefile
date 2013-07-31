@@ -1,11 +1,21 @@
+# Makefile - for quick installation of configuration files
+
+LNFLAGS = -fsn
+RMFLAGS = -r
+
 all: install
 
 install:
-	ln -fs $(PWD)/bashrc $(HOME)/.bashrc
-	ln -fs $(PWD)/bash_prompt $(HOME)/.bash_prompt
-	ln -fs $(PWD)/bash_aliases $(HOME)/.bash_aliases
-	ln -fs $(PWD)/gitconfig $(HOME)/.gitconfig
-	ln -fs $(PWD)/gvimrc $(HOME)/.gvimrc
-	ln -fs $(PWD)/tmux.conf $(HOME)/.tmux.conf
-	ln -fsn $(PWD)/vim/ $(HOME)/.vim
-	ln -fs $(PWD)/vimrc $(HOME)/.vimrc
+	ln $(LNFLAGS) $(PWD)/bash_aliases $(HOME)/.bash_aliases
+	ln $(LNFLAGS) $(PWD)/bash_profile $(HOME)/.bash_profile
+	ln $(LNFLAGS) $(PWD)/bash_prompt $(HOME)/.bash_prompt
+	ln $(LNFLAGS) $(PWD)/bashrc $(HOME)/.bashrc
+	ln $(LNFLAGS) $(PWD)/gitconfig $(HOME)/.gitconfig
+	ln $(LNFLAGS) $(PWD)/gvimrc $(HOME)/.gvimrc
+	ln $(LNFLAGS) $(PWD)/tmux.conf $(HOME)/.tmux.conf
+	ln $(LNFLAGS) $(PWD)/vimrc $(HOME)/.vimrc
+	ln $(LNFLAGS) $(PWD)/vim/ $(HOME)/.vim
+
+clean:
+	rm $(RMFLAGS) .*.swp
+	rm $(RMFLAGS) *~

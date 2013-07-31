@@ -1,7 +1,7 @@
 /**
- * @author Kyle
+ * @author $USERNAME
  */
-public class Java {
+public class $CLASSNAME {
     public static void main(String[] args) {
 
     }
