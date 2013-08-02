@@ -29,10 +29,10 @@ function! RandomColorScheme()
         let l:colors=(&background == 'dark' ? 
                     \['busybee', 'molokai', 'moria', 'solarized', 'hemisu'] :
                     \['github', 'oceanlight', 'pyte', 'solarized', 'tomorrow'])
-        let l:filename=l:colors[strftime('%M') % len(l:colors)]
+        let l:filename=l:colors[strftime('%S') % len(l:colors)]
         highlight clear
         syntax reset
-        silent! exec 'source ~/.vim/colors/'.l:filename.'.vim'
+        silent! execute 'source ~/.vim/colors/'.l:filename.'.vim'
     endif
 endfunction
 

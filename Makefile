@@ -1,7 +1,7 @@
 # Makefile - for quick installation of configuration files
 
 LNFLAGS = -fsn
-RMFLAGS = -r
+RMFLAGS = -f
 
 all: install
 

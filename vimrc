@@ -218,18 +218,18 @@ if glob('~/.vim/templates/') != ''
     augroup simple_templates
         autocmd!
         autocmd BufNewFile *.c,*.cpp,*.html,*.ino,*.py,*.sh,*.spec
-                    \ silent! exec '0r '.s:template.fnamemodify(@%, ':e')
+                    \ silent! exe '0r '.s:template.fnamemodify(@%, ':e')
     augroup end
 
     " These files have a different file extension or call a function
     augroup super_templates
         autocmd!
-        autocmd BufNewFile *.cc silent! exec '0r '.s:template.'cpp'
-        autocmd BufNewFile *.htm silent! exec '0r '.s:template.'html'
+        autocmd BufNewFile *.cc silent! exe '0r '.s:template.'cpp'
+        autocmd BufNewFile *.htm silent! exe '0r '.s:template.'html'
         autocmd BufNewFile *.java silent! call NewJavaFile()
         autocmd BufNewFile *.mkd,*.md silent! call NewMarkdownFile()
         autocmd BufNewFile README,Readme silent! call NewMarkdownFile()
-        autocmd BufNewFile [Mm]akefile* silent! exec '0r '.s:template.'make'
+        autocmd BufNewFile [Mm]akefile* silent! exe '0r '.s:template.'make'
     augroup end
 endif
 
