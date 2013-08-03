@@ -111,7 +111,6 @@ endfunction
 function! SetTab(tabwidth)
     let l:width=a:tabwidth
     let &shiftwidth=l:width
-    let &tabstop=l:width
     let &softtabstop=l:width
 endfunction
 
@@ -283,6 +282,7 @@ set showcmd                     " Shows incomplete commands
 set smartcase                   " Case sensitive depending on search
 set smartindent                 " Adds indents based on context
 set spelllang=en_us             " Sets language if `set spell` is on
+set tabstop=8                   " For files tabbed by others
 set timeout                     " Time out on both mappings and keycodes
 set timeoutlen=200              " 200ms time-out length
 syntax enable                   " Syntax highlighting

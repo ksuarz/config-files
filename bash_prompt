@@ -164,7 +164,7 @@ function load_prompt() {
     if [ $COLORS_ON -eq 1 ]; then
         PS1="\n\[${BOLD}${USER_COLOR}\]\u\[$PREPOSITION_COLOR\]@\[$DEVICE_COLOR\]\h \[$PREPOSITION_COLOR\]in \[$DIR_COLOR\]\w\[$PREPOSITION_COLOR\]\$([[ -n \$(is_on_git) ]] && echo \" on \")\[$GIT_STATUS_COLOR\]\$(get_git_info)\[$NORMAL\]\n$ \[$RESET\]"
     else
-        PS1="\n[ \u@\h in \w\$([[ -n \$(is_on_git) ]] && echo \" on \")\$(get_git_info) ]\n$(get_prompt_symbol) "
+        PS1="\n[ \u@\h in \w\$([[ -n \$(is_on_git) ]] && echo \" on \")\$(get_git_info) ]\n$ "
     fi
 }
 
