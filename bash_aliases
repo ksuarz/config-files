@@ -6,7 +6,7 @@ alias la='ls -lA'
 alias lh='ls -Aoh'
 alias lt='ls -Alrt'
 alias l.='ls -ld .*'
-alias list='ls -la | less'
+alias lll='ls -la | less'
 
 # Moving around
 alias ..='cd ..'
