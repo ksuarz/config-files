@@ -167,26 +167,30 @@ let mapleader=','
 
 " Common mappings
 map Y y$
-nnoremap <C-z>  :undo<CR>
-nnoremap <C-y>  :redo<CR>
-nnoremap <LEADER>s  :write<CR>
+nmap <C-z>  :undo<CR>
+nmap <C-y>  :redo<CR>
+nmap <LEADER>s  :write<CR>
 nnoremap <LEADER>a  ggVG
 
 " Reload config file
-nnoremap <LEADER>r :source ~/.vimrc<CR>
-"
+nmap <LEADER>r :source ~/.vimrc<CR>
+
+" Yanking and pasting to the clipboard
+noremap <LEADER>y  "+y
+noremap <LEADER>p  "+p
+
 " Clear search and match highlighting
-nnoremap <SPACE> :match none<CR>:nohlsearch<CR>
+nmap <SPACE> :match none<CR>:nohlsearch<CR>
 
 " Find annoying things in code
-nnoremap <LEADER>l  :call ShowLongLines()<CR>
-nnoremap <LEADER>w  :call ShowTrailingWhitespace()<CR>
+nmap <LEADER>l  :call ShowLongLines()<CR>
+nmap <LEADER>w  :call ShowTrailingWhitespace()<CR>
 
 " Adding, deleting, and moving lines around
+nmap <LEADER>j  :move +1<CR>
+nmap <LEADER>k  :move -2<CR>
 nnoremap <LEADER>d  dd
 nnoremap <LEADER>f  o<ESC>
-nnoremap <LEADER>j  :move +1<CR>
-nnoremap <LEADER>k  :move -2<CR>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :normal 0i#<CR>
