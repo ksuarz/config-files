@@ -94,9 +94,9 @@ endfunction
 " Forces some PEP8 style guidelines. It will probably get annoying
 function! PEP8()
     if &filetype == 'python'
-        match ErrorMsg '"'
+        match ErrorMsg '[^\\]"'
         set textwidth=79
-        set colorcolumn=79
+        set colorcolumn=80
         inoremap '''<CR> '''<CR>'''<ESC>ko
         call Talk('PEP8 compliance activated.')
     else
@@ -104,6 +104,18 @@ function! PEP8()
         set colorcolumn=0
         silent! iunmap '''<CR>
         call Talk('Not a Python file. PEP8 deactivated.')
+    endif
+endfunction
+
+" Gives a random color scheme based on the time and the background.
+function! RandomColorScheme()
+    if glob('~/.vim/colors') != ''
+        let l:colors= ['sixteen', 'whiteout', 'noctu']
+        let l:filename=l:colors[strftime('%S') % len(l:colors)]
+
+        highlight clear
+        syntax reset
+        silent! execute 'source ~/.vim/colors/'.l:filename.'.vim'
     endif
 endfunction
 
@@ -167,30 +179,29 @@ let mapleader=','
 
 " Common mappings
 map Y y$
-nmap <C-z>  :undo<CR>
-nmap <C-y>  :redo<CR>
-nmap <LEADER>s  :write<CR>
-nnoremap <LEADER>a  ggVG
+nmap <C-z> :undo<CR>
+nmap <C-y> :redo<CR>
+nmap <LEADER>s :write<CR>
+nnoremap <LEADER>a ggVG
 
 " Reload config file
 nmap <LEADER>r :source ~/.vimrc<CR>
 
 " Yanking and pasting to the clipboard
-noremap <LEADER>y  "+y
-noremap <LEADER>p  "+p
+noremap <LEADER>y "+y
+noremap <LEADER>p "+p
 
 " Clear search and match highlighting
 nmap <SPACE> :match none<CR>:nohlsearch<CR>
 
 " Find annoying things in code
-nmap <LEADER>l  :call ShowLongLines()<CR>
-nmap <LEADER>w  :call ShowTrailingWhitespace()<CR>
+nmap <LEADER>l :call ShowLongLines()<CR>
+nmap <LEADER>w :call ShowTrailingWhitespace()<CR>
 
 " Adding, deleting, and moving lines around
-nmap <LEADER>j  :move +1<CR>
-nmap <LEADER>k  :move -2<CR>
-nnoremap <LEADER>d  dd
-nnoremap <LEADER>f  o<ESC>
+nmap <LEADER>j :move +1<CR>
+nmap <LEADER>k :move -2<CR>
+nnoremap <LEADER>o o<ESC>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :normal 0i#<CR>
@@ -210,6 +221,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+    autocmd BufRead,BufNewFile *.py silent call PEP8()
     autocmd BufRead,BufNewFile *.txt silent call WrapMode('on')
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
 augroup end
@@ -241,7 +253,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-colorscheme evening
+colorscheme sixteen
 
 " Pathogen, from https://github.com/tpope/vim-pathogen
 if filereadable(glob('~/.vim/autoload/pathogen.vim'))
@@ -284,7 +296,7 @@ set number                      " Show line numbers
 set ruler
 set showcmd                     " Shows incomplete commands
 set smartcase                   " Case sensitive depending on search
-set smartindent                 " Adds indents based on context
+set nosmartindent               " Smart indent is annoying when typing `#`
 set spelllang=en_us             " Sets language if `set spell` is on
 set tabstop=8                   " For files tabbed by others
 set timeout                     " Time out on both mappings and keycodes

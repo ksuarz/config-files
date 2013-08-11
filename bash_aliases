@@ -9,7 +9,7 @@ alias l.='ls -ld .*'
 alias lll='ls -la | less'
 
 # Moving around
-alias ..='cd ..'
+alias ..='cd ..; ls -l'
 alias home='cd; ls -l'
 
 # Start up programs with a GUI in the background

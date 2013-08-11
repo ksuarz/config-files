@@ -15,6 +15,7 @@ install:
 	ln $(LNFLAGS) $(PWD)/tmux.conf $(HOME)/.tmux.conf
 	ln $(LNFLAGS) $(PWD)/vimrc $(HOME)/.vimrc
 	ln $(LNFLAGS) $(PWD)/vim/ $(HOME)/.vim
+	ln $(LNFLAGS) $(PWD)/Xdefaults $(HOME)/.Xdefaults
 
 clean:
 	rm $(RMFLAGS) .*.swp
