@@ -18,6 +18,8 @@ alias chrome='google-chrome > /dev/null 2>&1 &'
 alias chrome-incognito='google-chrome --incognito > /dev/null 2>&1 &'
 
 # For hard-to-remember commands
-alias ports=netstat
-alias cpuinfo=lscpu
-alias show-options=shopt
+alias ports='netstat'
+
+if [[ -x /usr/bin/xdg-open ]]; then
+    alias open='xdg-open'
+fi

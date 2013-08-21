@@ -1,0 +1,37 @@
+# conkyrc.system - configuration file for conky
+# Displays a handy system monitor on the desktop.
+
+#  Basic Settings
+
+background yes
+use_xft yes
+xftfont sans:size=11
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type override #desktop
+own_window_hints below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 450 1
+maximum_width 600
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color Black
+default_shade_color 000000
+default_outline_color d9d7d6
+alignment tr
+gap_x 5
+gap_y 20
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale yes
+
+# The fun display stuff
+TEXT
+${font sans:size=70}${alignr}${color #696969}${time %H:%M}${voffset -27}${voffset -45}
+${font sans:size=25}${alignr}${time %a %d %B %Y}${voffset -15}

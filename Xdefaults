@@ -34,8 +34,8 @@ URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
 
 ! urxvt fonts: 
-URxvt*font: xft:Monospace:pixelsize=10
-URxvt*boldFont: xft:Monospace:bold:pixelsize=10
+URxvt*font: xft:Monospace:pixelsize=12
+URxvt*boldFont: xft:Monospace:bold:pixelsize=12
 
 ! Following links
 URxvt.urlLauncher:      /usr/bin/google-chrome
