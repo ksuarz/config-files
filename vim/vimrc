@@ -201,7 +201,7 @@ nmap <LEADER>w :call ShowTrailingWhitespace()<CR>
 " Adding, deleting, and moving lines around
 nmap <LEADER>j :move +1<CR>
 nmap <LEADER>k :move -2<CR>
-nnoremap <LEADER>o o<ESC>
+nnoremap <LEADER><CR> o<ESC>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :normal 0i#<CR>

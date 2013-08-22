@@ -18,31 +18,6 @@ install:
 	ln $(LNFLAGS) $(PWD)/vim/ $(HOME)/.vim
 	ln $(LNFLAGS) $(PWD)/Xdefaults $(HOME)/.Xdefaults
 
-# Change tint2 color settings
-tint-blue:
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	ln $(LNFLAGS) $(PWD)/tint2/tint2rc.blue $(HOME)/.config/tint2/tint2rc
-
-tint-green:
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	ln $(LNFLAGS) $(PWD)/tint2/tint2rc.green $(HOME)/.config/tint2/tint2rc
-
-tint-grey:
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	ln $(LNFLAGS) $(PWD)/tint2/tint2rc.grey $(HOME)/.config/tint2/tint2rc
-
-tint-magenta:
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	ln $(LNFLAGS) $(PWD)/tint2/tint2rc.magenta $(HOME)/.config/tint2/tint2rc
-
-tint-red:
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	ln $(LNFLAGS) $(PWD)/tint2/tint2rc.red $(HOME)/.config/tint2/tint2rc
-
-tint-yellow:
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	ln $(LNFLAGS) $(PWD)/tint2/tint2rc.yellow $(HOME)/.config/tint2/tint2rc
-
 # Change up how Conky looks on-the-fly
 conky-clock:
 	rm $(RMFLAGS) $(HOME)/.conkyrc

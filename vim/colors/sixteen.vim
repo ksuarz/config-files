@@ -21,32 +21,33 @@ endif
 " ----------------------------------------------------------------------------
 " The important syntax coloring groups - the ones you really care about
 highlight Constant term=underline ctermfg=Magenta
-highlight Identifier ctermfg=DarkBlue
-highlight LineNr term=underline ctermfg=Yellow
+highlight Identifier ctermfg=Blue
+highlight LineNr term=underline cterm=none ctermfg=DarkGrey
 highlight Normal ctermfg=White
 highlight PreProc term=underline ctermfg=Cyan
 highlight Special term=bold ctermfg=Red
-highlight SpecialKey term=bold ctermfg=LightBlue
+highlight SpecialKey term=bold ctermfg=Blue
 highlight Statement term=bold cterm=bold ctermfg=Yellow
 highlight Type term=bold ctermfg=Green
 
 " The status line, window borders, and the like
-highlight StatusLine ctermfg=Magenta ctermbg=White
-highlight StatusLineNC ctermfg=Magenta ctermbg=White
-highlight VertSplit ctermfg=Magenta ctermbg=White
+highlight StatusLine cterm=bold ctermfg=White ctermbg=Black
+highlight StatusLineNC ctermfg=Black ctermbg=White
+highlight VertSplit ctermfg=Black ctermbg=White
 
 " Things that show up in or near the status line
 highlight Directory term=bold ctermfg=Cyan
 highlight ModeMsg term=bold cterm=bold
 highlight MoreMsg term=bold ctermfg=Green
-highlight Title term=bold ctermfg=Magenta
-highlight WildMenu term=standout ctermbg=Yellow ctermfg=Black
+highlight Title term=bold ctermfg=Green
+highlight WildMenu term=standout ctermbg=Cyan ctermfg=White
 
 " The cursor, line, and columns
-highlight ColorColumn ctermbg=Magenta cterm=bold
-highlight Cursor cterm=none ctermbg=White ctermfg=Magenta
-highlight CursorColumn term=reverse ctermbg=0
-highlight CursorLine cterm=bold ctermbg=0 term=underline
+highlight ColorColumn ctermbg=Black cterm=bold
+highlight Cursor cterm=none ctermbg=White ctermfg=Blue
+highlight CursorColumn term=reverse ctermbg=Blue
+highlight CursorLine cterm=bold ctermbg=Blue term=underline
+highlight CursorLineNr cterm=none ctermfg=Blue
 
 " Diff-mode settings
 highlight DiffAdd term=bold ctermbg=DarkBlue
@@ -66,8 +67,8 @@ highlight Ignore ctermfg=DarkGrey
 highlight IncSearch term=reverse cterm=reverse
 highlight NonText term=bold ctermfg=LightBlue
 highlight Question term=standout ctermfg=Green
-highlight Search term=reverse ctermbg=Yellow ctermfg=Black
-highlight Visual term=reverse ctermbg=Magenta
+highlight Search term=reverse ctermbg=White ctermfg=Black
+highlight Visual term=reverse cterm=none ctermbg=Blue
 highlight VisualNOS term=underline,bold cterm=underline,bold
 
 " vim: sw=2
