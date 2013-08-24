@@ -7,16 +7,22 @@ all: install
 
 # Installs files by making the appropriate symbolic links
 install:
+	ln $(LNFLAGS) $(PWD)/X/Xresources $(HOME)/.Xresources
+	ln $(LNFLAGS) $(PWD)/X/xinitrc $(HOME)/.xinitrc
 	ln $(LNFLAGS) $(PWD)/bash/bash_aliases $(HOME)/.bash_aliases
 	ln $(LNFLAGS) $(PWD)/bash/bash_profile $(HOME)/.bash_profile
 	ln $(LNFLAGS) $(PWD)/bash/bash_prompt $(HOME)/.bash_prompt
 	ln $(LNFLAGS) $(PWD)/bash/bashrc $(HOME)/.bashrc
 	ln $(LNFLAGS) $(PWD)/gitconfig $(HOME)/.gitconfig
-	ln $(LNFLAGS) $(PWD)/vim/gvimrc $(HOME)/.gvimrc
 	ln $(LNFLAGS) $(PWD)/tmux.conf $(HOME)/.tmux.conf
-	ln $(LNFLAGS) $(PWD)/vim/vimrc $(HOME)/.vimrc
 	ln $(LNFLAGS) $(PWD)/vim/ $(HOME)/.vim
-	ln $(LNFLAGS) $(PWD)/Xdefaults $(HOME)/.Xdefaults
+	ln $(LNFLAGS) $(PWD)/vim/gvimrc $(HOME)/.gvimrc
+	ln $(LNFLAGS) $(PWD)/vim/vimrc $(HOME)/.vimrc
+
+# Installs OpenBox settings
+openbox:
+	rm $(RMFLAGS) $(HOME)/.config/openbox/rc.xml
+	ln $(LNFLAGS) $(PWD)/openbox/rc.xml $(HOME)/.config/openbox/rc.xml
 
 # Change up how Conky looks on-the-fly
 conky-clock:
@@ -40,17 +46,18 @@ clean-swap:
 
 # Remove all traces of configuration files
 clean:
+	rm $(RMFLAGS) $(HOME)/.Xresources
 	rm $(RMFLAGS) $(HOME)/.bash_aliases
 	rm $(RMFLAGS) $(HOME)/.bash_profile
 	rm $(RMFLAGS) $(HOME)/.bash_prompt
 	rm $(RMFLAGS) $(HOME)/.bashrc
+	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
 	rm $(RMFLAGS) $(HOME)/.gitconfig
 	rm $(RMFLAGS) $(HOME)/.gvimrc
 	rm $(RMFLAGS) $(HOME)/.tmux.conf
-	rm $(RMFLAGS) $(HOME)/.vimrc
 	rm $(RMFLAGS) $(HOME)/.vim
-	rm $(RMFLAGS) $(HOME)/.Xdefaults
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
+	rm $(RMFLAGS) $(HOME)/.vimrc
+	rm $(RMFLAGS) $(HOME)/.xinitrc
 
 # Remove non-standard configuration files
 mostlyclean:
@@ -59,3 +66,4 @@ mostlyclean:
 	rm $(RMFLAGS) $(HOME)/.gvimrc
 	rm $(RMFLAGS) $(HOME)/.vim
 	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
+	rm $*RMFLAGS) $HOME/

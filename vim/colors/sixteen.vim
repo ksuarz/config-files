@@ -43,11 +43,11 @@ highlight Title term=bold ctermfg=Green
 highlight WildMenu term=standout ctermbg=Cyan ctermfg=White
 
 " The cursor, line, and columns
-highlight ColorColumn ctermbg=Black cterm=bold
-highlight Cursor cterm=none ctermbg=White ctermfg=Blue
-highlight CursorColumn term=reverse ctermbg=Blue
-highlight CursorLine cterm=bold ctermbg=Blue term=underline
-highlight CursorLineNr cterm=none ctermfg=Blue
+highlight ColorColumn ctermbg=DarkBlue cterm=bold
+highlight Cursor cterm=none ctermbg=White ctermfg=DarkBlue
+highlight CursorColumn term=reverse ctermbg=DarkBlue
+highlight CursorLine cterm=bold ctermbg=DarkBlue term=underline
+highlight CursorLineNr cterm=none ctermfg=DarkBlue
 
 " Diff-mode settings
 highlight DiffAdd term=bold ctermbg=DarkBlue

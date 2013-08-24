@@ -4,7 +4,6 @@
 
 ! Colors and color scheme (a port of the gnome-terminal colors)
 Xcursor.theme: Vanilla-DMZ-AA
-URxvt.foreground: #DEDEDE
 URxvt.colorUL: #86a2b0
 
 ! Transparency
