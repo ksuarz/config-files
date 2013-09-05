@@ -68,61 +68,55 @@
         -->
         <titleLayout>NLIMC</titleLayout>
 
+        <!-- Keep the border if you undecorate a window? -->
         <keepBorder>yes</keepBorder>
+
+        <!-- Toggles the minimize animation -->
         <animateIconify>yes</animateIconify>
+
+        <!-- Window title fonts -->
         <font place="ActiveWindow">
+            <!-- The display font name for active windows -->
             <name>sans</name>
-            <size>8</size>
+
             <!-- font size in points -->
-            <weight>bold</weight>
+            <size>8</size>
+
             <!-- 'bold' or 'normal' -->
-            <slant>normal</slant>
+            <weight>bold</weight>
+
             <!-- 'italic' or 'normal' -->
+            <slant>normal</slant>
         </font>
         <font place="InactiveWindow">
             <name>sans</name>
             <size>8</size>
-            <!-- font size in points -->
             <weight>bold</weight>
-            <!-- 'bold' or 'normal' -->
             <slant>normal</slant>
-            <!-- 'italic' or 'normal' -->
         </font>
         <font place="MenuHeader">
             <name>sans</name>
             <size>9</size>
-            <!-- font size in points -->
             <weight>normal</weight>
-            <!-- 'bold' or 'normal' -->
             <slant>normal</slant>
-            <!-- 'italic' or 'normal' -->
         </font>
         <font place="MenuItem">
             <name>sans</name>
             <size>9</size>
-            <!-- font size in points -->
             <weight>normal</weight>
-            <!-- 'bold' or 'normal' -->
             <slant>normal</slant>
-            <!-- 'italic' or 'normal' -->
         </font>
         <font place="ActiveOnScreenDisplay">
             <name>sans</name>
             <size>9</size>
-            <!-- font size in points -->
             <weight>bold</weight>
-            <!-- 'bold' or 'normal' -->
             <slant>normal</slant>
-            <!-- 'italic' or 'normal' -->
         </font>
         <font place="InactiveOnScreenDisplay">
             <name>sans</name>
             <size>9</size>
-            <!-- font size in points -->
             <weight>bold</weight>
-            <!-- 'bold' or 'normal' -->
             <slant>normal</slant>
-            <!-- 'italic' or 'normal' -->
         </font>
     </theme>
 
@@ -521,7 +515,7 @@
         <!-- Time before changing desktops when the pointer touches the edge of the
              screen while moving a window, in milliseconds (1000 = 1 second).
              Set this to 0 to disable warping -->
-        <screenEdgeWarpTime>400</screenEdgeWarpTime>
+        <screenEdgeWarpTime>0</screenEdgeWarpTime>
 
         <!-- Set this to TRUE to move the mouse pointer across the desktop when
              switching due to hitting the edge of the screen -->
@@ -547,6 +541,8 @@
             <mousebind button="A-Right" action="Drag">
                 <action name="Resize"/>
             </mousebind>
+
+            <!-- Some other clicky settings. Uncomment to activate
             <mousebind button="A-Middle" action="Press">
                 <action name="Lower"/>
                 <action name="FocusToBottom"/>
@@ -562,6 +558,7 @@
                     <to>next</to>
                 </action>
             </mousebind>
+            -->
         </context>
 
         <!-- Clicking on the titlebar -->
@@ -819,6 +816,8 @@
                 </action>
             </mousebind>
         </context>
+
+        <!--
         <context name="MoveResize">
             <mousebind button="Up" action="Click">
                 <action name="GoToDesktop">
@@ -841,6 +840,7 @@
                 </action>
             </mousebind>
         </context>
+        -->
     </mouse>
 
     <!-- Main menu -->

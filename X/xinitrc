@@ -9,7 +9,6 @@ if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
     eval "$(dbus-launch --sh-syntax --exit-with-session)"
 fi
 
-
 ## Ensure that GTK themes are applied uniformly in the Desktop Environment
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0" 
 
@@ -40,5 +39,5 @@ esac
 
 ## Load in Xresources
 if [ -f ~/.Xresources ]; then
-    xrdb -merge ~/.Xresources
+    xrdb ~/.Xresources
 fi

@@ -47,7 +47,7 @@ highlight ColorColumn ctermbg=DarkBlue cterm=bold
 highlight Cursor cterm=none ctermbg=White ctermfg=DarkBlue
 highlight CursorColumn term=reverse ctermbg=DarkBlue
 highlight CursorLine cterm=bold ctermbg=DarkBlue term=underline
-highlight CursorLineNr cterm=none ctermfg=DarkBlue
+highlight CursorLineNr cterm=bold ctermfg=DarkBlue
 
 " Diff-mode settings
 highlight DiffAdd term=bold ctermbg=DarkBlue

@@ -5,24 +5,24 @@
 URxvt*termName: rxvt-unicode-256color
 
 ! Following links
-URxvt.urlLauncher:      /usr/bin/google-chrome
-URxvt.matcher.button:   1
+URxvt.urlLauncher: /usr/bin/google-chrome
+URxvt.matcher.button: 1
 
 ! Scrolling options and cursor style
-URxvt.saveLines:        5000
-URxvt.scrollstyle:      plain
-URxvt.scrollBar:        true
-URxvt.scrollBar_right: true
-URxvt.scrollBar_flating: true
-URxvt.cursorBlink:      true
-URxvt.cursorUnderline:  true
+URxvt.saveLines: 5000
+URxvt.scrollstyle: plain
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.scrollBar_floating: true
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
 
 ! ----------------------------------------------------------------------------
 ! Display settings
 ! ----------------------------------------------------------------------------
 
 #define color_gnome 1
-URxvt.colorUL:      #86a2b0
+URxvt.colorUL: #86a2b0
 
 ! Transparency
 URxvt.depth: 32
@@ -60,4 +60,3 @@ URxvt.color14 : #34e2e2
 ! White
 URxvt.color7  : #d3d7cf
 URxvt.color15 : #eeeeec
-

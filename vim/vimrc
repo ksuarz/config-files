@@ -4,11 +4,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
 let g:is_silent=0               " Controls whether some functions show output
+let g:tab_width=4               " Preferred tab width
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Toggles curly brace autocompletion.
+" Toggles curly braceutocompletion.
 function! AutocompleteBraces()
     if maparg('{<CR>', 'i') == ''
         inoremap {  {}<LEFT>
@@ -58,10 +59,19 @@ function! BeQuiet()
     endif
 endfunction
 
-" Replace all tabs with four spaces in the current file.
+" Saves as much horizontal space as possible.
+function! BeNarrow()
+    let g:tab_width=2
+    set colorcolumn=80
+    set textwidth=80
+    call SetTab(g:tab_width)
+endfunction
+
+" Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     try
-        %s/\t/    /g
+        " TODO check
+        %s/\t/\=repeat(' ', g:tab_width)/g
     catch E486
         call Talk('No tabs to expand.')
     endtry
@@ -218,6 +228,7 @@ augroup detect_filetype
     autocmd!
     autocmd BufRead,BufNewFile *.c compiler gcc
     autocmd BufRead,BufNewFile *.c set cindent
+    autocmd BufRead,BufNewFile *.html silent call BeNarrow()
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
@@ -267,7 +278,7 @@ set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip
 " Indentation
 set expandtab                   " Spaces instead of tabs
 set smarttab                    " Intelligent tab insertion/deletion
-call SetTab(4)                  " 4 spaces to a tab
+call SetTab(g:tab_width)        " By default, four spaces to a tab
 
 " Turn on our completions
 if maparg('{<CR>', 'i') == ''
