@@ -5,8 +5,8 @@
 
 # History settings
 export HISTCONTROL=ignoreboth
-export HISTSIZE=10000
 export HISTFILESIZE=20000
+export HISTSIZE=10000
 
 # Autocompletion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
@@ -14,10 +14,11 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # More autocompletion (may conflict with /etc/bash_completion)
-complete -cf sudo
 complete -cf man
+complete -cf sudo
 
 # Other shell options
+shopt -s autocd
 shopt -s cdspell
 shopt -s checkwinsize
 shopt -s cmdhist

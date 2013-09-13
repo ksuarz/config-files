@@ -5,6 +5,7 @@
 set nocompatible                " Vim behavior as opposed to vi
 let g:is_silent=0               " Controls whether some functions show output
 let g:tab_width=4               " Preferred tab width
+let g:host=system("hostname")   " Get the name of the current host
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
@@ -120,7 +121,7 @@ endfunction
 " Gives a random color scheme based on the time and the background.
 function! RandomColorScheme()
     if glob('~/.vim/colors') != ''
-        let l:colors= ['sixteen', 'whiteout', 'noctu']
+        let l:colors= ['kilo', 'whiteout', 'noctu']
         let l:filename=l:colors[strftime('%S') % len(l:colors)]
 
         highlight clear
@@ -264,7 +265,11 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-colorscheme sixteen
+if "kilo" ==? substitute(g:host, "\n", "", "g")
+    colorscheme kilo
+else
+    colorscheme sixteen
+endif
 
 " Pathogen, from https://github.com/tpope/vim-pathogen
 if filereadable(glob('~/.vim/autoload/pathogen.vim'))
@@ -310,6 +315,7 @@ set smartcase                   " Case sensitive depending on search
 set nosmartindent               " Smart indent is annoying when typing `#`
 set spelllang=en_us             " Sets language if `set spell` is on
 set tabstop=8                   " For files tabbed by others
+set t_Co=256                    " Use 256 colors
 set timeout                     " Time out on both mappings and keycodes
 set timeoutlen=200              " 200ms time-out length
 syntax enable                   " Syntax highlighting
