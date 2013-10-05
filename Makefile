@@ -66,4 +66,3 @@ mostlyclean:
 	rm $(RMFLAGS) $(HOME)/.gvimrc
 	rm $(RMFLAGS) $(HOME)/.vim
 	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
-	rm $*RMFLAGS) $HOME/
