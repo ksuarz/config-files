@@ -1,5 +1,17 @@
 # bash_aliases: user-defined aliases for bash
 
+# Color support for ls and grep
+if [ -x /usr/bin/dircolors ]; then
+    if [ -r ~/.dircolors ]; then
+        eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    fi
+
+    alias ls='ls --color=auto --group-directories-first'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 # Listing directories
 alias ll='ls -l'
 alias la='ls -lA'
@@ -9,17 +21,29 @@ alias l.='ls -ld .*'
 alias lll='ls -la | less'
 
 # Moving around
-alias ..='cd ..; ls -l'
-alias home='cd; ls -l'
+alias ..='cd .. && ls -l'
+alias home='cd && ls -l'
+
+# Connecting to places
+alias fly='ssh kds124@flyweight.cs.rutgers.edu'
+alias eden='ssh kds124@eden.rutgers.edu'
 
 # Start up programs with a GUI in the background
 alias gvim-start='gvim > /dev/null 2>&1 &'
 alias chrome='google-chrome > /dev/null 2>&1 &'
 alias chrome-incognito='google-chrome --incognito > /dev/null 2>&1 &'
 
-# For hard-to-remember commands
+# View ports in use
 alias ports='netstat'
 
-if [[ -x /usr/bin/xdg-open ]]; then
+# Handy opener for files
+if which /usr/bin/xdg-open > /dev/null ; then
     alias open='xdg-open'
+elif which gvfs-open > /dev/null ; then
+    alias open='gvfs-open'
+fi
+
+# Auto-adjust our terminal type (especially for tmux)
+if which urxvt > /dev/null ; then
+    alias setterm='export TERM="rxvt-unicode-256color"'
 fi

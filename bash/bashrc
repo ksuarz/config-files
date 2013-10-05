@@ -8,6 +8,9 @@ export HISTCONTROL=ignoreboth
 export HISTFILESIZE=20000
 export HISTSIZE=10000
 
+# Terminal settings
+export TERM='rxvt-unicode-256color'
+
 # Autocompletion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
@@ -28,18 +31,6 @@ shopt -s extglob
 shopt -s histappend
 shopt -s hostcomplete
 shopt -s nocaseglob
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Color support for ls and grep
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --group-directories-first'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
 
 # Alias definitions
 if [ -f ~/.bash_aliases ]; then

@@ -65,7 +65,7 @@ highlight IncSearch term=reverse cterm=reverse
 highlight NonText term=bold ctermfg=LightBlue
 highlight Question term=standout ctermfg=Green
 highlight Search term=reverse ctermbg=White ctermfg=Black
-highlight Visual term=reverse cterm=none ctermbg=Blue
+highlight Visual term=reverse cterm=bold ctermbg=DarkBlue
 highlight VisualNOS term=underline,bold cterm=underline,bold
 
 " vim: sw=2

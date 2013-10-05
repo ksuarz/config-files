@@ -20,8 +20,6 @@ URxvt.cursorUnderline: false
 ! ----------------------------------------------------------------------------
 ! Display settings
 ! ----------------------------------------------------------------------------
-
-#define color_gnome 1
 URxvt.colorUL: #86a2b0
 
 ! Transparency
