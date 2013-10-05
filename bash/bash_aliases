@@ -25,7 +25,7 @@ alias ..='cd .. && ls -l'
 alias home='cd && ls -l'
 
 # Connecting to places
-alias fly='ssh kds124@flyweight.cs.rutgers.edu'
+alias fly='ssh -X kds124@flyweight.cs.rutgers.edu'
 alias eden='ssh kds124@eden.rutgers.edu'
 
 # Start up programs with a GUI in the background
