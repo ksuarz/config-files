@@ -1,10 +1,11 @@
 # Swap files and temporary files
 *~
-*.swp
+*.sw[op]
 
 # Backups
 backups/
 
-# Miscellaneous Vim files
+# Miscellaneous Vim files and extensions
 .netrwhist
-.vim/autoload/
+vim/autoload/
+vim/bundle/

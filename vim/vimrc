@@ -78,12 +78,25 @@ function! ExpandTabs()
     endtry
 endfunction
 
-" Inserts a Markdown header line on the current line based on the line above.
+" Inserts a Markdown header line on the current line based on the line above
+" with some hacky substitution magic.
 function! InsertLine(char)
     let l:x=line('.')
     if l:x > 1
         let l:length=strlen(getline(l:x - 1))
-        .s/^.*$/\=repeat(a:char, l:length)/g        
+        .s/^.*$/\=repeat(a:char, l:length)/g
+    else
+        call Talk("Can't insert a line here.")
+    endif
+endfunction
+
+" Creates an automatic C header file from a template.
+function! NewHeaderFile()
+    if filereadable(glob('~/.vim/templates/template.h'))
+        read ~/.vim/templates/template.h
+        let l:headername=toupper(fnamemodify(@%, ':t:r'))
+        %s/$NAME/\=l:headername/ge
+        normal ggdd3G
     endif
 endfunction
 
@@ -261,6 +274,7 @@ if glob('~/.vim/templates/') != ''
     augroup super_templates
         autocmd!
         autocmd BufNewFile *.cc silent! exe '0r '.s:template.'cpp'
+        autocmd BufNewFile *.h silent! call NewHeaderFile()
         autocmd BufNewFile *.htm silent! exe '0r '.s:template.'html'
         autocmd BufNewFile *.java silent! call NewJavaFile()
         autocmd BufNewFile *.mkd,*.md silent! call NewMarkdownFile()
@@ -285,7 +299,7 @@ if filereadable(glob('~/.vim/autoload/pathogen.vim'))
     execute pathogen#infect()
 endif
 
-" Command line completion
+" Wild menu settings
 set wildmenu
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
 

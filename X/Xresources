@@ -24,7 +24,7 @@ URxvt.colorUL: #86a2b0
 
 ! Transparency
 URxvt.depth: 32
-URxvt.background: rgba:0000/0000/0200/c800
+URxvt.background: rgba:0000/0000/0200/e800
 URxvt.foreground: #dedede
 
 ! Fonts
