@@ -22,8 +22,12 @@ compton ~/.config/compton.conf &
 (sleep 1s && xscreensaver -no-splash) &
 (sleep 1s && thunar --daemon) &
 (sleep 1s && numlockx) &
-(sleep 4s && conky) &
 
+# Start conky, but only if a ~/.conkyrc is present
+([[ -f ~/.conkyrc ]] && sleep 3s && conky) &
+
+# Start the eclim daemon
+(sleep 3s && eclimd) &
 
 ## Optional: enable clipboard and/or disable touchpad
 #(sleep 1s && parcellite) &

@@ -124,21 +124,6 @@ function! NewMarkdownFile()
     endif
 endfunction
 
-" Forces some PEP8 style guidelines. It will probably get annoying
-function! PEP8()
-    if &filetype == 'python'
-        match ErrorMsg '[^\\]"'
-        set textwidth=79
-        set colorcolumn=80
-        inoremap '''<CR> '''<CR>'''<ESC>ko
-        call Talk('PEP8 compliance activated.')
-    else
-        set colorcolumn=0
-        silent! iunmap '''<CR>
-        call Talk('Not a Python file. PEP8 deactivated.')
-    endif
-endfunction
-
 " Gives a random color scheme based on the time and the background.
 function! RandomColorScheme()
     if glob('~/.vim/colors') != ''
@@ -255,7 +240,6 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
-    autocmd BufRead,BufNewFile *.py silent call PEP8()
     autocmd BufRead,BufNewFile *.txt silent call WrapMode('on')
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
 augroup end
