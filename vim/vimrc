@@ -12,26 +12,26 @@ let g:tex_flavor="latex"        " For vim-latexsuite
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Toggles curly braceutocompletion.
+" Toggles curly brace autocompletion.
 function! AutocompleteBraces()
-    if maparg('{<CR>', 'i') == ''
+    if maparg("{<CR>", "i") == ""
         inoremap {  {}<LEFT>
         inoremap {{ {
         inoremap {<CR>  {<CR>}<ESC>ko
         inoremap {} {}
-        call Talk('Brace completion turned on.')
+        call Talk("Brace completion turned on.")
     else
         silent! iunmap {
         silent! iunmap {{
         silent! iunmap {<CR>
         silent! iunmap {}
-        call Talk('Brace completion turned off.')
+        call Talk("Brace completion turned off.")
     endif
 endfunction
 
 " Toggles parenthesis and bracket autocompletion
 function! AutocompleteParens()
-    if maparg('(', 'i') == ''
+    if maparg("(", "i") == ""
         inoremap [  []<LEFT>
         inoremap [[ [
         inoremap [<CR>  [<CR>]<ESC>ko
@@ -40,7 +40,7 @@ function! AutocompleteParens()
         inoremap (( (
         inoremap (<CR>  (<CR>)<ESC>ko
         inoremap () ()
-        call Talk('Bracket/parenthesis completion turned on.')
+        call Talk("Bracket/parenthesis completion turned on.")
     else
         silent! iunmap [
         silent! iunmap [[
@@ -50,15 +50,15 @@ function! AutocompleteParens()
         silent! iunmap ((
         silent! iunmap (<CR>
         silent! iunmap ()
-        call Talk('Bracket/parenthesis completion turned off.')
+        call Talk("Bracket/parenthesis completion turned off.")
     endif
 endfunction
 
 " Controls whether or not we say something for custom functions.
 function! BeQuiet()
-    if exists('g:is_silent') && g:is_silent != 1
+    if exists("g:is_silent") && g:is_silent != 1
         let g:is_silent=1
-        echomsg 'Shutting up now.'
+        echomsg "Shutting up now."
     endif
 endfunction
 
@@ -72,16 +72,16 @@ endfunction
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     try
-        %s/\t/\=repeat(' ', g:tab_width)/g
+        %s/\t/\=repeat(" ", g:tab_width)/g
     catch E486
-        call Talk('No tabs to expand.')
+        call Talk("No tabs to expand.")
     endtry
 endfunction
 
 " Inserts a Markdown header line on the current line based on the line above
 " with some hacky substitution magic.
 function! InsertLine(char)
-    let l:x=line('.')
+    let l:x=line(".")
     if l:x > 1
         let l:length=strlen(getline(l:x - 1))
         .s/^.*$/\=repeat(a:char, l:length)/g
@@ -90,11 +90,30 @@ function! InsertLine(char)
     endif
 endfunction
 
+" Creates a new C file, either from template or based on a header file.
+function! NewCFile()
+    let l:headerfile=fnamemodify(@%, ":t:r").".h"
+    if filereadable(l:headerfile)
+        " Use the existing header file
+        exec "read ".l:headerfile
+        %s/^#.*$//ge
+        %s/\n\n\n//ge
+        %s/);/) {\r    \/\/ TODO\r}/ge
+        normal ggO
+        exec "normal i#include \"".l:headerfile."\""
+
+    elseif filereadable(glob("~/.vim/templates/template.c"))
+        " Make it from template
+        read ~/.vim/templates/template.c
+        normal ggdd5G
+    endif
+endfunction
+
 " Creates an automatic C header file from a template.
 function! NewHeaderFile()
-    if filereadable(glob('~/.vim/templates/template.h'))
+    if filereadable(glob("~/.vim/templates/template.h"))
         read ~/.vim/templates/template.h
-        let l:headername=toupper(fnamemodify(@%, ':t:r'))
+        let l:headername=toupper(fnamemodify(@%, ":t:r"))
         %s/$NAME/\=l:headername/ge
         normal ggdd3G
     endif
@@ -102,22 +121,22 @@ endfunction
 
 " Does some cool stuff when you open a new Java file.
 function! NewJavaFile()
-    if filereadable(glob('~/.vim/templates/template.java'))
+    if filereadable(glob("~/.vim/templates/template.java"))
         read ~/.vim/templates/template.java
-        let l:classname=fnamemodify(@%, ':t:r')
+        let l:classname=fnamemodify(@%, ":t:r")
         %s/$CLASSNAME/\=l:classname/ge
         %s/$USERNAME/\=$USER/ge
         normal ggdd6G
     endif
 endfunction
 
-" More cool stuff for Markdown and readme files.
+" More cool stuff for Markdown and README files.
 function! NewMarkdownFile()
-    if filereadable(glob('~/.vim/templates/template.md'))
+    if filereadable(glob("~/.vim/templates/template.md"))
         read ~/.vim/templates/template.md
-        let l:flags=(fnamemodify(@%, ':t:r') =~? 'README' ? ':p:h:t' : ':t:r')
+        let l:flags=(fnamemodify(@%, ":t:r") =~? "README" ? ":p:h:t" : ":t:r")
         let l:title=fnamemodify(@%, l:flags)
-        let l:header=repeat('=', len(l:title))
+        let l:header=repeat("=", len(l:title))
         %s/$TITLE/\=l:title/ge
         %s/$HEADER/\=l:header/ge
         normal ggddG
@@ -126,13 +145,12 @@ endfunction
 
 " Gives a random color scheme based on the time and the background.
 function! RandomColorScheme()
-    if glob('~/.vim/colors') != ''
-        let l:colors= ['kilo', 'whiteout', 'noctu']
-        let l:filename=l:colors[strftime('%S') % len(l:colors)]
-
+    if glob("~/.vim/colors") != ""
+        let l:colors= ["kilo", "whiteout", "noctu"]
+        let l:filename=l:colors[strftime("%S") % len(l:colors)]
         highlight clear
         syntax reset
-        silent! execute 'source ~/.vim/colors/'.l:filename.'.vim'
+        silent! execute "source ~/.vim/colors/".l:filename.".vim"
     endif
 endfunction
 
@@ -147,9 +165,9 @@ endfunction
 function! ShowLongLines()
     try
         /\%>80v.\+
-        match ErrorMsg '\%>80v.\+'
+        match ErrorMsg "\%>80v.\+"
     catch E486
-        call Talk('All lines are within 80 characters.')
+        call Talk("All lines are within 80 characters.")
     endtry
 endfunction
 
@@ -157,34 +175,34 @@ endfunction
 function! ShowTrailingWhitespace()
     try
         /\s\+$
-        match ErrorMsg '\s\+$'
+        match ErrorMsg "\s\+$"
     catch E486
-        call Talk('No trailing whitespace.')
+        call Talk("No trailing whitespace.")
     endtry
 endfunction
 
 " Utility method for printing info back.
 function! Talk(message)
-    if exists('g:is_silent') && g:is_silent == 0
+    if exists("g:is_silent") && g:is_silent == 0
         echomsg a:message
     endif
 endfunction
 
 " Turns on and off intuitive j/k movement when in wrap mode.
 function! WrapMode(opt)
-    if a:opt == 'off' || a:opt == '0'
+    if a:opt == "off" || a:opt == "0"
         let &wrap=0
         silent! unmap j
         silent! unmap k
-        call Talk('Wrap mode turned off.')
-    elseif a:opt == 'on' || a:opt == '1'
+        call Talk("Wrap mode turned off.")
+    elseif a:opt == "on" || a:opt == "1"
         let &wrap=1
         let &linebreak=1
         noremap j gj
         noremap k gk
-        call Talk('Smart wrap mode turned on.')
+        call Talk("Smart wrap mode turned on.")
     else
-        call Talk('Argument must be either "off" or "on".')
+        call Talk("Argument must be either \"off\" or \"on\".")
     endif
 endfunction
 
@@ -192,7 +210,7 @@ endfunction
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets the value of <LEADER> (default is the backslash)
-let mapleader=','
+let mapleader=","
 
 " Common mappings
 map Y y$
@@ -216,7 +234,7 @@ nmap <LEADER>l :call ShowLongLines()<CR>
 nmap <LEADER>w :call ShowTrailingWhitespace()<CR>
 
 " Adding, deleting, and moving lines around
-nmap <LEADER>- :call InsertLine('-')<CR>
+nmap <LEADER>- :call InsertLine("-")<CR>
 nmap <LEADER>j :move +1<CR>
 nmap <LEADER>k :move -2<CR>
 nmap <LEADER>c C<ESC>
@@ -240,30 +258,31 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
-    autocmd BufRead,BufNewFile *.txt silent call WrapMode('on')
+    autocmd BufRead,BufNewFile *.txt silent call WrapMode("on")
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
 augroup end
 
-" Create these files from templates. (Note the 'r' stands for 'read')
-let s:template='~/.vim/templates/template.'
-if glob('~/.vim/templates/') != ''
+" Create these files from templates.
+let s:template="~/.vim/templates/template."
+if glob("~/.vim/templates/") != ""
     " These follow a simple pattern we can use to grab the template
     augroup simple_templates
         autocmd!
-        autocmd BufNewFile *.c,*.cpp,*.html,*.ltx,*.ino,*.py,*.sh,*.spec
-                    \ silent! exe '0r '.s:template.fnamemodify(@%, ':e')
+        autocmd BufNewFile *.cpp,*.html,*.ltx,*.ino,*.py,*.sh,*.spec
+                    \ silent! exe "0r ".s:template.fnamemodify(@%, ":e")
     augroup end
 
     " These files have a different file extension or call a function
     augroup super_templates
         autocmd!
-        autocmd BufNewFile *.cc silent! exe '0r '.s:template.'cpp'
+        autocmd BufNewFile *.c silent! call NewCFile()
+        autocmd BufNewFile *.cc silent! exe "0r ".s:template."cpp"
         autocmd BufNewFile *.h silent! call NewHeaderFile()
-        autocmd BufNewFile *.htm silent! exe '0r '.s:template.'html'
+        autocmd BufNewFile *.htm silent! exe "0r ".s:template."html"
         autocmd BufNewFile *.java silent! call NewJavaFile()
         autocmd BufNewFile *.mkd,*.md silent! call NewMarkdownFile()
         autocmd BufNewFile README,Readme silent! call NewMarkdownFile()
-        autocmd BufNewFile [Mm]akefile* silent! exe '0r '.s:template.'make'
+        autocmd BufNewFile [Mm]akefile* silent! exe "0r ".s:template."make"
     augroup end
 endif
 
@@ -279,7 +298,7 @@ else
 endif
 
 " Pathogen, from https://github.com/tpope/vim-pathogen
-if filereadable(glob('~/.vim/autoload/pathogen.vim'))
+if filereadable(glob("~/.vim/autoload/pathogen.vim"))
     execute pathogen#infect()
 endif
 
@@ -293,10 +312,10 @@ set smarttab                    " Intelligent tab insertion/deletion
 call SetTab(g:tab_width)        " By default, four spaces to a tab
 
 " Turn on our completions
-if maparg('{<CR>', 'i') == ''
+if maparg("{<CR>", "i") == ""
     silent call AutocompleteBraces()
 endif
-if maparg('(', 'i') == ''
+if maparg("(", "i") == ""
     silent call AutocompleteParens()
 endif
 
@@ -306,7 +325,7 @@ filetype plugin on              " Allow filetype plugins
 set autoindent
 set autoread                    " Reload the file if changed from outside
 set backspace=indent,eol,start  " Backspace works intuitively
-set confirm                     " Confirm quit if dirty and :q is used
+set confirm                     " Confirm quit if dirty
 set cursorline                  " Highlight current line
 set hidden                      " Hide buffers after they're abandoned
 set hlsearch                    " Search highlighting
@@ -315,6 +334,7 @@ set mouse=a                     " Use the mouse in all modes
 set nofoldenable                " Open folds; use `set foldenable` to close
 set nosmartindent               " Smart indent is annoying when typing `#`
 set nostartofline               " Movements don't auto-jump to line start
+set noswapfile                  " Goodbye .swp
 set nowrap                      " No line wrapping
 set number                      " Show line numbers
 set ruler

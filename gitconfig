@@ -16,6 +16,10 @@
 	
 [url "git@github.com:"]
         insteadOf = "github:"
+        insteadOf = "gh:"
     
 [url "git@gist.github.com:"]
         insteadOf = "gist:"
+
+[push]
+	default = current

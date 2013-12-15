@@ -44,4 +44,6 @@ fi
 # Custom prompt
 if [ -f ~/.bash_prompt ]; then
     . ~/.bash_prompt
+else
+    export PS1='\n[ \u@\h in \w ]\n\$ '
 fi
