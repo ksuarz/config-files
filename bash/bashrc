@@ -9,7 +9,11 @@ export HISTFILESIZE=20000
 export HISTSIZE=10000
 
 # Terminal settings
-export TERM='xterm-256color'
+if which urxvt > /dev/null 2>&1 ; then
+    export TERM='rxvt-unicode-256color'
+else
+    export TERM='xterm-256color'
+fi
 
 # Autocompletion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
