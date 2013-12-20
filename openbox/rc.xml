@@ -355,7 +355,7 @@
             <action name="ToggleMaximize"/>
         </keybind>
         <keybind key="W-N">
-            <action name="Minimize"/>
+            <action name="Iconify"/>
         </keybind>
         <keybind key="A-Escape">
             <action name="Lower"/>
