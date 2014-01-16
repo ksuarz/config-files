@@ -1,7 +1,9 @@
 # bashrc: executed by bash for non-login shells
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+if [ -z "$PS1" ]; then
+    return
+fi
 
 # History settings
 export HISTCONTROL=ignoreboth
