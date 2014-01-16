@@ -3,7 +3,7 @@
 # Color support for ls and grep
 if [ -x /usr/bin/dircolors ]; then
     if [ -r ~/.dircolors ]; then
-        eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+        eval '$(dircolors -b ~/.dircolors)' || eval '$(dircolors -b)'
     fi
 
     alias ls='ls --color=auto --group-directories-first'
@@ -32,12 +32,15 @@ alias eden='ssh kds124@eden.rutgers.edu'
 alias chrome='google-chrome > /dev/null 2>&1 &'
 alias incognito='google-chrome --incognito > /dev/null 2>&1 &'
 
-# View ports in use
-alias ports='netstat'
-
 # Handy opener for files
 if which xdg-open > /dev/null 2>&1 ; then
     alias open='xdg-open'
 elif which gvfs-open > /dev/null 2>&1 ; then
     alias open='gvfs-open'
+fi
+
+# Set the desktop background
+if which feh > /dev/null 2>&1 && test -d ~/Pictures ; then
+    alias setbg='feh --bg-center --no-fehbg'
+    alias randombg='setbg ~/Pictures/$(ls ~/Pictures | sort -R | tail -n1)'
 fi
