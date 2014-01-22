@@ -1,5 +1,7 @@
 # Makefile - for quick installation of configuration files
 
+.PHONY : openbox install clean
+
 LNFLAGS = -fsn
 RMFLAGS = -f
 
