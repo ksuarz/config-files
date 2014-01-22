@@ -11,7 +11,7 @@
 nitrogen --restore &
 
 ## Compositing
-compton ~/.config/compton.conf &
+compton &
 
 ## Panel
 (sleep 1s && tint2) &
@@ -23,12 +23,12 @@ compton ~/.config/compton.conf &
 (sleep 1s && thunar --daemon) &
 (sleep 1s && numlockx) &
 
-# Start conky, but only if a ~/.conkyrc is present
+## Start conky, but only if a ~/.conkyrc is present
 ([[ -f ~/.conkyrc ]] && sleep 3s && conky) &
 
-# Start the eclim daemon
-(sleep 3s && eclimd) &
+## Start eclimd
+#(sleep 3s && eclimd > /dev/null 2>&1) &
 
 ## Optional: enable clipboard and/or disable touchpad
 #(sleep 1s && parcellite) &
-#/usr/bin/synclient TouchpadOff=1 &
+#/usr/bin/synclient TouchpadOff=2 &

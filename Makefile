@@ -21,8 +21,8 @@ install:
 
 # Installs OpenBox settings
 openbox:
-	rm $(RMFLAGS) $(HOME)/.config/openbox/rc.xml
-	ln $(LNFLAGS) $(PWD)/openbox/rc.xml $(HOME)/.config/openbox/rc.xml
+	cp -f $(PWD)/openbox/rc.xml $(HOME)/.config/openbox/rc.xml
+	cp -f $(PWD)/openbox/autostart $(HOME)/.config/openbox/autostart
 
 # Change up how Conky looks on-the-fly
 conky-clock:
@@ -39,11 +39,6 @@ conky-blank:
 
 conky-goaway: conky-blank
 
-# Clean up swap files in the working directory
-clean-swap:
-	rm $(RMFLAGS) .*.swp
-	rm $(RMFLAGS) *~
-
 # Remove all traces of configuration files
 clean:
 	rm $(RMFLAGS) $(HOME)/.Xresources
@@ -51,7 +46,6 @@ clean:
 	rm $(RMFLAGS) $(HOME)/.bash_profile
 	rm $(RMFLAGS) $(HOME)/.bash_prompt
 	rm $(RMFLAGS) $(HOME)/.bashrc
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
 	rm $(RMFLAGS) $(HOME)/.gitconfig
 	rm $(RMFLAGS) $(HOME)/.gvimrc
 	rm $(RMFLAGS) $(HOME)/.tmux.conf
@@ -65,4 +59,3 @@ mostlyclean:
 	rm $(RMFLAGS) $(HOME)/.gitconfig
 	rm $(RMFLAGS) $(HOME)/.gvimrc
 	rm $(RMFLAGS) $(HOME)/.vim
-	rm $(RMFLAGS) $(HOME)/.config/tint2/tint2rc
