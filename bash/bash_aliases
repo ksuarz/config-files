@@ -21,8 +21,16 @@ alias l.='ls -ld .*'
 alias lll='ls -la | less'
 
 # Moving around
-alias ..='cd .. && ls -l'
 alias home='cd && ls -l'
+up() {
+    if [ $# -eq 0 ]; then
+        cd ..
+    elif [ $# -eq 1 ]; then
+        for i in $(seq 1 $1); do
+            cd ..
+        done
+    fi
+}
 
 # Connecting to places
 alias fly='ssh -X kds124@flyweight.cs.rutgers.edu'
@@ -44,3 +52,5 @@ if which feh > /dev/null 2>&1 && test -d ~/Pictures ; then
     alias setbg='feh --bg-fill --no-fehbg'
     alias randombg='setbg ~/Pictures/$(ls ~/Pictures | sort -R | tail -n1)'
 fi
+
+#" vim: filetype=sh

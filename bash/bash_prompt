@@ -124,3 +124,5 @@ function load_prompt() {
 
 # Finally, change the prompt when this is loaded
 load_prompt
+
+#" vim: filetype=sh
