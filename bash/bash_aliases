@@ -41,6 +41,6 @@ fi
 
 # Set the desktop background
 if which feh > /dev/null 2>&1 && test -d ~/Pictures ; then
-    alias setbg='feh --bg-center --no-fehbg'
+    alias setbg='feh --bg-fill --no-fehbg'
     alias randombg='setbg ~/Pictures/$(ls ~/Pictures | sort -R | tail -n1)'
 fi
