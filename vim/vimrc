@@ -291,11 +291,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-if "kilo" ==? substitute(g:host, "\n", "", "g")
-    colorscheme kilo
-else
-    colorscheme sixteen
-endif
+colorscheme ksuarz
 
 " Pathogen, from https://github.com/tpope/vim-pathogen
 if filereadable(glob("~/.vim/autoload/pathogen.vim"))

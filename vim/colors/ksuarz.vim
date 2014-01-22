@@ -1,5 +1,5 @@
 " ----------------------------------------------------------------------------
-" kilo.vim - A nicer color scheme for 256-color terminals.
+" ksuarz.vim - A nicer color scheme for 256-color terminals.
 " ----------------------------------------------------------------------------
 
 let colors_name="kilo"
@@ -67,5 +67,3 @@ highlight Question term=standout ctermfg=Green
 highlight Search term=reverse ctermbg=White ctermfg=Black
 highlight Visual term=reverse cterm=bold ctermbg=DarkBlue
 highlight VisualNOS term=underline,bold cterm=underline,bold
-
-" vim: sw=2

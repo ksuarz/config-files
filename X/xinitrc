@@ -22,7 +22,6 @@ fi
 sed 's/_user_/'$(whoami)'/' ~/.config/obmenu-generator/schema.pl -i
 sed 's/_user_/'$(whoami)'/' ~/.config/obmenu-generator/config.pl -i
 
-
 ## Load the default window manager session
 DEFAULTSESSION=openbox-session
 case "$1" in

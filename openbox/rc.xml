@@ -54,7 +54,7 @@
     <!-- Theme -->
     <theme>
         <!-- The name of the theme to use -->
-        <name>Shiki-Nouveau-Wisedust</name>
+        <name>Shiki-Nouveau-Winedust</name>
 
         <!-- Title Layout:
             available characters are NDSLIMC, each can occur at most once.
@@ -99,7 +99,7 @@
         </font>
         <font place="MenuItem">
             <name>sans</name>
-            <size>9</size>
+            <size>8</size>
             <!-- font size in points -->
             <weight>normal</weight>
             <!-- 'bold' or 'normal' -->
