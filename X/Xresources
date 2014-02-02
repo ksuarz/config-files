@@ -5,7 +5,7 @@
 URxvt*termName: rxvt-unicode-256color
 
 ! Following links
-URxvt.urlLauncher: /usr/bin/google-chrome
+URxvt.urlLauncher: /usr/bin/chromium
 URxvt.matcher.button: 1
 
 ! Scrolling options and cursor style

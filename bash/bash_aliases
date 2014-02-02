@@ -2,9 +2,7 @@
 
 # Color support for ls and grep
 if [ -x /usr/bin/dircolors ]; then
-    if [ -r ~/.dircolors ]; then
-        eval '$(dircolors -b ~/.dircolors)' || eval '$(dircolors -b)'
-    fi
+    eval $(dircolors -b)
 
     alias ls='ls --color=auto --group-directories-first'
     alias grep='grep --color=auto'
@@ -36,19 +34,24 @@ up() {
 alias fly='ssh -X kds124@flyweight.cs.rutgers.edu'
 alias eden='ssh kds124@eden.rutgers.edu'
 
-# Start up programs with a GUI in the background
-alias chrome='google-chrome > /dev/null 2>&1 &'
-alias incognito='google-chrome --incognito > /dev/null 2>&1 &'
+# Start Chromium
+if [ -x /usr/bin/google-chrome ]; then
+    alias chrome='google-chrome > /dev/null 2>&1 &'
+    alias incognito='google-chrome --incognito > /dev/null 2>&1 &'
+elif [ -x /usr/bin/chromium ]; then
+    alias chrome='chromium > /dev/null 2>&1 &'
+    alias incognito='chromium --incognito > /dev/null 2>&1 &'
+fi
 
 # Handy opener for files
-if which xdg-open > /dev/null 2>&1 ; then
+if [ -x /usr/bin/xdg-open ]; then
     alias open='xdg-open'
-elif which gvfs-open > /dev/null 2>&1 ; then
+elif [ -x /usr/bin/gvfs-open ]; then
     alias open='gvfs-open'
 fi
 
 # Set the desktop background
-if which feh > /dev/null 2>&1 && test -d ~/Pictures ; then
+if [ -x /usr/bin/feh ] && [ -d ~/Pictures ]; then
     alias setbg='feh --bg-fill --no-fehbg'
     alias randombg='setbg ~/Pictures/$(ls ~/Pictures | sort -R | tail -n1)'
 fi
