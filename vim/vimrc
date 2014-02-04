@@ -291,7 +291,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-colorscheme ksuarz
+colorscheme simple
 
 " Pathogen, from https://github.com/tpope/vim-pathogen
 if filereadable(glob("~/.vim/autoload/pathogen.vim"))

@@ -1,8 +1,8 @@
 " ----------------------------------------------------------------------------
-" ksuarz.vim - A nicer color scheme for 256-color terminals.
+" simple.vim - A simple color scheme for 256-color terminals.
 " ----------------------------------------------------------------------------
 
-let colors_name="kilo"
+let colors_name="simple"
 
 " Use a dark background
 set background=dark

@@ -46,7 +46,7 @@ highlight WildMenu NONE term=standout ctermbg=Black ctermfg=White
 " Cursor, line, and columns
 highlight ColorColumn NONE ctermbg=DarkGrey
 highlight CursorColumn NONE cterm=none ctermfg=Black ctermbg=LightGrey
-highlight CursorLine term=underline cterm=none ctermfg=Black ctermbg=LightGrey
+highlight CursorLine NONE
 
 " Errors, warnings, and stand-out text
 highlight ErrorMsg NONE term=standout ctermbg=Red ctermfg=White
