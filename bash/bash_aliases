@@ -10,6 +10,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# Allows which to detect aliases
+if [ -x /usr/bin/which ]; then
+    alias which="alias | which --read-alias"
+fi
+
 # Listing directories
 alias ll='ls -l'
 alias la='ls -lA'
