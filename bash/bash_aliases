@@ -61,4 +61,9 @@ if [ -x /usr/bin/feh ] && [ -d ~/Pictures ]; then
     alias randombg='setbg ~/Pictures/$(ls ~/Pictures | sort -R | tail -n1)'
 fi
 
+# Compile LaTeX files non-interactively
+if [ -x /usr/bin/pdflatex ]; then
+    alias pdflatex='pdflatex -interaction nonstopmode -file-line-error'
+fi
+
 #" vim: filetype=sh
