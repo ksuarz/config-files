@@ -5,6 +5,8 @@ if [ -x /usr/bin/dircolors ]; then
     eval $(dircolors -b)
 
     alias ls='ls --color=auto --group-directories-first'
+    alias lll='ls -la --color=always | less -r'
+
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -21,10 +23,8 @@ alias la='ls -lA'
 alias lh='ls -Aoh'
 alias lt='ls -lAtr'
 alias l.='ls -ld .*'
-alias lll='ls -la | less'
 
 # Moving around
-alias home='cd && ls -l'
 up() {
     if [ $# -eq 0 ]; then
         cd ..

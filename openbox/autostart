@@ -1,11 +1,4 @@
-#
-# Placed in /home/[user account]/.config/openbox/autostart as local user template
-# Otherwise, can be placed in /etc/xdg/openbox/autostart as a global template
-# Note: applications such as the network manager (nm-app) have been placed
-# in /etc/xdg/autostart as global items
-#
-# Written by the Manjaro Team
-#
+# autostart - executed on starting OpenBox
 
 ## Background
 nitrogen --restore &
@@ -17,7 +10,6 @@ compton &
 (sleep 1s && tint2) &
 
 ## Startup
-# Run Thunar with `--daemon` to enable auto-mounting of removable media:
 (sleep 1s && pnmixer) &
 (sleep 1s && xscreensaver -no-splash) &
 (sleep 1s && thunar --daemon) &
