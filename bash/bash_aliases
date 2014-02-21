@@ -29,7 +29,7 @@ up() {
     if [ $# -eq 0 ]; then
         cd ..
     elif [ $# -eq 1 ]; then
-        for i in $(seq 1 $1); do
+        for ((i=0; i<$1; i++)); do
             cd ..
         done
     fi
