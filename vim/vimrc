@@ -268,7 +268,7 @@ if glob("~/.vim/templates/") != ""
     " These follow a simple pattern we can use to grab the template
     augroup simple_templates
         autocmd!
-        autocmd BufNewFile *.cpp,*.html,*.ltx,*.ino,*.py,*.sh,*.spec
+        autocmd BufNewFile *.cpp,*.html,*.ltx,*.ino,*.py,*.sh,*.spec,*.php
                     \ silent! exe "0r ".s:template.fnamemodify(@%, ":e")
     augroup end
 
