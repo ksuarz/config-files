@@ -18,11 +18,11 @@ if [ -x /usr/bin/which ]; then
 fi
 
 # Listing directories
+alias l.='ls -ld .*'
 alias ll='ls -l'
 alias la='ls -lA'
 alias lh='ls -Aoh'
-alias lt='ls -lAtr'
-alias l.='ls -ld .*'
+alias lt='command ls -lAtr'
 
 # Moving around
 up() {
