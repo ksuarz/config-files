@@ -22,7 +22,7 @@ alias l.='ls -ld .*'
 alias ll='ls -l'
 alias la='ls -lA'
 alias lh='ls -Aoh'
-alias lt='command ls -lAtr'
+alias lt='command ls --color=auto -lAtr'
 
 # Moving around
 up() {
