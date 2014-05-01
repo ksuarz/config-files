@@ -13,22 +13,12 @@ export HISTSIZE=10000
 # Terminal settings
 export TERM='xterm-256color'
 
-# Autocompletion
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    source /etc/bash_completion
-fi
-
-# More autocompletion (may conflict with /etc/bash_completion)
-complete -cf man
-complete -cf sudo
-
 # Other shell options
 shopt -s autocd             # Enter directories given as commands
 shopt -s cdspell            # Automatically correct directory name typos
 shopt -s checkwinsize       # Check the size of the window after each command
 shopt -s cmdhist            # Save all lines of multiple-line command together
 shopt -s dotglob            # Expansion includes files starting with .
-shopt -s expand_aliases
 shopt -s extglob            # Use extended pattern matching
 shopt -s histappend         # Append to history instead of overwriting it
 shopt -s hostcomplete       # Attempt hostname completion
@@ -45,6 +35,16 @@ if [ -f ~/.bash_prompt ]; then
     source ~/.bash_prompt
 else
     export PS1='\n[ \u@\h in \w ]\n\$ '
+fi
+
+# Custom programmable completions
+if [ -f ~/.bash_completions ]; then
+    source ~/.bash_completions
+fi
+
+# Standard bash autocompletion
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    source /etc/bash_completion
 fi
 
 # Get information from NextBus

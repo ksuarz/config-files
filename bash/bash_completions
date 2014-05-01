@@ -1,0 +1,13 @@
+# bash_completions: custom programmable completions for bash
+
+# pdflatex only compiles TeX files
+if [ -x /usr/bin/pdflatex ]; then
+    complete -f -X "!*.tex" pdflatex
+fi
+
+# Read PDF files only
+if [ -x /usr/bin/evince ]; then
+    complete -f -X "!*.pdf" evince
+fi
+
+#" vim: filetype=sh
