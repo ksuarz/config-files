@@ -3,11 +3,9 @@
 " Kyle Suarez
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
-set grepprg=grep\ -nH\ $*n      " For vim-latexsuite
 let g:host=system("hostname")   " Get the name of the current host
 let g:is_silent=0               " Controls whether some functions show output
 let g:tab_width=4               " Preferred tab width
-let g:tex_flavor="latex"        " For vim-latexsuite
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
@@ -90,6 +88,14 @@ function! InsertLine(char)
     endif
 endfunction
 
+function! InsertTex()
+    let l:line=getline(line("."))
+    if strlen(l:line) > 0
+        let l:block="\\begin{".l:line."}\r\\end{".l:line."}"
+        .s/^.*$/\=l:block/g
+    endif
+endfunction
+
 " Creates a new C file, either from template or based on a header file.
 function! NewCFile()
     let l:headerfile=fnamemodify(@%, ":t:r").".h"
@@ -128,6 +134,13 @@ function! NewJavaFile()
         %s/$USERNAME/\=$USER/ge
         normal ggdd6G
     endif
+endfunction
+
+" Custom mappings for LaTeX files
+function! NewTexFile()
+    imapclear
+    inoremap \[<CR> \[<CR>\]<ESC>ko
+    inoremap <F5> <ESC>:call InsertTex()<CR>kkO
 endfunction
 
 " More cool stuff for Markdown and README files.
@@ -260,6 +273,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
     autocmd BufRead,BufNewFile *.txt silent call WrapMode("on")
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
+    autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
 augroup end
 
 " Create these files from templates.

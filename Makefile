@@ -37,7 +37,6 @@ conky-system:
 
 conky-blank:
 	rm $(RMFLAGS) $(HOME)/.conkyrc
-	ln $(LNFLAGS) $(PWD)/conky/conkyrc.blank $(HOME)/.conkyrc
 
 conky-goaway: conky-blank
 
