@@ -12,6 +12,7 @@ install:
 	ln $(LNFLAGS) $(PWD)/X/Xresources $(HOME)/.Xresources
 	ln $(LNFLAGS) $(PWD)/X/xinitrc $(HOME)/.xinitrc
 	ln $(LNFLAGS) $(PWD)/bash/bash_aliases $(HOME)/.bash_aliases
+	ln $(LNFLAGS) $(PWD)/bash/bash_completions $(HOME)/.bash_completions
 	ln $(LNFLAGS) $(PWD)/bash/bash_profile $(HOME)/.bash_profile
 	ln $(LNFLAGS) $(PWD)/bash/bash_prompt $(HOME)/.bash_prompt
 	ln $(LNFLAGS) $(PWD)/bash/bashrc $(HOME)/.bashrc
