@@ -140,6 +140,7 @@ endfunction
 function! NewTexFile()
     imapclear
     inoremap \[<CR> \[<CR>\]<ESC>ko
+    inoremap " ``''<ESC>hi
     inoremap <F5> <ESC>:call InsertTex()<CR>kkO
 endfunction
 
@@ -267,6 +268,7 @@ vnoremap <LEADER>2x :normal 02x<CR>
 augroup detect_filetype
     autocmd!
     autocmd BufRead,BufNewFile *.c compiler gcc
+    autocmd BufRead,BufNewFile *.sls silent call SetTab(2)
     autocmd BufRead,BufNewFile *.html silent call BeNarrow()
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
