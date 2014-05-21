@@ -52,13 +52,13 @@ fi
 if [ -x /usr/bin/xdg-open ]; then
     open() {
         if [ $# -gt 0 ]; then
-            xdg-open $1 > /dev/null 2>&1
+            xdg-open $1 > /dev/null 2>&1 &
         fi
     }
 elif [ -x /usr/bin/gvfs-open ]; then
     open() {
         if [ $# -gt 0 ]; then
-            gvfs-open $1 > /dev/null 2>&1
+            gvfs-open $1 > /dev/null 2>&1 &
         fi
     }
 fi

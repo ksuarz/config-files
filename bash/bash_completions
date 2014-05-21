@@ -2,12 +2,17 @@
 
 # pdflatex only compiles TeX files
 if [ -x /usr/bin/pdflatex ]; then
-    complete -f -X "!*.tex" pdflatex
+    complete -f -o dirnames -X "!*.tex" pdflatex
 fi
 
 # Read PDF files only
 if [ -x /usr/bin/evince ]; then
-    complete -f -X "!*.pdf" evince
+    view() {
+        if [ $# -gt 0 ]; then
+            evince $@ > /dev/null 2>&1 &
+        fi
+    }
+    complete -f -o dirnames -X "!*.pdf" view
 fi
 
 #" vim: filetype=sh
