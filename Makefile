@@ -21,6 +21,7 @@ install:
 	ln $(LNFLAGS) $(PWD)/vim/ $(HOME)/.vim
 	ln $(LNFLAGS) $(PWD)/vim/gvimrc $(HOME)/.gvimrc
 	ln $(LNFLAGS) $(PWD)/vim/vimrc $(HOME)/.vimrc
+	ln $(LNFLAGS) $(PWD)/hgrc $(HOME)/.hgrc
 
 # Installs OpenBox settings
 openbox:
@@ -50,6 +51,7 @@ clean:
 	rm $(RMFLAGS) $(HOME)/.bashrc
 	rm $(RMFLAGS) $(HOME)/.gitconfig
 	rm $(RMFLAGS) $(HOME)/.gvimrc
+	rm $(RMFLAGS) $(HOME)/.hgrc
 	rm $(RMFLAGS) $(HOME)/.tmux.conf
 	rm $(RMFLAGS) $(HOME)/.vim
 	rm $(RMFLAGS) $(HOME)/.vimrc
@@ -60,4 +62,5 @@ mostlyclean:
 	rm $(RMFLAGS) $(HOME)/.bash_prompt
 	rm $(RMFLAGS) $(HOME)/.gitconfig
 	rm $(RMFLAGS) $(HOME)/.gvimrc
+	rm $(RMFLAGS) $(HOME)/.hgrc
 	rm $(RMFLAGS) $(HOME)/.vim

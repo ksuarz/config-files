@@ -1,0 +1,9 @@
+[ui]
+username = Kyle Suarez <ksuarz@gmail.com>
+editor = vim
+
+[extensions]
+hgext.schemes=1
+
+[schemes]
+bb = ssh://hg@bitbucket.org:
