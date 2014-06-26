@@ -1,0 +1,6 @@
+[distutils]
+index-servers =
+    pypi-test
+
+[pypi-test]
+repository: https://testpypi.python.org/pypi
