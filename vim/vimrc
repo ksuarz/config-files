@@ -268,14 +268,14 @@ vnoremap <LEADER>2x :normal 02x<CR>
 augroup detect_filetype
     autocmd!
     autocmd BufRead,BufNewFile *.c compiler gcc
-    autocmd BufRead,BufNewFile *.sls silent call SetTab(2)
     autocmd BufRead,BufNewFile *.html silent call BeNarrow()
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+    autocmd BufRead,BufNewFile *.sls silent call SetTab(2)
+    autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
     autocmd BufRead,BufNewFile *.txt silent call WrapMode("on")
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
-    autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
 augroup end
 
 " Create these files from templates.
@@ -297,6 +297,7 @@ if glob("~/.vim/templates/") != ""
         autocmd BufNewFile *.htm silent! exe "0r ".s:template."html"
         autocmd BufNewFile *.java silent! call NewJavaFile()
         autocmd BufNewFile *.mkd,*.md silent! call NewMarkdownFile()
+        autocmd BufNewFile *.rst silent! call NewMarkdownFile()
         autocmd BufNewFile README,Readme silent! call NewMarkdownFile()
         autocmd BufNewFile [Mm]akefile* silent! exe "0r ".s:template."make"
     augroup end
@@ -353,6 +354,8 @@ set ruler
 set showcmd                     " Shows incomplete commands
 set smartcase                   " Case sensitive depending on search
 set spelllang=en_us             " Sets language if `set spell` is on
+set splitbelow                  " Horizontal split splits below
+set splitright                  " Vertical split splits right
 set t_Co=256                    " Use 256 colors
 set tabstop=8                   " For files tabbed by others
 set textwidth=80                " Stay within 80 characters
