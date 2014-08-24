@@ -6,20 +6,20 @@ nitrogen --restore &
 ## Compositing
 compton &
 
+## Screensaver
+xscreensaver -nosplash &
+
 ## Panel
 (sleep 1s && tint2) &
 
 ## Startup
+(sleep 1s && xrdb -load ~/.Xresources) &
 (sleep 1s && pnmixer) &
-(sleep 1s && xscreensaver -no-splash) &
 (sleep 1s && thunar --daemon) &
 (sleep 1s && numlockx) &
 
 ## Start conky, but only if a ~/.conkyrc is present
 ([[ -f ~/.conkyrc ]] && sleep 3s && conky) &
-
-## Start eclimd
-#(sleep 3s && eclimd > /dev/null 2>&1) &
 
 ## Optional: enable clipboard and/or disable touchpad
 #(sleep 1s && parcellite) &
