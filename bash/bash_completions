@@ -1,7 +1,7 @@
 # bash_completions: custom programmable completions for bash
 
 # pdflatex only compiles TeX files
-if [ -x /usr/bin/pdflatex ]; then
+if [ -x /usr/bin/pdflatex ] || [ -x /usr/texbin/pdflatex ]; then
     complete -f -o dirnames -X "!*.tex" pdflatex
 fi
 
@@ -10,6 +10,13 @@ if [ -x /usr/bin/evince ]; then
     view() {
         if [ $# -gt 0 ]; then
             evince $@ > /dev/null 2>&1 &
+        fi
+    }
+    complete -f -o dirnames -X "!*.pdf" view
+else
+    view() {
+        if [ $# -gt 0 ]; then
+            open $@
         fi
     }
     complete -f -o dirnames -X "!*.pdf" view
