@@ -4,11 +4,16 @@
 	
 [core]
         editor = vim
+        excludesfile = /Users/ksuarz/.gitignore_global
 	
 [alias]
+        # Show git aliases
         alias = "!git config -l | grep alias | cut -c 7-"
+
+        # Do an interactive rebase, squashing what hasn't been pushed
         squash = rebase --interactive --autosquash @{u}
-        undo = checkout --
+
+        # Remove a file from staging
         unstage = reset HEAD --
     	
 [color]
@@ -22,6 +27,7 @@
         insteadOf = "gist:"
 
 [push]
+        # By default, a push only pushes the current branch
 	default = current
 
-#" vim: filetype=conf
+#" vim: filetype=config
