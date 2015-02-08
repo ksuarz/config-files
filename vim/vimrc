@@ -60,13 +60,6 @@ function! BeQuiet()
     endif
 endfunction
 
-" Saves as much horizontal space as possible.
-function! BeNarrow()
-    let g:tab_width=2
-    set colorcolumn=80
-    call SetTab(g:tab_width)
-endfunction
-
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     try
@@ -157,17 +150,6 @@ function! NewMarkdownFile()
     endif
 endfunction
 
-" Gives a random color scheme based on the time and the background.
-function! RandomColorScheme()
-    if glob("~/.vim/colors") != ""
-        let l:colors= ["kilo", "whiteout", "noctu"]
-        let l:filename=l:colors[strftime("%S") % len(l:colors)]
-        highlight clear
-        syntax reset
-        silent! execute "source ~/.vim/colors/".l:filename.".vim"
-    endif
-endfunction
-
 " Changes all the tab-width settings at once.
 function! SetTab(tabwidth)
     let l:width=a:tabwidth
@@ -224,13 +206,12 @@ endfunction
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets the value of <LEADER> (default is the backslash)
-let mapleader=","
+let mapleader=" "
 
 " Common mappings
 map Y y$
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
-nmap <LEADER>s :write<CR>
 nnoremap <LEADER>a ggVG
 
 " Reload config file
@@ -241,7 +222,7 @@ noremap <LEADER>y "+y
 noremap <LEADER>p "+p
 
 " Clear search and match highlighting
-nmap <SPACE> :match none<CR>:nohlsearch<CR>
+nmap <LEADER><LEADER> :match none<CR>:nohlsearch<CR>
 
 " Find annoying things in code
 nmap <LEADER>l :call ShowLongLines()<CR>
@@ -251,7 +232,6 @@ nmap <LEADER>w :call ShowTrailingWhitespace()<CR>
 nmap <LEADER>- :call InsertLine("-")<CR>
 nmap <LEADER>j :move +1<CR>
 nmap <LEADER>k :move -2<CR>
-nmap <LEADER>c C<ESC>
 nnoremap <LEADER><CR> o<ESC>
 
 " Automatic block commenting and uncommenting
@@ -268,8 +248,10 @@ vnoremap <LEADER>2x :normal 02x<CR>
 augroup detect_filetype
     autocmd!
     autocmd BufRead,BufNewFile *.c compiler gcc
-    autocmd BufRead,BufNewFile *.html silent call BeNarrow()
+    autocmd BufRead,BufNewFile *.go set filetype=go
+    autocmd BufRead,BufNewFile *.go set textwidth=0
     autocmd BufRead,BufNewFile *.ino set filetype=java
+    autocmd BufRead,BufNewFile *.json set filetype=javascript
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
     autocmd BufRead,BufNewFile *.sls silent call SetTab(2)
@@ -281,14 +263,14 @@ augroup end
 " Create these files from templates.
 let s:template="~/.vim/templates/template."
 if glob("~/.vim/templates/") != ""
-    " These follow a simple pattern we can use to grab the template
+    " Load a basic template based off of the file extension
     augroup simple_templates
         autocmd!
         autocmd BufNewFile *.cpp,*.html,*.ino,*.php,*.py,*.sh,*.spec,*.tex
                     \ silent! exe "0r ".s:template.fnamemodify(@%, ":e")
     augroup end
 
-    " These files have a different file extension or call a function
+    " Does more than just render the template, like calling a function
     augroup super_templates
         autocmd!
         autocmd BufNewFile *.c silent! call NewCFile()
@@ -308,12 +290,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-colorscheme simple
-
-" Pathogen, from https://github.com/tpope/vim-pathogen
-if filereadable(glob("~/.vim/autoload/pathogen.vim"))
-    execute pathogen#infect()
-endif
+colorscheme solarized
 
 " Wild menu settings
 set wildmenu
