@@ -10,11 +10,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-fi
-
-# Allows which to detect aliases
-if [ -x /usr/bin/which ]; then
-    alias which="alias | which --read-alias"
+else
+    alias ls='ls -G'
 fi
 
 # Listing directories
@@ -22,18 +19,7 @@ alias l.='ls -ld .*'
 alias ll='ls -l'
 alias la='ls -lA'
 alias lh='ls -Aoh'
-alias lt='command ls --color=auto -lAtr'
-
-# Moving around
-up() {
-    if [ $# -eq 0 ]; then
-        cd ..
-    elif [ $# -eq 1 ]; then
-        for ((i=0; i<$1; i++)); do
-            cd ..
-        done
-    fi
-}
+alias lt='ls -lAtr'
 
 # Connecting to places
 alias fly='ssh -X kds124@flyweight.cs.rutgers.edu'
@@ -46,21 +32,6 @@ if [ -x /usr/bin/google-chrome ]; then
 elif [ -x /usr/bin/chromium ]; then
     alias chrome='chromium > /dev/null 2>&1 &'
     alias incognito='chromium --incognito > /dev/null 2>&1 &'
-fi
-
-# Handy opener for files
-if [ -x /usr/bin/xdg-open ]; then
-    open() {
-        if [ $# -gt 0 ]; then
-            xdg-open $1 > /dev/null 2>&1 &
-        fi
-    }
-elif [ -x /usr/bin/gvfs-open ]; then
-    open() {
-        if [ $# -gt 0 ]; then
-            gvfs-open $1 > /dev/null 2>&1 &
-        fi
-    }
 fi
 
 # Set the desktop background
