@@ -5,6 +5,9 @@ if [ -z "$PS1" ]; then
     return
 fi
 
+# Use a custom primary prompt
+export PS1='\n[ \u@\h in \w $(git_current_branch) ]\n\$ '
+
 # History settings
 export HISTCONTROL=ignoreboth
 export HISTFILESIZE=20000
@@ -32,13 +35,6 @@ fi
 # User-defined functions
 if [ -f ~/.bash_functions ]; then
     source ~/.bash_functions
-fi
-
-# Use a custom primary prompt
-if [ -f ~/.bash_prompt ]; then
-    source ~/.bash_prompt
-else
-    export PS1='\n[ \u@\h in \w ]\n\$ '
 fi
 
 # Custom programmable completions

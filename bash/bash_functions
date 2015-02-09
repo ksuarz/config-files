@@ -37,4 +37,16 @@ rubus () {
     curl "http://vverma.net/nextbus/nextbus.php?android=1&s=$stop"
 }
 
+# Grab the git branch
+git_current_branch() {
+    # List the branches, find the one starting with an asterisk, then strip out
+    # both the asterisk and whitespace
+    branch=$(git branch 2> /dev/null | grep "^\*" | tr -d " *")
+    if [ -z $branch ]; then
+        echo ""
+    else
+        echo "on $branch"
+    fi
+}
+
 #" vim: set filetype=sh
