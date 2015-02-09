@@ -241,6 +241,7 @@ set cursorline                  " Highlight current line
 set hidden                      " Hide buffers after they're abandoned
 set hlsearch                    " Search highlighting
 set ignorecase
+set modelines=5                 " Modelines for OSX
 set mouse=a                     " Use the mouse in all modes
 set nofoldenable                " Open folds; use `set foldenable` to close
 set nostartofline               " Movements don't auto-jump to line start
