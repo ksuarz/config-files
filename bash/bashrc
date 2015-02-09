@@ -14,7 +14,6 @@ export HISTSIZE=10000
 export TERM='xterm-256color'
 
 # Other shell options
-shopt -s autocd             # Enter directories given as commands
 shopt -s cdspell            # Automatically correct directory name typos
 shopt -s checkwinsize       # Check the size of the window after each command
 shopt -s cmdhist            # Save all lines of multiple-line command together
