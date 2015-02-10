@@ -2,8 +2,8 @@ config-files
 ============
 A place for configuration files and settings.
 
-To automatically install all of the files, just type
+To automatically install all of the files, just do
 
-    $ make install
+    $ ./install.sh
 
-and this will create all of the required symbolic links in your home directory.
+and this will install the files to your home directory.
