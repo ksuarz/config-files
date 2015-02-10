@@ -6,7 +6,7 @@ if [ -z "$PS1" ]; then
 fi
 
 # Use a custom primary prompt
-export PS1='\n[ \u@\h in \w $(git_current_branch) ]\n\$ '
+export PS1='\n[ \u@\h in \w $(git_current_branch)]\n\$ '
 
 # History settings
 export HISTCONTROL=ignoreboth
@@ -15,6 +15,9 @@ export HISTSIZE=10000
 
 # Terminal settings
 export TERM='xterm-256color'
+
+# Ignore . and .. in glob patterns like ".*"
+export GLOBIGNORE=.:..
 
 # Other shell options
 shopt -s cdspell            # Automatically correct directory name typos
@@ -25,7 +28,6 @@ shopt -s extglob            # Use extended pattern matching
 shopt -s histappend         # Append to history instead of overwriting it
 shopt -s hostcomplete       # Attempt hostname completion
 shopt -s nocaseglob         # Use case-insensitive globbing
-shopt -s shift_verbose      # Verbose errors when using `shift`
 
 # Source our alias definitions
 if [ -f ~/.bash_aliases ]; then
@@ -35,11 +37,6 @@ fi
 # User-defined functions
 if [ -f ~/.bash_functions ]; then
     source ~/.bash_functions
-fi
-
-# Custom programmable completions
-if [ -f ~/.bash_completions ]; then
-    source ~/.bash_completions
 fi
 
 # Standard bash autocompletion
