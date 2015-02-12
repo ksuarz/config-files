@@ -19,7 +19,7 @@ endfunction
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     try
-        %s/\t/\=repeat(" ", g:tab_width)/g
+        %s/\t/\=repeat(" ", &softtabstop)/g
     catch E486
         call Talk("No tabs to expand.")
     endtry
@@ -193,7 +193,6 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
     autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
-    autocmd BufRead,BufNewFile *.txt silent call WrapMode("on")
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
 augroup end
 
