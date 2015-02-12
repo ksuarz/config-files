@@ -81,11 +81,17 @@ function! InsertLine(char)
     endif
 endfunction
 
+" Insert a \begin block
 function! InsertTex()
+    " Take what's typed on the current line and strip whitespace
     let l:line=getline(line("."))
-    if strlen(l:line) > 0
-        let l:block="\\begin{".l:line."}\r\\end{".l:line."}"
+    let l:cmd=substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
+
+    if strlen(l:cmd) > 0
+        let l:block="\\begin{".l:cmd."}\r\\end{".l:cmd."}"
         .s/^.*$/\=l:block/g
+        normal k
+        normal o
     endif
 endfunction
 
@@ -129,12 +135,12 @@ function! NewJavaFile()
     endif
 endfunction
 
-" Custom mappings for LaTeX files
+" Custom mappings for TeX files
 function! NewTexFile()
     imapclear
     inoremap \[<CR> \[<CR>\]<ESC>ko
     inoremap " ``''<ESC>hi
-    inoremap <F5> <ESC>:call InsertTex()<CR>kkO
+    inoremap <C-b> <ESC>:call InsertTex()<CR>i
 endfunction
 
 " More cool stuff for Markdown and README files.
