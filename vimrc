@@ -3,55 +3,11 @@
 " Kyle Suarez
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
-let g:host=system("hostname")   " Get the name of the current host
 let g:is_silent=0               " Controls whether some functions show output
-let g:tab_width=4               " Preferred tab width
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Toggles curly brace autocompletion.
-function! AutocompleteBraces()
-    if maparg("{<CR>", "i") == ""
-        inoremap {  {}<LEFT>
-        inoremap {{ {
-        inoremap {<CR>  {<CR>}<ESC>ko
-        inoremap {} {}
-        call Talk("Brace completion turned on.")
-    else
-        silent! iunmap {
-        silent! iunmap {{
-        silent! iunmap {<CR>
-        silent! iunmap {}
-        call Talk("Brace completion turned off.")
-    endif
-endfunction
-
-" Toggles parenthesis and bracket autocompletion
-function! AutocompleteParens()
-    if maparg("(", "i") == ""
-        inoremap [  []<LEFT>
-        inoremap [[ [
-        inoremap [<CR>  [<CR>]<ESC>ko
-        inoremap [] []
-        inoremap (  ()<LEFT>
-        inoremap (( (
-        inoremap (<CR>  (<CR>)<ESC>ko
-        inoremap () ()
-        call Talk("Bracket/parenthesis completion turned on.")
-    else
-        silent! iunmap [
-        silent! iunmap [[
-        silent! iunmap [<CR>
-        silent! iunmap []
-        silent! iunmap (
-        silent! iunmap ((
-        silent! iunmap (<CR>
-        silent! iunmap ()
-        call Talk("Bracket/parenthesis completion turned off.")
-    endif
-endfunction
-
 " Controls whether or not we say something for custom functions.
 function! BeQuiet()
     if exists("g:is_silent") && g:is_silent != 1
@@ -156,13 +112,6 @@ function! NewMarkdownFile()
     endif
 endfunction
 
-" Changes all the tab-width settings at once.
-function! SetTab(tabwidth)
-    let l:width=a:tabwidth
-    let &shiftwidth=l:width
-    let &softtabstop=l:width
-endfunction
-
 " Show us when lines go over 80 characters in length.
 function! ShowLongLines()
     try
@@ -190,24 +139,6 @@ function! Talk(message)
     endif
 endfunction
 
-" Turns on and off intuitive j/k movement when in wrap mode.
-function! WrapMode(opt)
-    if a:opt == "off" || a:opt == "0"
-        let &wrap=0
-        silent! unmap j
-        silent! unmap k
-        call Talk("Wrap mode turned off.")
-    elseif a:opt == "on" || a:opt == "1"
-        let &wrap=1
-        let &linebreak=1
-        noremap j gj
-        noremap k gk
-        call Talk("Smart wrap mode turned on.")
-    else
-        call Talk("Argument must be either \"off\" or \"on\".")
-    endif
-endfunction
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -219,6 +150,11 @@ map Y y$
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
 nnoremap <LEADER>a ggVG
+
+" Mappings for braces and the like
+inoremap {<CR>  {<CR>}<ESC>ko
+inoremap [<CR>  [<CR>]<ESC>ko
+inoremap (<CR>  (<CR>)<ESC>ko
 
 " Reload config file
 nmap <LEADER>r :source ~/.vimrc<CR>
@@ -234,18 +170,14 @@ nmap <LEADER><LEADER> :match none<CR>:nohlsearch<CR>
 nmap <LEADER>l :call ShowLongLines()<CR>
 nmap <LEADER>w :call ShowTrailingWhitespace()<CR>
 
-" Adding, deleting, and moving lines around
+" Manipulating lines
 nmap <LEADER>- :call InsertLine("-")<CR>
-nmap <LEADER>j :move +1<CR>
-nmap <LEADER>k :move -2<CR>
 nnoremap <LEADER><CR> o<ESC>
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :normal 0i#<CR>
 vnoremap <LEADER>/  :normal 0i//<CR>
-vnoremap <LEADER>"  :normal 0i"<CR>
 vnoremap <LEADER>x  :normal 0x<CR>
-vnoremap <LEADER>2x :normal 02x<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
@@ -260,7 +192,6 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.json set filetype=javascript
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
-    autocmd BufRead,BufNewFile *.sls silent call SetTab(2)
     autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
     autocmd BufRead,BufNewFile *.txt silent call WrapMode("on")
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
@@ -303,22 +234,17 @@ set wildmenu
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
 
 " Indentation
+set autoindent			" Indent based on the line before
 set expandtab                   " Spaces instead of tabs
-set smarttab                    " Intelligent tab insertion/deletion
-call SetTab(g:tab_width)        " By default, four spaces to a tab
-
-" Turn on our completions
-if maparg("{<CR>", "i") == ""
-    silent call AutocompleteBraces()
-endif
-if maparg("(", "i") == ""
-    silent call AutocompleteParens()
-endif
+set nosmartindent               " Smart indent is annoying when typing `#`
+set shiftwidth=4                " Four columns when indenting with > or <
+set smarttab                    " Delete `shiftwidth` amount of spaces
+set softtabstop=4               " When we hit tab, use four columns
+set tabstop=8                   " Render existing tabs in text as eight columns
 
 " More settings
 filetype indent on              " Indent based on detected filetype
 filetype plugin on              " Allow filetype plugins
-set autoindent
 set autoread                    " Reload the file if changed from outside
 set backspace=indent,eol,start  " Backspace works intuitively
 set confirm                     " Confirm quit if dirty
@@ -328,7 +254,6 @@ set hlsearch                    " Search highlighting
 set ignorecase
 set mouse=a                     " Use the mouse in all modes
 set nofoldenable                " Open folds; use `set foldenable` to close
-set nosmartindent               " Smart indent is annoying when typing `#`
 set nostartofline               " Movements don't auto-jump to line start
 set noswapfile                  " Goodbye .swp
 set nowrap                      " No line wrapping
@@ -340,7 +265,6 @@ set spelllang=en_us             " Sets language if `set spell` is on
 set splitbelow                  " Horizontal split splits below
 set splitright                  " Vertical split splits right
 set t_Co=256                    " Use 256 colors
-set tabstop=8                   " For files tabbed by others
 set textwidth=80                " Stay within 80 characters
 set timeout                     " Time out on both mappings and keycodes
 set timeoutlen=300              " 300ms time-out length
