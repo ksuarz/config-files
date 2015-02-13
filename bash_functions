@@ -5,9 +5,16 @@ up() {
     if [ $# -eq 0 ]; then
         cd ..
     elif [ $# -eq 1 ]; then
+        # Figure out how many directories up we're moving
+        DIRECTORY=""
         for ((i=0; i<$1; i++)); do
-            cd ..
+            DIRECTORY="../${DIRECTORY}"
         done
+
+        # Execute the directory change
+        if [ -n "$DIRECTORY" ]; then
+            cd "$DIRECTORY"
+        fi
     fi
 }
 
