@@ -43,11 +43,12 @@ function! InsertTex()
     let l:line=getline(line("."))
     let l:cmd=substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
 
+    " Save the leading indentation
+    let l:ws=substitute(l:line, '^\(\s*\).\{-}\s*$', '\1', '')
+
     if strlen(l:cmd) > 0
-        let l:block="\\begin{".l:cmd."}\r\\end{".l:cmd."}"
+        let l:block=l:ws."\\begin{".l:cmd."}\r".l:ws."\\end{".l:cmd."}"
         .s/^.*$/\=l:block/g
-        normal k
-        normal o
     endif
 endfunction
 
@@ -96,7 +97,7 @@ function! NewTexFile()
     imapclear
     inoremap \[<CR> \[<CR>\]<ESC>ko
     inoremap " ``''<ESC>hi
-    inoremap <C-b> <ESC>:call InsertTex()<CR>i
+    inoremap <C-b> <ESC>:call InsertTex()<CR>O
 endfunction
 
 " More cool stuff for Markdown and README files.
