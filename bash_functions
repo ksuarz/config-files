@@ -52,7 +52,7 @@ git_current_branch() {
     if [ -z $branch ]; then
         echo ""
     else
-        echo "on $branch "
+        echo ", 'git':'$branch'"
     fi
 }
 
