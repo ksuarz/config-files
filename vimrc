@@ -3,25 +3,16 @@
 " Kyle Suarez
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " Vim behavior as opposed to vi
-let g:is_silent=0               " Controls whether some functions show output
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Controls whether or not we say something for custom functions.
-function! BeQuiet()
-    if exists("g:is_silent") && g:is_silent != 1
-        let g:is_silent=1
-        echomsg "Shutting up now."
-    endif
-endfunction
-
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     try
         %s/\t/\=repeat(" ", &softtabstop)/g
     catch E486
-        call Talk("No tabs to expand.")
+        echomsg "No tabs to expand."
     endtry
 endfunction
 
@@ -33,17 +24,15 @@ function! InsertLine(char)
         let l:length=strlen(getline(l:x - 1))
         .s/^.*$/\=repeat(a:char, l:length)/g
     else
-        call Talk("Can't insert a line here.")
+        echomsg "Can't insert a line here."
     endif
 endfunction
 
 " Insert a \begin block
 function! InsertTex()
-    " Take what's typed on the current line and strip whitespace
+    " Separate leading indentation and the command
     let l:line=getline(line("."))
     let l:cmd=substitute(l:line, '^\s*\(.\{-}\)\s*$', '\1', '')
-
-    " Save the leading indentation
     let l:ws=substitute(l:line, '^\(\s*\).\{-}\s*$', '\1', '')
 
     if strlen(l:cmd) > 0
@@ -119,7 +108,7 @@ function! ShowLongLines()
         /\%>80v.\+
         match ErrorMsg "\%>80v.\+"
     catch E486
-        call Talk("All lines are within 80 characters.")
+        echomsg "All lines are within 80 characters."
     endtry
 endfunction
 
@@ -129,15 +118,8 @@ function! ShowTrailingWhitespace()
         /\s\+$
         match ErrorMsg "\s\+$"
     catch E486
-        call Talk("No trailing whitespace.")
+        echomsg "No trailing whitespace."
     endtry
-endfunction
-
-" Utility method for printing info back.
-function! Talk(message)
-    if exists("g:is_silent") && g:is_silent == 0
-        echomsg a:message
-    endif
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -186,7 +168,6 @@ vnoremap <LEADER>x  :normal 0x<CR>
 " Do something when detecting particular filetypes.
 augroup detect_filetype
     autocmd!
-    autocmd BufRead,BufNewFile *.c compiler gcc
     autocmd BufRead,BufNewFile *.go set filetype=go
     autocmd BufRead,BufNewFile *.go set textwidth=0
     autocmd BufRead,BufNewFile *.ino set filetype=java
@@ -234,7 +215,7 @@ set wildmenu
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
 
 " Indentation
-set autoindent			" Indent based on the line before
+set autoindent                  " Indent based on the line before
 set expandtab                   " Spaces instead of tabs
 set nosmartindent               " Smart indent is annoying when typing `#`
 set shiftwidth=4                " Four columns when indenting with > or <
