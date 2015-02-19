@@ -1,33 +1,36 @@
 [user]
         name = Kyle Suarez
         email = ksuarz@gmail.com
-	
+
 [core]
         editor = vim
         excludesfile = /Users/ksuarz/.gitignore_global
-	
+
 [alias]
         # Show git aliases
         alias = "!git config -l | grep alias | cut -c 7-"
+
+        # Display commits in graph format
+        graph = log --graph --pretty=oneline --abbrev-commit
 
         # Do an interactive rebase, squashing what hasn't been pushed
         squash = rebase --interactive --autosquash @{u}
 
         # Remove a file from staging
         unstage = reset HEAD --
-    	
+
 [color]
         ui = auto
-	
+
 [url "git@github.com:"]
         insteadOf = "github:"
         insteadOf = "gh:"
-    
+
 [url "git@gist.github.com:"]
         insteadOf = "gist:"
 
 [push]
         # By default, a push only pushes the current branch
-	default = current
+        default = current
 
 #" vim: filetype=config
