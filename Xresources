@@ -24,37 +24,53 @@ URxvt.colorUL: #86a2b0
 
 ! Transparency
 URxvt.depth: 32
-URxvt.background: rgba:0000/0200/0200/dd00
-URxvt.foreground: #dedede
 
 ! Fonts
 URxvt.font:     xft:Terminus:pixelsize=14:antialias=false
 URxvt.boldFont: xft:Terminus:bold:pixelsize=14:antialias=false
 
 ! ----------------------------------------------------------------------------
-! GNOME color scheme
+! Colors: Solarized Dark
 ! ----------------------------------------------------------------------------
-! Black
-URxvt.color0  : #2e3436
-URxvt.color8  : #555753
-! Red
-URxvt.color1  : #cc0000
-URxvt.color9  : #ef2929
-! Green
-URxvt.color2  : #4e9a06
-URxvt.color10 : #8ae234
-! Yellow
-URxvt.color3  : #c4a000
-URxvt.color11 : #fce94f
-! Blue
-URxvt.color4  : #3465a4
-URxvt.color12 : #729fcf
-! Magenta
-URxvt.color5  : #75507b
-URxvt.color13 : #ad7fa8
-! Cyan
-URxvt.color6  : #06989a
-URxvt.color14 : #34e2e2
-! White
-URxvt.color7  : #d3d7cf
-URxvt.color15 : #eeeeec
+#define solarized_yellow        #b58900
+#define solarized_orange        #cb4b16
+#define solarized_red           #dc322f
+#define solarized_magenta       #d33682
+#define solarized_violet        #6c71c4
+#define solarized_blue          #268bd2
+#define solarized_cyan          #2aa198
+#define solarized_green         #859900
+
+#define solarized_base03        [90]#002b36
+#define solarized_base02        #073642
+#define solarized_base01        #586e75
+#define solarized_base00        #657b83
+#define solarized_base0         #839496
+#define solarized_base1         #93a1a1
+#define solarized_base2         #eee8d5
+#define solarized_base3         #fdf6e3
+
+URxvt.background:              solarized_base03
+URxvt.foreground:              solarized_base0
+URxvt.fading:                  40
+URxvt.fadeColor:               solarized_base03
+URxvt.cursorColor:             solarized_base1
+URxvt.pointerColorBackground:  solarized_base01
+URxvt.pointerColorForeground:  solarized_base1
+
+URxvt.color0:                  solarized_base02
+URxvt.color1:                  solarized_red
+URxvt.color2:                  solarized_green
+URxvt.color3:                  solarized_yellow
+URxvt.color4:                  solarized_blue
+URxvt.color5:                  solarized_magenta
+URxvt.color6:                  solarized_cyan
+URxvt.color7:                  solarized_base2
+URxvt.color8:                  solarized_base03
+URxvt.color9:                  solarized_orange
+URxvt.color10:                 solarized_base01
+URxvt.color11:                 solarized_base00
+URxvt.color12:                 solarized_base0
+URxvt.color13:                 solarized_violet
+URxvt.color14:                 solarized_base1
+URxvt.color15:                 solarized_base3
