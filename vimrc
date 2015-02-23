@@ -242,6 +242,7 @@ set number                      " Show line numbers
 set ruler
 set showcmd                     " Shows incomplete commands
 set smartcase                   " Case sensitive depending on search
+set spell                       " Use spell checking
 set spelllang=en_us             " Sets language if `set spell` is on
 set splitbelow                  " Horizontal split splits below
 set splitright                  " Vertical split splits right
