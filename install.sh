@@ -61,7 +61,7 @@ fi
 for FILE in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
             vimrc tmux.conf Xresources
 do
-    $COMMAND "${PWD}/${FILE}" "${DEST_DIR}/.${FILE}"
+    $COMMAND -v "${PWD}/${FILE}" "${DEST_DIR}/.${FILE}"
 done
 
 # Install the vim directory. Ignores $FORCE
