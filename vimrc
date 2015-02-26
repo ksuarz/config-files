@@ -112,11 +112,10 @@ function! ShowLongLines()
     endtry
 endfunction
 
-" Displays trailing whitespace except for blank lines.
-function! ShowTrailingWhitespace()
+" Deletes all trailing whitespace.
+function! DeleteTrailingWhitespace()
     try
-        /\s\+$
-        match ErrorMsg "\s\+$"
+        %s/\s\+$//g
     catch E486
         echomsg "No trailing whitespace."
     endtry
@@ -151,7 +150,7 @@ nmap <LEADER><LEADER> :match none<CR>:nohlsearch<CR>
 
 " Find annoying things in code
 nmap <LEADER>l :call ShowLongLines()<CR>
-nmap <LEADER>w :call ShowTrailingWhitespace()<CR>
+nmap <LEADER>w :call DeleteTrailingWhitespace()<CR>
 
 " Manipulating lines
 nmap <LEADER>- :call InsertLine("-")<CR>
