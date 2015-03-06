@@ -44,9 +44,6 @@ fi
 if [ -x /usr/bin/pdflatex ] || [ -x /usr/texbin/pdflatex ]; then
     # Only consider .tex files with pdflatex
     complete -f -o dirnames -X "!*.tex" pdflatex
-
-    # Compile TeX non-interactively
-    alias pdflatex='pdflatex -interaction nonstopmode -file-line-error'
 fi
 
 # Read PDF files only
