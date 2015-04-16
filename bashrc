@@ -15,6 +15,7 @@ export HISTSIZE=10000
 
 # Terminal settings
 export TERM='xterm-256color'
+export EDITOR='vim'
 
 # Ignore . and .. in glob patterns like ".*"
 export GLOBIGNORE=.:..
