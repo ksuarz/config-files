@@ -207,7 +207,8 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=dark
-colorscheme solarized
+colorscheme solarized           " Solarized
+let g:solarized_termtrans=1     " Use a completely-transparent background
 
 " Wild menu settings
 set wildmenu
