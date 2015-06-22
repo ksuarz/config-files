@@ -59,7 +59,7 @@ for FILE in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
 do
     INSTALLED="${CONFIG_DIR}/.${FILE}"
     if [ $ALWAYS -eq 1 ] || diff $FILE "$INSTALLED" > /dev/null 2>&1; then
-        echo $RM $INSTALLED
+        $RM $INSTALLED
     else
         echo "Ignoring $INSTALLED: differs from version control"
     fi
