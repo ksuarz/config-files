@@ -168,13 +168,21 @@ vnoremap <LEADER>x  :normal 0x<CR>
 augroup detect_filetype
     autocmd!
     autocmd BufRead,BufNewFile *.go set filetype=go
-    autocmd BufRead,BufNewFile *.go set textwidth=0
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.json set filetype=javascript
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
     autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+    autocmd BufRead,BufNewFile *.page set filetype=xml
     autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
+augroup end
+
+" Change indentation and text settings based on filetype
+augroup filetype_indentation
+    autocmd FileType c setl shiftwifth=3 tabstop=3
+    autocmd FileType go set textwidth=0
+    autocmd FileType html setl shiftwidth=2 tabstop=2 textwidth=0
+    autocmd FileType xml setl shiftwidth=2 tabstop=2 textwidth=0
 augroup end
 
 " Create these files from templates.
@@ -183,7 +191,7 @@ if glob("~/.vim/templates/") != ""
     " Load a basic template based off of the file extension
     augroup simple_templates
         autocmd!
-        autocmd BufNewFile *.cpp,*.html,*.ino,*.php,*.py,*.sh,*.spec,*.tex
+        autocmd BufNewFile *.cpp,*.html,*.php,*.py,*.page,*.sh,*.spec,*.tex
                     \ silent! exe "0r ".s:template.fnamemodify(@%, ":e")
     augroup end
 
