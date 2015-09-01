@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page id=""
+      type=""
+      style=""
+      xmlns="http://projectmallard.org/1.0/"
+      xmlns:api="http://projectmallard.org/experimental/api/"
+      xmlns:ui="http://projectmallard.org/experimental/ui/">
+
+  <title></title>
+  <subtitle></subtitle>
+</page>
