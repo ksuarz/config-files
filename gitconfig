@@ -13,20 +13,17 @@
         # Display commits in graph format
         graph = log --graph --abbrev-commit
 
-        # Do an interactive rebase, squashing what hasn't been pushed
-        squash = rebase --interactive --autosquash @{u}
-
         # Remove a file from staging
-        unstage = reset --mixed
+        unstage = reset --
 
 [color]
         ui = auto
 
-[url "git@github.com:"]
+[url "https://github.com/"]
         insteadOf = "github:"
         insteadOf = "gh:"
 
-[url "git@gist.github.com:"]
+[url "https://gist.github.com/"]
         insteadOf = "gist:"
 
 [push]
