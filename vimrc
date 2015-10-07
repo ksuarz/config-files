@@ -142,8 +142,9 @@ inoremap (<CR>  (<CR>)<ESC>ko
 nmap <LEADER>r :source ~/.vimrc<CR>
 
 " Yanking and pasting to the clipboard
-noremap <LEADER>y "+y
-noremap <LEADER>p "+p
+noremap  <LEADER>y "+y
+noremap  <LEADER>p "+p
+vnoremap <LEADER>p "_dP
 
 " Clear search and match highlighting
 nmap <LEADER><LEADER> :match none<CR>:nohlsearch<CR>
@@ -151,6 +152,11 @@ nmap <LEADER><LEADER> :match none<CR>:nohlsearch<CR>
 " Find annoying things in code
 nmap <LEADER>l :call ShowLongLines()<CR>
 nmap <LEADER>w :call DeleteTrailingWhitespace()<CR>
+
+" Tab navigation
+nmap <LEADER>t :tabnew<CR>
+nmap <LEADER>n :tabnext<CR>
+nmap <LEADER>p :tabprevious<CR>
 
 " Manipulating lines
 nmap <LEADER>- :call InsertLine("-")<CR>
@@ -164,6 +170,10 @@ vnoremap <LEADER>x  :normal 0x<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODO I don't think this works
+" Check for outside updates
+" autocmd BufEnter,FocusGained * :checktime
+
 " Do something when detecting particular filetypes.
 augroup detect_filetype
     autocmd!
