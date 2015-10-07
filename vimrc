@@ -47,16 +47,16 @@ function! NewCFile()
     if filereadable(l:headerfile)
         " Use the existing header file
         exec "read ".l:headerfile
+        %s/\n\n\n\n/\r/ge
         %s/^#.*$//ge
-        %s/\n\n\n//ge
-        %s/);/) {\r    \/\/ TODO\r}/ge
+        %s/);/)\r{\r   \/* TODO *\/\r}/ge
         normal ggO
         exec "normal i#include \"".l:headerfile."\""
 
     elseif filereadable(glob("~/.vim/templates/template.c"))
         " Make it from template
         read ~/.vim/templates/template.c
-        normal ggdd5G
+        normal ggdd7G
     endif
 endfunction
 
