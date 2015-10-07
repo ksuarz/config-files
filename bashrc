@@ -20,6 +20,9 @@ export EDITOR='vim'
 # Ignore . and .. in glob patterns like ".*"
 export GLOBIGNORE=.:..
 
+# Homebrew prefix
+export BREW_PREFIX=$(brew --prefix)
+
 # Other shell options
 shopt -s cdspell            # Automatically correct directory name typos
 shopt -s checkwinsize       # Check the size of the window after each command
@@ -41,6 +44,7 @@ if [ -f ~/.bash_functions ]; then
 fi
 
 # Standard bash autocompletion
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    source /etc/bash_completion
+if [ -f "$BREW_PREFIX/etc/bash_completion" ]; then
+    source "$BREW_PREFIX/etc/bash_completion"
+    source "$BREW_PREFIX/etc/bash_completion.d/git-completion.bash"
 fi
