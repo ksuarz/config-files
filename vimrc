@@ -141,7 +141,7 @@ inoremap (<CR>  (<CR>)<ESC>ko
 " Reload config file
 nmap <LEADER>r :source ~/.vimrc<CR>
 
-" Yanking and pasting to the clipboard
+" Yanking and pasting
 noremap  <LEADER>y "+y
 noremap  <LEADER>p "+p
 vnoremap <LEADER>p "_dP
@@ -160,7 +160,9 @@ nmap <LEADER>p :tabprevious<CR>
 
 " Manipulating lines
 nmap <LEADER>- :call InsertLine("-")<CR>
-nnoremap <LEADER><CR> o<ESC>
+nmap <LEADER><CR> o<ESC>
+vmap > >gv
+vmap < <gv
 
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>#  :normal 0i#<CR>
