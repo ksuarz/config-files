@@ -6,7 +6,7 @@ if [ -z "$PS1" ]; then
 fi
 
 # Use a custom primary prompt
-export PS1="\n{'\u@\h':'\w'"'$(git_current_branch)'"}\n\$ "
+export PS1="\n\033[34m[\t]\033[31m"'$(git_current_branch)'"\033[0m \u@\h:\w\n\$ "
 
 # History settings
 export HISTCONTROL=ignoreboth
