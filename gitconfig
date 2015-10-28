@@ -1,6 +1,16 @@
 [user]
         name = Kyle Suarez
-        email = ksuarz@gmail.com
+        email = kyle.suarez@mongodb.com
+
+[credential]
+        username = ksuarz
+
+[url "https://github.com/"]
+        insteadOf = "github:"
+        insteadOf = "gh:"
+
+[url "https://gist.github.com/"]
+        insteadOf = "gist:"
 
 [core]
         editor = vim
@@ -19,15 +29,16 @@
 [color]
         ui = auto
 
-[url "https://github.com/"]
-        insteadOf = "github:"
-        insteadOf = "gh:"
-
-[url "https://gist.github.com/"]
-        insteadOf = "gist:"
-
 [push]
         # By default, a push only pushes the current branch
         default = current
+
+[pull]
+        # When pulling from an upstream repository, only allow fast-forwards
+        ff = only
+
+[rebase]
+        # Warn if commits are deleted in an interactive rebase
+        missingCommitsCheck = warn
 
 #" vim: filetype=config
