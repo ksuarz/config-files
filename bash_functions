@@ -50,7 +50,7 @@ git_current_branch() {
     # both the asterisk and whitespace
     branch=$(git branch 2> /dev/null | grep "^\*" | tr -d " *")
     if [ -z $branch ]; then
-        echo "\033[0m"
+        echo ""
     else
         echo "[$branch]"
     fi
