@@ -47,9 +47,9 @@ rubus () {
 # Grab the git branch
 git_current_branch() {
     # List the branches, find the one starting with an asterisk, then strip out
-    # both the asterisk and whitespace
-    branch=$(git branch 2> /dev/null | grep "^\*" | tr -d " *")
-    if [ -z $branch ]; then
+    # the asterisk, the leading space and any parentheses
+    branch=$(git branch 2> /dev/null | grep "^\*" | cut -c 3- | tr -d "()")
+    if [ -z "$branch" ]; then
         echo ""
     else
         echo "[$branch]"
