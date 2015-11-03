@@ -59,7 +59,7 @@ fi
 
 # Install the standard files
 for FILE in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
-            vimrc tmux.conf Xresources
+            vimrc tmux.conf Xresources zshrc zsh_aliases zsh_functions
 do
     $COMMAND -v "${PWD}/${FILE}" "${DEST_DIR}/.${FILE}"
 done
