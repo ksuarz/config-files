@@ -1,0 +1,30 @@
+# zsh_functions: user-defined functions for zsh
+up() {
+    if [ $# -eq 0 ]; then
+        cd ..
+    elif [ $# -eq 1 ]; then
+        # Figure out how many directories up we're moving
+        DIRECTORY=""
+        for ((i=0; i<$1; i++)); do
+            DIRECTORY="../${DIRECTORY}"
+        done
+
+        # Execute the directory change
+        if [ -n "$DIRECTORY" ]; then
+            cd "$DIRECTORY"
+        fi
+    fi
+}
+
+git_current_branch() {
+    # List the branches, find the one starting with an asterisk, then strip out
+    # the asterisk, the leading space and any parentheses
+    branch=$(git branch 2> /dev/null | grep "^\*" | cut -c 3- | tr -d "()")
+    if [ -z "$branch" ]; then
+        echo ""
+    else
+        echo "[$branch]"
+    fi
+}
+
+#" vim: filetype=sh

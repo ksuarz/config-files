@@ -1,0 +1,12 @@
+# zsh_aliases: user-defined aliases for zsh
+#
+# Color support for ls and grep
+alias ls='ls -G'
+alias grep='grep --color=auto'
+
+# Listing directories
+alias l.='ls -ld .*'
+alias ll='ls -l'
+alias la='ls -lA'
+alias lh='ls -Aoh'
+alias lt='ls -lAtr'
