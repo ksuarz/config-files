@@ -16,14 +16,13 @@ up() {
     fi
 }
 
-git_current_branch() {
-    # List the branches, find the one starting with an asterisk, then strip out
-    # the asterisk, the leading space and any parentheses
-    branch=$(git branch 2> /dev/null | grep "^\*" | cut -c 3- | tr -d "()")
-    if [ -z "$branch" ]; then
+git_current_status() {
+    # Use the first line of git status
+    git_status=$(git status --long 2> /dev/null | head -n 1 | sed 's/On branch //g')
+    if [ -z "$git_status" ]; then
         echo ""
     else
-        echo "[$branch]"
+        echo "$git_status "
     fi
 }
 

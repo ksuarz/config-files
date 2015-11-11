@@ -10,3 +10,5 @@ alias ll='ls -l'
 alias la='ls -lA'
 alias lh='ls -Aoh'
 alias lt='ls -lAtr'
+
+#" vim: filetype=zsh
