@@ -16,13 +16,21 @@ up() {
     fi
 }
 
-git_current_status() {
+git_prompt() {
     # Use the first line of git status
     git_status=$(git status --long 2> /dev/null | head -n 1 | sed 's/On branch //g')
     if [ -z "$git_status" ]; then
         echo ""
     else
         echo "$git_status "
+    fi
+}
+
+venv_prompt() {
+    if [ -z "$VIRTUAL_ENV" ]; then
+        echo ""
+    else
+        echo "$(basename $VIRTUAL_ENV) "
     fi
 }
 
