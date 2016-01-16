@@ -23,6 +23,12 @@
         # Display commits in graph format
         graph = log --graph --abbrev-commit
 
+        # Colorize grep output
+        grep = grep --color=auto
+
+        # Update a fork
+        update-fork = push origin upstream/master:master
+
         # Remove a file from staging
         unstage = reset --
 
