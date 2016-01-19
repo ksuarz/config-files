@@ -7,7 +7,8 @@ HYPHEN_INSENSITIVE="true"
 # Primary prompt
 setopt PROMPT_SUBST
 export PS1=$'\n'"%n@%m:%~ %F{green}$%f "
-export RPS1="%F{red}"'$(git_current_status)'"%F{blue}%D{%T}%f"
+export RPS1="%F{green}"'$(virtualenv_status)'"%F{red}"'$(git_current_status)'"%F{blue}%D{%T}%f"
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Emacs-style readline
 bindkey -e
@@ -16,10 +17,11 @@ bindkey -e
 export EDITOR="vim"
 export LANG="en_US.utf-8"
 export TERM="xterm-256color"
+export SHELL="/bin/zsh"
 
 # History settings
-export HISTFILE="~/.zsh_history"
-export HISTSIZE=2000
+export HISTFILE=~/.zsh_history
+export HISTSIZE=5000
 export SAVEHIST=15000
 
 # Ignore . and .. in glob patterns like ".*"

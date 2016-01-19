@@ -13,7 +13,7 @@ while getopts "ad:fhim" opt; do
             ALWAYS=1
             ;;
         d)
-            # Specify the directory containing the config files
+            # Specify the destination directory
             CONFIG_DIR="$OPTARG"
             ;;
         e)
@@ -51,15 +51,15 @@ done
 shift $((OPTIND-1))
 
 # Force flag or interactive mode
-RM="rm -v $FLAGS"
+RM="rm $FLAGS"
 
 # Remove the standard files
 for FILE in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
-            vimrc tmux.conf Xresources
+            vimrc tmux.conf Xresources zshrc zsh_aliases zsh_functions
 do
     INSTALLED="${CONFIG_DIR}/.${FILE}"
-    if [ $ALWAYS -eq 1 ] || diff $FILE "$INSTALLED" > /dev/null 2>&1; then
-        $RM $INSTALLED
+    if [ $ALWAYS -eq 1 ] || diff -q $FILE $INSTALLED > /dev/null 2>&1; then
+        $RM -v $INSTALLED
     else
         echo "Ignoring $INSTALLED: differs from version control"
     fi
