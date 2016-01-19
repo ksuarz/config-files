@@ -154,7 +154,6 @@ nmap <LEADER>l :call ShowLongLines()<CR>
 nmap <LEADER>w :call DeleteTrailingWhitespace()<CR>
 
 " Tab navigation
-nmap <LEADER>t :tabnew<CR>
 nmap <LEADER>n :tabnext<CR>
 nmap <LEADER>p :tabprevious<CR>
 
@@ -165,6 +164,7 @@ vmap > >gv
 vmap < <gv
 
 " Automatic block commenting and uncommenting
+" TODO This should automatically change based on filetype
 vnoremap <LEADER>#  :normal 0i#<CR>
 vnoremap <LEADER>/  :normal 0i//<CR>
 vnoremap <LEADER>x  :normal 0x<CR>
