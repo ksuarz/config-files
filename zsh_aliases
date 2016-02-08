@@ -1,7 +1,7 @@
 # zsh_aliases: user-defined aliases for zsh
 #
 # Color support for ls and grep
-alias ls='ls -G'
+alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color=auto'
 
 # Listing directories
@@ -10,5 +10,8 @@ alias ll='ls -l'
 alias la='ls -lA'
 alias lh='ls -Aoh'
 alias lt='ls -lAtr'
+
+# Superuser privileges
+alias slide='sudo -s'
 
 #" vim: filetype=zsh
