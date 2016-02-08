@@ -18,32 +18,6 @@ up() {
     fi
 }
 
-# Handy opener for files
-if [ -x /usr/bin/xdg-open ]; then
-    open() {
-        if [ $# -gt 0 ]; then
-            xdg-open $1 > /dev/null 2>&1 &
-        fi
-    }
-elif [ -x /usr/bin/gvfs-open ]; then
-    open() {
-        if [ $# -gt 0 ]; then
-            gvfs-open $1 > /dev/null 2>&1 &
-        fi
-    }
-fi
-
-# Get information from NextBus
-rubus () {
-    stop="$1$2$3"
-
-    if [ -z "$stop" ]; then
-        stop="hill"
-    fi
-
-    curl "http://vverma.net/nextbus/nextbus.php?android=1&s=$stop"
-}
-
 # Grab the git branch
 git_current_branch() {
     # List the branches, find the one starting with an asterisk, then strip out
@@ -54,6 +28,51 @@ git_current_branch() {
     else
         echo "[$branch]"
     fi
+}
+
+activate_magic() {
+    if [ -d "$HOME/incantations" ]; then
+        export PATH="$HOME/incantations:$PATH"
+        echo "Magic spells available:"
+        ls "$HOME/incantations"
+    fi
+}
+
+goto() {
+    if [ $# -gt 1 ]; then
+        echo "$0: error: expected only one argument"
+    elif [ $# -eq 1 ]; then
+        case $1 in
+            cfg|config)
+                cd "$HOME/programming/config-files"
+                ;;
+            d|docs)
+                cd "$HOME/programming/docs"
+                ;;
+            m|mongo)
+                cd "$HOME/programming/mongo"
+                ;;
+            mmap|mmapv1)
+                cd "$HOME/programming/mongo/src/mongo/db/storage/mmap_v1"
+                ;;
+            storage)
+                cd "$HOME/programming/mongo/src/mongo/db/storage"
+                ;;
+            wt|wiredtiger|wiredTiger)
+                cd "$HOME/programming/mongo/src/mongo/db/storage/wiredtiger"
+                ;;
+            *)
+                echo "Unknown location."
+                ;;
+        esac
+    fi
+}
+
+please() {
+    # Get the last command run and strip the history number plus whitespace
+    CMD=$(history -1 | awk '{$1=""; print $0}' | sed -e 's/^[ ]*//')
+    echo "sudo $CMD"
+    eval "sudo $CMD"
 }
 
 #" vim: filetype=sh

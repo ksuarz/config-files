@@ -34,4 +34,48 @@ virtualenv_status() {
     fi
 }
 
+magic() {
+    if [ -d "$HOME/incantations" ]; then
+        export PATH="$HOME/incantations:$PATH"
+        echo "Magic spells available:"
+        ls "$HOME/incantations"
+    fi
+}
+
+goto() {
+    if [ $# -gt 1 ]; then
+        echo "$0: error: expected only one argument"
+    elif [ $# -eq 1 ]; then
+        case $1 in
+            cfg|config)
+                cd "$HOME/programming/config-files" ;;
+            d|docs)
+                cd "$HOME/programming/docs" ;;
+            e|enterprise)
+                cd "$HOME/programming/enterprise-modules" ;;
+            m|mongo)
+                cd "$HOME/programming/mongo" ;;
+            mmap|mmapv1)
+                cd "$HOME/programming/mongo/src/mongo/db/storage/mmap_v1" ;;
+            p|prog|programming)
+                cd "$HOME/programming" ;;
+            src)
+                cd "$HOME/programming/mongo/src/mongo" ;;
+            storage)
+                cd "$HOME/programming/mongo/src/mongo/db/storage" ;;
+            wt|wiredtiger|wiredTiger)
+                cd "$HOME/programming/mongo/src/mongo/db/storage/wiredtiger" ;;
+            *)
+                echo "Undefined label." ;;
+        esac
+    fi
+}
+
+please() {
+    # Get the last command run and strip the history number plus whitespace
+    CMD=$(fc -l -1 | awk '{$1=""; print $0}' | sed -e 's/^[ ]*//')
+    echo "sudo $CMD"
+    eval "sudo $CMD"
+}
+
 #" vim: filetype=sh
