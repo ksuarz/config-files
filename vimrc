@@ -156,6 +156,7 @@ nmap <LEADER>w :call DeleteTrailingWhitespace()<CR>
 " Tab navigation
 nmap <LEADER>n :tabnext<CR>
 nmap <LEADER>p :tabprevious<CR>
+nmap gf :tabe <cfile><CR>
 
 " Manipulating lines
 nmap <LEADER>- :call InsertLine("-")<CR>
@@ -192,6 +193,7 @@ augroup end
 " Change indentation and text settings based on filetype
 augroup filetype_indentation
     autocmd FileType c setl shiftwidth=3 tabstop=3
+    autocmd Filetype cpp set textwidth=100
     autocmd FileType go set textwidth=0
     autocmd FileType html setl shiftwidth=2 tabstop=2 textwidth=0
     autocmd FileType xml setl shiftwidth=2 tabstop=2 textwidth=0
