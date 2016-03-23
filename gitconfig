@@ -1,9 +1,10 @@
 [user]
         name = Kyle Suarez
-        email = kyle.suarez@mongodb.com
+        email = ksuarz@gmail.com
 
 [credential]
         username = ksuarz
+	helper = cache --timeout=28800
 
 [url "https://github.com/"]
         insteadOf = "github:"
@@ -21,13 +22,13 @@
         alias = "!git config -l | grep alias | cut -c 7-"
 
         # Display commits in graph format
-        graph = log --graph --abbrev-commit
+        graph = log --graph
 
         # Colorize grep output
         grep = grep --color=auto
 
-        # Update a fork
-        update-fork = push origin upstream/master:master
+        # Synchronize with upstream
+        sync = "!git fetch upstream && git push origin upstream/master:master"
 
         # Remove a file from staging
         unstage = reset --
@@ -35,16 +36,23 @@
 [color]
         ui = auto
 
-[push]
-        # By default, a push only pushes the current branch
-        default = current
-
 [pull]
         # When pulling from an upstream repository, only allow fast-forwards
         ff = only
 
+[push]
+        # By default, a push only pushes the current branch
+        default = current
+
 [rebase]
+        # Automatically squash commits in an interactive rebase
+        autoSquash = true
+
         # Warn if commits are deleted in an interactive rebase
         missingCommitsCheck = warn
+
+[rerere]
+        # Activate recording of resolved conflicts
+        enabled = true
 
 #" vim: filetype=config
