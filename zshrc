@@ -5,6 +5,8 @@ CASE_INSENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 
 # Primary prompt
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
 setopt PROMPT_SUBST
 export PS1=$'\n'"%n@%m:%~ %F{green}$%f "
 export RPS1="%F{green}"'$(venv_prompt)'"%F{red}"'$(git_prompt)'"%F{blue}%D{%T}%f"
