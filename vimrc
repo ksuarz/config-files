@@ -205,7 +205,7 @@ if glob("~/.vim/templates/") != ""
     " Load a basic template based off of the file extension
     augroup simple_templates
         autocmd!
-        autocmd BufNewFile *.cpp,*.html,*.php,*.py,*.page,*.sh,*.spec,*.tex
+        autocmd BufNewFile *.cpp,*.html,*.js,*.php,*.py,*.page,*.sh,*.spec,*.tex
                     \ silent! exe "0r ".s:template.fnamemodify(@%, ":e")
     augroup end
 
