@@ -51,7 +51,9 @@ goto() {
                 cd "$HOME/programming/config-files" ;;
             d|docs)
                 cd "$HOME/programming/docs" ;;
-            e|enterprise)
+            db)
+                cd "$HOME/programming/mongo/src/mongo/db" ;;
+            enterprise)
                 cd "$HOME/programming/enterprise-modules" ;;
             m|mongo)
                 cd "$HOME/programming/mongo" ;;
@@ -75,7 +77,13 @@ please() {
     # Get the last command run and strip the history number plus whitespace
     CMD=$(fc -l -1 | awk '{$1=""; print $0}' | sed -e 's/^[ ]*//')
     echo "sudo $CMD"
-    eval "sudo $CMD"
+    sudo $CMD
+}
+
+open() {
+    if [ -x /usr/bin/xdg-open ]; then
+        /usr/bin/xdg-open $1 > /dev/null 2>&1 &
+    fi
 }
 
 #" vim: filetype=sh
