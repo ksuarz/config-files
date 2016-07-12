@@ -4,7 +4,7 @@
 
 [credential]
         username = ksuarz
-	helper = cache --timeout=28800
+	helper = cache --timeout=604800
 
 [url "https://github.com/"]
         insteadOf = "github:"
@@ -28,7 +28,7 @@
         grep = grep --color=auto
 
         # Synchronize with upstream
-        sync = "!git fetch upstream && git push origin upstream/master:master"
+        sync = "!git fetch upstream master:master && git push origin upstream/master:master"
 
         # Remove a file from staging
         unstage = reset --
