@@ -43,30 +43,35 @@ magic() {
 }
 
 goto() {
+    workspace="$HOME/programming"
+    mongo="$workspace/mongo"
+
     if [ $# -gt 1 ]; then
         echo "$0: error: expected only one argument"
     elif [ $# -eq 1 ]; then
         case $1 in
             cfg|config)
-                cd "$HOME/programming/config-files" ;;
+                cd "$workspace/config-files" ;;
             d|docs)
-                cd "$HOME/programming/docs" ;;
+                cd "$workspace/docs" ;;
             db)
-                cd "$HOME/programming/mongo/src/mongo/db" ;;
+                cd "$mongo/src/mongo/db" ;;
             enterprise)
-                cd "$HOME/programming/enterprise-modules" ;;
+                cd "$workspace/enterprise-modules" ;;
+            js|jstests)
+                cd "$mongo/jstests" ;;
             m|mongo)
-                cd "$HOME/programming/mongo" ;;
+                cd "$mongo" ;;
             mmap|mmapv1)
-                cd "$HOME/programming/mongo/src/mongo/db/storage/mmap_v1" ;;
+                cd "$mongo/src/mongo/db/storage/mmap_v1" ;;
             p|prog|programming)
-                cd "$HOME/programming" ;;
+                cd "$workspace" ;;
             src)
-                cd "$HOME/programming/mongo/src/mongo" ;;
+                cd "$mongo/src/mongo" ;;
             storage)
-                cd "$HOME/programming/mongo/src/mongo/db/storage" ;;
+                cd "$mongo/src/mongo/db/storage" ;;
             wt|wiredtiger|wiredTiger)
-                cd "$HOME/programming/mongo/src/mongo/db/storage/wiredtiger" ;;
+                cd "$mongo/src/mongo/db/storage/wiredtiger" ;;
             *)
                 echo "Undefined label." ;;
         esac
