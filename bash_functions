@@ -30,7 +30,7 @@ git_current_branch() {
     fi
 }
 
-activate_magic() {
+magic() {
     if [ -d "$HOME/incantations" ]; then
         export PATH="$HOME/incantations:$PATH"
         echo "Magic spells available:"
@@ -39,31 +39,37 @@ activate_magic() {
 }
 
 goto() {
+    workspace="$HOME/programming"
+    mongo="$workspace/$mongo"
+
     if [ $# -gt 1 ]; then
         echo "$0: error: expected only one argument"
     elif [ $# -eq 1 ]; then
         case $1 in
             cfg|config)
-                cd "$HOME/programming/config-files"
-                ;;
+                cd "$workspace/config-files" ;;
             d|docs)
-                cd "$HOME/programming/docs"
-                ;;
+                cd "$workspace/docs" ;;
+            db)
+                cd "$mongo/src/mongo/db" ;;
+            enterprise)
+                cd "$workspace/enterprise-modules" ;;
+            js|jstests)
+                cd "$mongo/jstests" ;;
             m|mongo)
-                cd "$HOME/programming/mongo"
-                ;;
+                cd "$mongo" ;;
             mmap|mmapv1)
-                cd "$HOME/programming/mongo/src/mongo/db/storage/mmap_v1"
-                ;;
+                cd "$mongo/src/mongo/db/storage/mmap_v1" ;;
+            p|prog|programming)
+                cd "$workspace" ;;
+            src)
+                cd "$mongo/src/mongo" ;;
             storage)
-                cd "$HOME/programming/mongo/src/mongo/db/storage"
-                ;;
+                cd "$mongo/src/mongo/db/storage" ;;
             wt|wiredtiger|wiredTiger)
-                cd "$HOME/programming/mongo/src/mongo/db/storage/wiredtiger"
-                ;;
+                cd "$mongo/src/mongo/db/storage/wiredtiger" ;;
             *)
-                echo "Unknown location."
-                ;;
+                echo "Undefined label." ;;
         esac
     fi
 }
@@ -73,6 +79,12 @@ please() {
     CMD=$(history -1 | awk '{$1=""; print $0}' | sed -e 's/^[ ]*//')
     echo "sudo $CMD"
     eval "sudo $CMD"
+}
+
+open() {
+    if [ -x /usr/bin/xdg-open ]; then
+        /usr/bin/xdg-open $1 > /dev/null 2>&1 &
+    fi
 }
 
 #" vim: filetype=sh
