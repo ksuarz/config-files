@@ -1,58 +1,58 @@
 [user]
-        name = Kyle Suarez
-        email = kyle.suarez@mongodb.com
+    name = Kyle Suarez
+    email = kyle.suarez@mongodb.com
 
 [credential]
-        username = ksuarz
-	helper = cache --timeout=604800
+    username = ksuarz
+    helper = cache --timeout=604800
 
 [url "https://github.com/"]
-        insteadOf = "github:"
-        insteadOf = "gh:"
+    insteadOf = "github:"
+    insteadOf = "gh:"
 
 [url "https://gist.github.com/"]
-        insteadOf = "gist:"
+    insteadOf = "gist:"
 
 [core]
-        editor = vim
-        excludesfile = /Users/ksuarz/.gitignore_global
+    editor = vim
+    excludesfile = /Users/ksuarz/.gitignore_global
 
 [alias]
-        # Show git aliases
-        alias = "!git config -l | grep alias | cut -c 7-"
+    # Show git aliases
+    alias = "!git config -l | grep alias | cut -c 7-"
 
-        # Display commits in graph format
-        graph = log --graph
+    # Display commits in graph format
+    graph = log --graph
 
-        # Colorize grep output
-        grep = grep --color=auto
+    # Colorize grep output
+    grep = grep --color=auto
 
-        # Synchronize with upstream
-        sync = "!git fetch upstream master:master && git push origin upstream/master:master"
+    # Synchronize with upstream
+    sync = "!git fetch upstream master:master && git push origin upstream/master:master"
 
-        # Remove a file from staging
-        unstage = reset --
+    # Remove a file from staging
+    unstage = reset --
 
 [color]
-        ui = auto
+    ui = auto
 
 [pull]
-        # When pulling from an upstream repository, only allow fast-forwards
-        ff = only
+    # When pulling from an upstream repository, only allow fast-forwards
+    ff = only
 
 [push]
-        # By default, a push only pushes the current branch
-        default = current
+    # By default, a push only pushes the current branch
+    default = current
 
 [rebase]
-        # Automatically squash commits in an interactive rebase
-        autoSquash = true
+    # Automatically squash commits in an interactive rebase
+    autoSquash = true
 
-        # Warn if commits are deleted in an interactive rebase
-        missingCommitsCheck = warn
+    # Warn if commits are deleted in an interactive rebase
+    missingCommitsCheck = warn
 
 [rerere]
-        # Activate recording of resolved conflicts
-        enabled = true
+    # Activate recording of resolved conflicts
+    enabled = true
 
 #" vim: filetype=config
