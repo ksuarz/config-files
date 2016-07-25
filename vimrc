@@ -7,6 +7,11 @@ set nocompatible                " Vim behavior as opposed to vi
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run clang-format on the current file.
+function! ClangFormat()
+    %!clang-format -style=file
+endfunction
+
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     try
@@ -16,9 +21,9 @@ function! ExpandTabs()
     endtry
 endfunction
 
-" Inserts a Markdown header line on the current line based on the line above
+" Inserts a Markdown/RST header line on the current line based on the line above
 " with some hacky substitution magic.
-function! InsertLine(char)
+function! HeaderLine(char)
     let l:x=line(".")
     if l:x > 1
         let l:length=strlen(getline(l:x - 1))
@@ -180,6 +185,7 @@ vnoremap <LEADER>x  :normal 0x<CR>
 " Do something when detecting particular filetypes.
 augroup detect_filetype
     autocmd!
+    autocmd BufWriteCmd *.cpp call ClangFormat()
     autocmd BufRead,BufNewFile *.go set filetype=go
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.json set filetype=javascript
@@ -204,14 +210,14 @@ augroup end
 let s:template="~/.vim/templates/template."
 if glob("~/.vim/templates/") != ""
     " Load a basic template based off of the file extension
-    augroup simple_templates
+    augroup templates_simple
         autocmd!
         autocmd BufNewFile *.cpp,*.html,*.js,*.php,*.py,*.page,*.sh,*.spec,*.tex
                     \ silent! exe "0r ".s:template.fnamemodify(@%, ":e")
     augroup end
 
     " Does more than just render the template, like calling a function
-    augroup super_templates
+    augroup templates_plus
         autocmd!
         autocmd BufNewFile *.c silent! call NewCFile()
         autocmd BufNewFile *.cc silent! exe "0r ".s:template."cpp"
