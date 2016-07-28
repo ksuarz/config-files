@@ -15,7 +15,7 @@
 
 [core]
     editor = vim
-    excludesfile = /Users/ksuarz/.gitignore_global
+    excludesfile = /home/ksuarz/.gitignore_global
 
 [alias]
     # Show git aliases
