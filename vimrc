@@ -9,7 +9,9 @@ set nocompatible                " Vim behavior as opposed to vi
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run clang-format on the current file.
 function! ClangFormat()
+    let cursor=getpos(".")
     %!clang-format -style=file
+    call setpos(".", cursor)
 endfunction
 
 " Replace all tabs with spaces in the current file.
@@ -169,6 +171,9 @@ nmap <LEADER><CR> o<ESC>
 vmap > >gv
 vmap < <gv
 
+" Format the current file
+nmap <LEADER>f :call ClangFormat()<CR>
+
 " Automatic block commenting and uncommenting
 " TODO This should automatically change based on filetype
 vnoremap <LEADER>#  :normal 0i#<CR>
@@ -185,7 +190,6 @@ vnoremap <LEADER>x  :normal 0x<CR>
 " Do something when detecting particular filetypes.
 augroup detect_filetype
     autocmd!
-    autocmd BufWriteCmd *.cpp call ClangFormat()
     autocmd BufRead,BufNewFile *.go set filetype=go
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.json set filetype=javascript
