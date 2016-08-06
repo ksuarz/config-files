@@ -81,10 +81,4 @@ please() {
     eval "sudo $CMD"
 }
 
-open() {
-    if [ -x /usr/bin/xdg-open ]; then
-        /usr/bin/xdg-open $1 > /dev/null 2>&1 &
-    fi
-}
-
 #" vim: filetype=sh
