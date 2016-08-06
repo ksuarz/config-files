@@ -16,16 +16,21 @@ endfunction
 
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
+    let cursor = getpos(".")
+    let query = getreg('/')
     try
         %s/\t/\=repeat(" ", &softtabstop)/g
     catch E486
         echomsg "No tabs to expand."
     endtry
+    call setpos('.', cursor)
+    call setreg('/', query)
 endfunction
 
 " Inserts a Markdown/RST header line on the current line based on the line above
 " with some hacky substitution magic.
 function! HeaderLine(char)
+    let query = getreg('/')
     let l:x=line(".")
     if l:x > 1
         let l:length=strlen(getline(l:x - 1))
@@ -33,6 +38,7 @@ function! HeaderLine(char)
     else
         echomsg "Can't insert a line here."
     endif
+    call setreg('/', query)
 endfunction
 
 " Insert a \begin block
@@ -109,23 +115,26 @@ function! NewMarkdownFile()
     endif
 endfunction
 
-" Show us when lines go over 80 characters in length.
+" Show us when lines go over 100 characters in length.
 function! ShowLongLines()
+    let cursor = getpos(".")
+    let query = getreg('/')
     try
-        /\%>80v.\+
-        match ErrorMsg "\%>80v.\+"
+        match ErrorMsg "\%>100v.\+"
     catch E486
-        echomsg "All lines are within 80 characters."
+        echomsg "All lines are within 100 characters."
     endtry
+    call setpos('.', cursor)
+    call setreg('/', query)
 endfunction
 
 " Deletes all trailing whitespace.
 function! DeleteTrailingWhitespace()
-    try
-        %s/\s\+$//g
-    catch E486
-        echomsg "No trailing whitespace."
-    endtry
+    let cursor = getpos(".")
+    let query = getreg('/')
+    %substitute/\s\+$//ge
+    call setpos('.', cursor)
+    call setreg('/', query)
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -138,7 +147,6 @@ let mapleader=" "
 map Y y$
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
-nnoremap <LEADER>a ggVG
 
 " Mappings for braces and the like
 inoremap {<CR>  {<CR>}<ESC>ko
@@ -149,6 +157,7 @@ inoremap (<CR>  (<CR>)<ESC>ko
 nmap <LEADER>r :source ~/.vimrc<CR>
 
 " Yanking and pasting
+nnoremap <LEADER>a ggVG
 noremap  <LEADER>y "+y
 noremap  <LEADER>p "+p
 vnoremap <LEADER>p "_dP
@@ -161,8 +170,11 @@ nmap <LEADER>l :call ShowLongLines()<CR>
 nmap <LEADER>w :call DeleteTrailingWhitespace()<CR>
 
 " Tab navigation
-nmap <LEADER>n :tabnext<CR>
-nmap <LEADER>p :tabprevious<CR>
+nnoremap tj :tabnext<CR>
+nnoremap tk :tabprevious<CR>
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+nnoremap tq :tabclose<CR>
 nmap gf :tabe <cfile><CR>
 
 " Manipulating lines
@@ -266,6 +278,7 @@ set cursorline                  " Highlight current line
 set hidden                      " Hide buffers after they're abandoned
 set hlsearch                    " Search highlighting
 set ignorecase
+set laststatus=2                " Always show the status bar
 set modelines=5                 " Modelines for OSX
 set mouse=a                     " Use the mouse in all modes
 set nofoldenable                " Open folds; use `set foldenable` to close
