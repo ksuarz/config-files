@@ -256,8 +256,9 @@ colorscheme solarized           " Solarized
 let g:solarized_termtrans=1     " Use a completely-transparent background
 
 " Wild menu settings
-set wildmenu
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
+set wildmenu
+set wildmode=longest:full
 
 " Indentation
 set autoindent                  " Indent based on the line before
