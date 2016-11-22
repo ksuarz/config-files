@@ -3,15 +3,13 @@ up() {
     if [ $# -eq 0 ]; then
         cd ..
     elif [ $# -eq 1 ]; then
-        # Figure out how many directories up we're moving
-        DIRECTORY=""
+        directory=""
         for ((i=0; i<$1; i++)); do
-            DIRECTORY="../${DIRECTORY}"
+            directory="../${directory}"
         done
 
-        # Execute the directory change
-        if [ -n "$DIRECTORY" ]; then
-            cd "$DIRECTORY"
+        if [ -n "$directory" ]; then
+            cd "$directory"
         fi
     fi
 }
