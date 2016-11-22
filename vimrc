@@ -128,6 +128,27 @@ function! ShowLongLines()
     call setreg('/', query)
 endfunction
 
+" Comment or uncomment code depending on filetype
+function! Comment()
+    if &filetype=="c" || &filetype=="cpp" || &filetype=="javascript"
+        let l:char="// "
+    elseif &filetype=="python" || &filetype=="conf" || &filetype=="sh"
+        let l:char="# "
+    elseif &filetype=="vim"
+        let l:char="\" "
+    endif
+
+    " If the current line starts with the comment character, strip the comments;
+    " otherwise, comment out each line.
+    let l:line=getline(".")
+    let l:charLen = strlen(l:char)
+    if strpart(l:line, 0, l:charLen) ==# l:char
+        exec "normal 0".l:charLen."x"
+    else
+        exec "normal 0i".l:char
+    endif
+endfunction
+
 " Deletes all trailing whitespace.
 function! DeleteTrailingWhitespace()
     let cursor = getpos(".")
@@ -187,10 +208,8 @@ vmap < <gv
 nmap <LEADER>f :call ClangFormat()<CR>
 
 " Automatic block commenting and uncommenting
-" TODO This should automatically change based on filetype
-vnoremap <LEADER>#  :normal 0i#<CR>
-vnoremap <LEADER>/  :normal 0i//<CR>
-vnoremap <LEADER>x  :normal 0x<CR>
+vnoremap <LEADER>/ :call Comment()<CR>
+nnoremap <LEADER>/ :call Comment()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
