@@ -199,7 +199,7 @@ nnoremap tq :tabclose<CR>
 nmap gf :tabe <cfile><CR>
 
 " Manipulating lines
-nmap <LEADER>- :call InsertLine("-")<CR>
+nmap <LEADER>- :call HeaderLine("-")<CR>
 nmap <LEADER><CR> o<ESC>
 vmap > >gv
 vmap < <gv
