@@ -277,7 +277,7 @@ let g:solarized_termtrans=1     " Use a completely-transparent background
 " Wild menu settings
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
 set wildmenu
-set wildmode=longest:full
+set wildmode=longest:full,full
 
 " Indentation
 set autoindent                  " Indent based on the line before
