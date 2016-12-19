@@ -41,13 +41,15 @@ magic() {
 }
 
 goto() {
-    workspace="$HOME/programming"
+    workspace="$HOME/code"
     mongo="$workspace/mongo"
 
     if [ $# -gt 1 ]; then
         echo "$0: error: expected only one argument"
     elif [ $# -eq 1 ]; then
         case $1 in
+            c|code)
+                cd "$workspace" ;;
             cfg|config)
                 cd "$workspace/config-files" ;;
             d|docs)
@@ -62,8 +64,6 @@ goto() {
                 cd "$mongo" ;;
             mmap|mmapv1)
                 cd "$mongo/src/mongo/db/storage/mmap_v1" ;;
-            p|prog|programming)
-                cd "$workspace" ;;
             src)
                 cd "$mongo/src/mongo" ;;
             storage)
