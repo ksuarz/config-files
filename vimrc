@@ -53,6 +53,12 @@ endfunction
 " Diff the contents of the current buffer with the file on disk and display a unified diff in a
 " scratch pane.
 function! DiffSaved()
+    " If the modified flag isn't set, bail early.
+    if !&modified
+        echomsg "No changes."
+        return
+    endif
+
     " Copy the contents of this buffer and throw it into a scratch buffer.
     %y
     new
@@ -62,12 +68,6 @@ function! DiffSaved()
     silent %! diff -u # -
     setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile readonly filetype=diff
     silent file diff
-
-    " If the scratch buffer is empty, close it and report a message.
-    if line2byte(line("$")) <= 1
-        quit
-        echomsg "No changes."
-    endif
 endfunction
 
 " Replace all tabs with spaces in the current file.
