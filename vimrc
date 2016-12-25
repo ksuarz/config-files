@@ -274,9 +274,8 @@ nnoremap <LEADER>g :call DiffGit()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODO I don't think this works
-" Check for outside updates
-" autocmd BufEnter,FocusGained * :checktime
+" Check for outside updates, reloading the buffer if `autoread` is set.
+autocmd BufEnter,FocusGained * checktime %
 
 " Do something when detecting particular filetypes.
 augroup detect_filetype
