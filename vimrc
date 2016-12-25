@@ -14,6 +14,45 @@ function! ClangFormat()
     call setpos(".", cursor)
 endfunction
 
+" Edit the current buffer in vimdiff mode, comparing changes since the last Git commit.
+function! DiffGit()
+    " Save information about the current buffer.
+    let l:fileType=&filetype
+    let l:splitRight=&splitright
+
+    " Put this buffer into diff mode, then open a new scratch pane to the left.
+    diffthis
+    setlocal nosplitright
+    vnew
+
+    " Find the state of the file at the current Git HEAD and apply a patch to match that state.
+    exec "%!git diff ".expand("#:p:h")."| patch -p 1 -Rs -o /dev/stdout"
+
+    " Put the new buffer in read-only diff mode.
+    diffthis
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile readonly
+    exec "setlocal filetype=".l:fileType
+
+    " Restore the original splitright setting.
+    if l:splitRight
+        setlocal splitright
+    endif
+endfunction
+
+" Diff the contents of the current buffer with the file on disk and display a unified diff in a
+" scratch pane.
+function! DiffSaved()
+    " Copy the contents of this buffer and throw it into a scratch buffer.
+    %y
+    new
+    normal Vp
+
+    " Diff the contents of the scratch buffer with the file on disk.
+    silent %! diff -u # -
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile readonly filetype=diff
+    silent file diff
+endfunction
+
 " Replace all tabs with spaces in the current file.
 function! ExpandTabs()
     let cursor = getpos(".")
@@ -210,6 +249,10 @@ nmap <LEADER>f :call ClangFormat()<CR>
 " Automatic block commenting and uncommenting
 vnoremap <LEADER>/ :call Comment()<CR>
 nnoremap <LEADER>/ :call Comment()<CR>
+
+" See what's changed in the current buffer
+nnoremap <LEADER>d :call DiffSaved()<CR>
+nnoremap <LEADER>g :call DiffGit()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
