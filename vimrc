@@ -284,7 +284,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.ino set filetype=java
     autocmd BufRead,BufNewFile *.json set filetype=javascript
     autocmd BufRead,BufNewFile *.mak,[Mm]akefile* set filetype=make
-    autocmd BufRead,BufNewFile *.md,*.mkd set filetype=ghmarkdown
+    autocmd BufRead,BufNewFile *.md,*.mkd set filetype=markdown
     autocmd BufRead,BufNewFile *.page set filetype=xml
     autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
