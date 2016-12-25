@@ -27,8 +27,11 @@
     # Colorize grep output
     grep = grep --color=auto
 
+    # Selectively undo changes
+    rollback = checkout -p
+
     # Synchronize with upstream
-    sync = "!git fetch upstream master:master && git push origin upstream/master:master"
+    sync = "!git fetch upstream && git push origin upstream/master:master"
 
     # Remove a file from staging
     unstage = reset --
