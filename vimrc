@@ -9,9 +9,11 @@ set nocompatible                " Vim behavior as opposed to vi
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run clang-format on the current file.
 function! ClangFormat()
-    let cursor=getpos(".")
-    %!clang-format -style=file
-    call setpos(".", cursor)
+    if &ft == "cpp"
+        let cursor=getpos(".")
+        %!clang-format -style=file
+        call setpos(".", cursor)
+    endif
 endfunction
 
 " Edit the current buffer in vimdiff mode, comparing changes since the last Git commit.
