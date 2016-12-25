@@ -18,6 +18,15 @@ endfunction
 
 " Edit the current buffer in vimdiff mode, comparing changes since the last Git commit.
 function! DiffGit()
+    let l:fileName=expand("%:p")
+
+    " If Git detects no changes, bail early.
+    let l:throwaway=system("git diff --exit-code -s -- ".l:fileName)
+    if v:shell_error == 0
+        echomsg "No changes since last commit."
+        return
+    endif
+
     " Save information about the current buffer.
     let l:fileType=&filetype
     let l:splitRight=&splitright
@@ -28,7 +37,7 @@ function! DiffGit()
     vnew
 
     " Find the state of the file at the current Git HEAD and apply a patch to match that state.
-    exec "%!git diff ".expand("#:p:h")."| patch -p 1 -Rs -o /dev/stdout"
+    exec "%!git diff ".l:fileName."| patch -p 1 -Rs -o /dev/stdout"
 
     " Put the new buffer in read-only diff mode.
     diffthis
@@ -53,6 +62,12 @@ function! DiffSaved()
     silent %! diff -u # -
     setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile readonly filetype=diff
     silent file diff
+
+    " If the scratch buffer is empty, close it and report a message.
+    if line2byte(line("$")) <= 1
+        quit
+        echomsg "No changes."
+    endif
 endfunction
 
 " Replace all tabs with spaces in the current file.
