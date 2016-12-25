@@ -233,11 +233,10 @@ augroup end
 
 " Change indentation and text settings based on filetype
 augroup filetype_indentation
-    autocmd FileType c setl shiftwidth=3 tabstop=3
-    autocmd Filetype cpp set textwidth=100
+    autocmd FileType c set shiftwidth=3 tabstop=3
     autocmd FileType go set textwidth=0
-    autocmd FileType html setl shiftwidth=2 tabstop=2 textwidth=0
-    autocmd FileType javascript set textwidth=100
+    autocmd FileType html set shiftwidth=2 tabstop=2 textwidth=0
+    autocmd FileType python set textwidth=80
     autocmd FileType xml setl shiftwidth=2 tabstop=2 textwidth=0
 augroup end
 
@@ -314,7 +313,7 @@ set spelllang=en_us             " Sets language if `set spell` is on
 set splitbelow                  " Horizontal split splits below
 set splitright                  " Vertical split splits right
 set t_Co=256                    " Use 256 colors
-set textwidth=80                " Stay within 80 characters
+set textwidth=100               " Stay within 100 characters
 set timeout                     " Time out on both mappings and keycodes
 set timeoutlen=300              " 300ms time-out length
 syntax enable                   " Syntax highlighting
