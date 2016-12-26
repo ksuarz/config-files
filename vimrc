@@ -118,7 +118,7 @@ function! NewCFile()
         exec "read ".l:headerfile
         %s/\n\n\n\n/\r/ge
         %s/^#.*$//ge
-        %s/);/)\r{\r   \/* TODO *\/\r}/ge
+        %s/);/) {\r   \/* TODO *\/\r}/ge
         normal ggO
         exec "normal i#include \"".l:headerfile."\""
 
