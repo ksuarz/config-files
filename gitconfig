@@ -13,6 +13,10 @@
 [url "https://gist.github.com/"]
     insteadOf = "gist:"
 
+[url "https://ksuarz@bitbucket.org/"]
+    insteadOf = "bitbucket:"
+    insteadOf = "bb:"
+
 [core]
     editor = vim
     excludesfile = /Users/ksuarz/.gitignore_global
