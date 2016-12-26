@@ -1,20 +1,19 @@
 #!/bin/bash
 # clean.sh - remove configuration files
 
-ALWAYS=0
-CONFIG_DIR="$HOME"
-FLAGS=""
-OPTIND=1
+always=0
+config_dir="$HOME"
+flags=""
 
 while getopts "ad:fhim" opt; do
     case "$opt" in
         a)
             # Always remove files, even if they don't match version control
-            ALWAYS=1
+            always=1
             ;;
         d)
             # Specify the destination directory
-            CONFIG_DIR="$OPTARG"
+            config_dir="$OPTARG"
             ;;
         e)
             # Exit on error
@@ -22,17 +21,16 @@ while getopts "ad:fhim" opt; do
             ;;
         f)
             # Use the force flag with the remove command
-            FLAGS="-f"
+            flags="-f"
             ;;
         h)
             # List options
-            echo "clean.sh: remove configuration files
-Usage: remove.sh [-d CONFIG_DIR] [-aefhi]
+            echo "Usage: $(basename $0) [-d config_dir] [-aefhi]"
+            echo "Available options:
 
-Options:
     -a  Always remove files, even if they don't match version control
     -d  Specify the directory containing the config files. Default is \$HOME
-    -e  Exit on error
+    -e  Stop on error
     -f  No error for removing nonexistent files. Overrides -i
     -h  Show this message and exit
     -i  Interactively remove files. Overrides -f"
@@ -40,7 +38,7 @@ Options:
             ;;
         i)
             # Use interactive mode with the remove command
-            FLAGS="-i"
+            flags="-i"
             ;;
         *)
             echo "Unrecognized option: -$opt"
@@ -48,19 +46,29 @@ Options:
             ;;
     esac
 done
-shift $((OPTIND-1))
 
 # Force flag or interactive mode
-RM="rm $FLAGS"
+remove="rm $flags"
 
-# Remove the standard files
-for FILE in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
+# Remove configuration files
+for file in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
             vimrc tmux.conf Xresources zshrc zsh_aliases zsh_functions
 do
-    INSTALLED="${CONFIG_DIR}/.${FILE}"
-    if [ $ALWAYS -eq 1 ] || diff -q $FILE $INSTALLED > /dev/null 2>&1; then
-        $RM -v $INSTALLED
+    installed="${config_dir}/.${file}"
+    if [ $always -eq 1 ] || diff -q $file $installed > /dev/null 2>&1; then
+        $remove -v $installed
     else
-        echo "Ignoring $INSTALLED: differs from version control"
+        echo "Ignoring $installed: differs from version control"
     fi
+done
+
+# Remove executables
+for file in $(find scripts -type f)
+    installed="/usr/local/bin/$(basename $file)"
+    if [ $always -eq 1 ] || diff -q $file $installed > /dev/null 2>&1; then
+        $remove -v $installed
+    else
+        echo "Ignoring $installed: differs from version control"
+    fi
+do
 done

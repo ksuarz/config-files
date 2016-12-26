@@ -32,14 +32,6 @@ virtualenv_status() {
     fi
 }
 
-magic() {
-    if [ -d "$HOME/incantations" ]; then
-        export PATH="$HOME/incantations:$PATH"
-        echo "Magic spells available:"
-        ls "$HOME/incantations"
-    fi
-}
-
 goto() {
     workspace="$HOME/code"
     mongo="$workspace/mongo"

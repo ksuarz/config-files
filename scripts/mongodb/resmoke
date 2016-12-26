@@ -1,0 +1,21 @@
+#!/bin/bash
+# Run resmoke.py.
+
+mongodir="$HOME/code/mongo"
+resmoke="$mongodir/buildscripts/resmoke.py"
+
+if [ ! -f $resmoke ]; then
+    echo "fatal: resmoke not found at $resmoke"
+    exit 1
+fi
+
+cd $mongodir
+if [ $1 == "asan" ]; then
+    shift
+    ASAN_SYMBOLIZER_PATH=$(which llvm-symbolizer-3.6)           \
+    ASAN_OPTIONS=detect_leaks=1                                 \
+    LSAN_OPTIONS=suppressions="$mongodir/etc/lsan.suppressions" \
+    python $resmoke $opts $@
+else
+    python $resmoke $opts $@
+fi

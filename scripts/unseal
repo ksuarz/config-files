@@ -1,0 +1,59 @@
+#!/bin/bash
+# unseal - Unprotect an archive
+
+set -e
+
+preserve=0
+force=0
+
+# Grab command line opptions
+while getopts "pfi" opt; do
+    case "$opt" in
+        p)
+            # Don't delete intermediate files
+            preserve=1
+            ;;
+        f)
+            # Overwrite existing files
+            force=1
+            ;;
+        i)
+            # Cancels -f
+            force=0
+            ;;
+        *)
+            echo "Unrecognized option: -$opt"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ $# -ne 1 ]; then
+    echo "Usage: unseal <file> [<file> ...]"
+    exit 1
+fi
+
+for file in $@; do
+    tarball="${file}.tar.gz"
+    archive="${file}.tar.gz.gpg"
+
+    if [ ! -e $archive ]; then
+        echo "Archive $archive does not exist"
+        exit 1
+    else
+        echo "Unsealing $archive"
+        gpg "$archive"
+    fi
+
+    if [ ! -e $tarball ]; then
+        echo "Tar archive $tarball does not exist"
+        exit 1
+    else
+        tar -xzvf "$tarball"
+    fi
+
+    rm "$archive"
+    rm "$tarball"
+    shift
+done
