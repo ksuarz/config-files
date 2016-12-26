@@ -1,0 +1,35 @@
+#!/bin/bash -e
+# Restart mongod
+
+mongodir="$HOME/code/mongo"
+dbpath="/tmp/data/db"
+mongod="$mongodir/mongod"
+
+# Make sure we have a compiled mongod
+if [ ! -x $mongod ]; then
+    echo "$0: error: no mongod executable in $mongodir"
+    exit 1
+fi
+
+# NUMA settings
+if [ -e /sys/kernel/mm/transparent_hugepage ]; then
+    if grep -qve "\[never\]" /sys/kernel/mm/transparent_hugepage/enabled; then
+        service disable-transparent-hugepages start
+    fi
+fi
+
+# Clean up old instances
+killall mongod || true
+sleep 2
+rm -rf $dbpath
+mkdir -p $dbpath
+
+# Launch mongod
+options="--fork --dbpath=$dbpath --logpath=$dbpath/log -vvv"
+if [ -x /usr/bin/numactl ]; then
+    echo "numactl --interleave=all $mongod $options $@"
+    numactl --interleave=all $mongod $options $@
+else
+    echo "$mongod $options $@"
+    $mongod $options $@
+fi

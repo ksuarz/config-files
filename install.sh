@@ -1,36 +1,34 @@
 #!/bin/bash
 # install.sh - installs configuration files
 
-COMMAND="cp"
-COPY=1
-DEST_DIR="$HOME"
-FORCE=0
-OPTIND=1
+cmd="cp"
+copy=1
+dest_dir="$HOME"
+force=0
 
 while getopts "cd:efhl" opt; do
     case "$opt" in
         c)
             # Copy files to destination
-            COMMAND="cp"
-            COPY=1
+            cmd="cp"
+            copy=1
             ;;
         d)
             # Specify the destination directory
-            DEST_DIR="$OPTARG"
+            dest_dir="$OPTARG"
             ;;
         e)
             set -e
             ;;
         f)
             # Force removal of existing files at the destination
-            FORCE=1
+            force=1
             ;;
         h)
             # List options
-            echo "install.sh: installs configuration files
-Usage: install.sh [-d DEST_DIR] [-cefhl]
+            echo "Usage: $(basename $0) [-d dest_dir] [-cefhl]"
+            echo "Available options:
 
-Options:
     -c  Copy files to the destination (default). Overrides -l
     -d  Specify the destination directory. Default is \$HOME
     -e  Stop on error
@@ -41,8 +39,8 @@ Options:
             ;;
         l)
             # Create symlinks to files
-            COMMAND="ln -s"
-            COPY=0
+            cmd="ln -s"
+            copy=0
             ;;
         *)
             echo "Unrecognized option: -$opt"
@@ -50,27 +48,32 @@ Options:
             ;;
     esac
 done
-shift $((OPTIND-1))
 
 # Use the force flag
-if [ $FORCE -eq 1 ]; then
-    COMMAND="${COMMAND} -f"
+if [ $force -eq 1 ]; then
+    cmd="$cmd -f"
 fi
 
-# Install the standard files
-for FILE in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
+# Install configuration files
+for file in bashrc bash_aliases bash_functions bash_profile gitconfig hgrc \
             vimrc tmux.conf Xresources zshrc zsh_aliases zsh_functions
 do
-    $COMMAND -v "${PWD}/${FILE}" "${DEST_DIR}/.${FILE}"
+    $cmd -v "${PWD}/${file}" "${dest_dir}/.${file}"
 done
 
-# Install the vim directory. Ignores $FORCE
-if [ -e "${DEST_DIR}/.vim" ]; then
-    echo "Skipping vim directory: ${DEST_DIR}/.vim exists"
+# Install the vim directory. Ignores $force
+if [ -e "${dest_dir}/.vim" ]; then
+    echo "Skipping vim directory: ${dest_dir}/.vim exists"
 else
-    if [ $COPY -eq 1 ]; then
-        cp -r vim "${DEST_DIR}/.vim"
+    if [ $copy -eq 1 ]; then
+        cp -r vim "${dest_dir}/.vim"
     else
-        ln -s "${PWD}/vim" "${DEST_DIR}/.vim"
+        ln -s "${PWD}/vim" "${dest_dir}/.vim"
     fi
 fi
+
+# Install executable scripts
+for file in $(find scripts -type f)
+do
+    $cmd -v "${PWD}/${file}" "/usr/local/bin/$(basename $file)"
+done

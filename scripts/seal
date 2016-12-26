@@ -1,0 +1,62 @@
+#!/bin/bash
+# seal - Seal a file and protect it
+
+set -e
+
+preserve=0
+force=0
+
+# Grab command line opptions
+while getopts "pfi" opt; do
+    case "$opt" in
+        p)
+            # Don't delete intermediate files
+            preserve=1
+            ;;
+        f)
+            # Overwrite existing files
+            force=1
+            ;;
+        i)
+            # Cancels -f
+            force=0
+            ;;
+        *)
+            echo "Unrecognized option: -$opt"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ $# -ne 1 ]; then
+    echo "Usage: seal <file> [<file> ...]"
+    exit 2
+fi
+
+for file in $@; do
+    tarball="${file}.tar.gz"
+    archive="${file}.tar.gz.gpg"
+
+    # Sanity checks
+    if [ $force -ne 1 ]; then
+        if [ -e $tarball ]; then
+            echo "Tar archive $tarball already exists"
+            exit 3
+        elif [ -e $archive ]; then
+            echo "Archive $archive already exists"
+            exit 4
+        fi
+    fi
+
+    echo "Creating tar archive $tarball"
+    tar -czf "$tarball" "$file"
+    echo "Sealing archive as $archive"
+    gpg -c "$tarball"
+
+    # Delete original and intermediate files
+    if [ $preserve -eq 0 ]; then
+        rm -r $tarball "$file"
+    fi
+    shift
+done

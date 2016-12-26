@@ -1,0 +1,38 @@
+#!/bin/bash
+# Open a header file and its implementation.
+
+split="-O"
+while getopts "sv" opt; do
+    case "$opt" in
+        s)
+            split="-o" ;;
+        v)
+            split="-O" ;;
+        *)
+            echo "Error: unrecognized option: -$opt"
+            exit 1 ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ $# -ne 1 ]; then
+    echo "Error: expected exactly one argument"
+    exit 1
+fi
+
+# Strip a trailing period
+name=$(echo $1 | sed "s/\.$//")
+header="${name}.h"
+
+if [ ! -e $header ]; then
+    echo "Error: $header does not exist"
+    exit 1
+fi
+
+if [ -e "${name}.cpp" ]; then
+    vim $split $header "${name}.cpp"
+elif [ -e "${name}.c" ]; then
+    vim $split $header "${name}.c"
+else
+    vim $header
+fi
