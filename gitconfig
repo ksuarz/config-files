@@ -43,6 +43,10 @@
 [color]
     ui = auto
 
+[merge]
+    # All merges are fast-forward only by default
+    ff = only
+
 [pull]
     # When pulling from an upstream repository, only allow fast-forwards
     ff = only
