@@ -194,5 +194,5 @@ echo "scons $flags $target"
 
 # Run scons if not in dry run mode
 if [ $dryrun -eq 0 ]; then
-    nice -n 5 scons $flags $target
+    nice -n 15 scons $flags $target
 fi
