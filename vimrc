@@ -268,8 +268,8 @@ vnoremap <LEADER>/ :call Comment()<CR>
 nnoremap <LEADER>/ :call Comment()<CR>
 
 " See what's changed in the current buffer
-nnoremap <LEADER>d :call DiffSaved()<CR>
-nnoremap <LEADER>g :call DiffGit()<CR>
+nmap <LEADER>ds :call DiffSaved()<CR>
+nmap <LEADER>dg :call DiffGit()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
