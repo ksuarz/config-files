@@ -187,11 +187,11 @@ endfunction
 " Comment or uncomment code depending on filetype
 function! Comment()
     if &filetype=="c" || &filetype=="cpp" || &filetype=="javascript"
-        let l:char="// "
+        let l:char="//"
     elseif &filetype=="python" || &filetype=="conf" || &filetype=="sh"
-        let l:char="# "
+        let l:char="#"
     elseif &filetype=="vim"
-        let l:char="\" "
+        let l:char="\""
     endif
 
     " If the current line starts with the comment character, strip the comments;
@@ -265,8 +265,8 @@ vmap < <gv
 nmap <LEADER>f :call ClangFormat()<CR>
 
 " Automatic block commenting and uncommenting
-vnoremap <LEADER>/ :call Comment()<CR>
-nnoremap <LEADER>/ :call Comment()<CR>
+vmap <LEADER>/ :call Comment()<CR>
+nmap <LEADER>/ :call Comment()<CR>
 
 " See what's changed in the current buffer
 nmap <LEADER>ds :call DiffSaved()<CR>
