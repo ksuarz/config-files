@@ -34,6 +34,9 @@
     # Selectively undo changes
     rollback = checkout -p
 
+    # See what's staged
+    staged = diff --cached
+
     # Synchronize with upstream
     sync = "!git fetch upstream master:master && git push origin upstream/master:master"
 
