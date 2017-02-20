@@ -288,6 +288,7 @@ augroup detect_filetype
     autocmd BufRead,BufNewFile *.page set filetype=xml
     autocmd BufRead,BufNewFile *.tex silent! call NewTexFile()
     autocmd BufRead,BufNewFile README,Readme set filetype=markdown
+    autocmd BufRead,BufNewFile SConscript set filetype=python
 augroup end
 
 " Change indentation and text settings based on filetype
