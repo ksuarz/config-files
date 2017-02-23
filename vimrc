@@ -5,6 +5,18 @@
 set nocompatible                " Vim behavior as opposed to vi
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function Definitions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run clang-format on the current file.
@@ -271,6 +283,16 @@ nmap <LEADER>/ :call Comment()<CR>
 " See what's changed in the current buffer
 nmap <LEADER>ds :call DiffSaved()<CR>
 nmap <LEADER>dg :call DiffGit()<CR>
+
+" Jump around in code via YouCompleteMe
+nmap <LEADER>gj :YcmCompleter GoTo<CR>
+nmap <LEADER>gp :YcmCompleter GoToDeclaration<CR>
+nmap <LEADER>gd :YcmCompleter GoToDefinition<CR>
+nmap <LEADER>gf :YcmCompleter GoToImprecise<CR>
+nmap <LEADER>gJ :vsplit<CR>:YcmCompleter GoTo<CR>
+nmap <LEADER>gP :vsplit<CR>:YcmCompleter GoToDeclaration<CR>
+nmap <LEADER>gD :vsplit<CR>:YcmCompleter GoToDefinition<CR>
+nmap <LEADER>gF :vsplit<CR>:YcmCompleter GoToImprecise<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
