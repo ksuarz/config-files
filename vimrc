@@ -273,6 +273,59 @@ nmap <LEADER>ds :call DiffSaved()<CR>
 nmap <LEADER>dg :call DiffGit()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors
+set background=dark
+colorscheme solarized           " Solarized
+let g:solarized_termtrans=1     " Use a completely-transparent background
+
+" Wild menu settings
+set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
+set wildmenu
+set wildmode=longest:full,full
+
+" Indentation
+set autoindent                  " Indent based on the line before
+set expandtab                   " Spaces instead of tabs
+set nosmartindent               " Smart indent is annoying when typing `#`
+set shiftwidth=4                " Four columns when indenting with > or <
+set smarttab                    " Delete `shiftwidth` amount of spaces
+set softtabstop=4               " When we hit tab, use four columns
+set tabstop=8                   " Render existing tabs in text as eight columns
+
+" More settings
+filetype indent on              " Indent based on detected filetype
+filetype plugin on              " Allow filetype plugins
+set autoread                    " Reload the file if changed from outside
+set backspace=indent,eol,start  " Backspace works intuitively
+set confirm                     " Confirm quit if dirty
+set cursorline                  " Highlight current line
+set hidden                      " Hide buffers after they're abandoned
+set hlsearch                    " Search highlighting
+set ignorecase
+set laststatus=2                " Always show the status bar
+set modelines=5                 " Modelines for OSX
+set mouse=a                     " Use the mouse in all modes
+set nofoldenable                " Open folds; use `set foldenable` to close
+set nostartofline               " Movements don't auto-jump to line start
+set noswapfile                  " Goodbye .swp
+set nowrap                      " No line wrapping
+set number                      " Show line numbers
+set ruler
+set showcmd                     " Shows incomplete commands
+set smartcase                   " Case sensitive depending on search
+set spell                       " Use spell checking
+set spelllang=en_us             " Sets language if `set spell` is on
+set splitbelow                  " Horizontal split splits below
+set splitright                  " Vertical split splits right
+set t_Co=256                    " Use 256 colors
+set textwidth=100               " Stay within 100 characters
+set timeout                     " Time out on both mappings and keycodes
+set timeoutlen=300              " 300ms time-out length
+syntax enable                   " Syntax highlighting
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Check for outside updates, reloading the buffer if `autoread` is set.
@@ -325,56 +378,3 @@ if glob("~/.vim/templates/") != ""
         autocmd BufNewFile [Mm]akefile* silent! exe "0r ".s:template."make"
     augroup end
 endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors
-set background=dark
-colorscheme solarized           " Solarized
-let g:solarized_termtrans=1     " Use a completely-transparent background
-
-" Wild menu settings
-set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
-set wildmenu
-set wildmode=longest:full
-
-" Indentation
-set autoindent                  " Indent based on the line before
-set expandtab                   " Spaces instead of tabs
-set nosmartindent               " Smart indent is annoying when typing `#`
-set shiftwidth=4                " Four columns when indenting with > or <
-set smarttab                    " Delete `shiftwidth` amount of spaces
-set softtabstop=4               " When we hit tab, use four columns
-set tabstop=8                   " Render existing tabs in text as eight columns
-
-" More settings
-filetype indent on              " Indent based on detected filetype
-filetype plugin on              " Allow filetype plugins
-set autoread                    " Reload the file if changed from outside
-set backspace=indent,eol,start  " Backspace works intuitively
-set confirm                     " Confirm quit if dirty
-set cursorline                  " Highlight current line
-set hidden                      " Hide buffers after they're abandoned
-set hlsearch                    " Search highlighting
-set ignorecase
-set laststatus=2                " Always show the status bar
-set modelines=5                 " Modelines for OSX
-set mouse=a                     " Use the mouse in all modes
-set nofoldenable                " Open folds; use `set foldenable` to close
-set nostartofline               " Movements don't auto-jump to line start
-set noswapfile                  " Goodbye .swp
-set nowrap                      " No line wrapping
-set number                      " Show line numbers
-set ruler
-set showcmd                     " Shows incomplete commands
-set smartcase                   " Case sensitive depending on search
-set spell                       " Use spell checking
-set spelllang=en_us             " Sets language if `set spell` is on
-set splitbelow                  " Horizontal split splits below
-set splitright                  " Vertical split splits right
-set t_Co=256                    " Use 256 colors
-set textwidth=100               " Stay within 100 characters
-set timeout                     " Time out on both mappings and keycodes
-set timeoutlen=300              " 300ms time-out length
-syntax enable                   " Syntax highlighting
