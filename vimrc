@@ -302,6 +302,18 @@ set background=dark
 colorscheme solarized           " Solarized
 let g:solarized_termtrans=1     " Use a completely-transparent background
 
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_error_symbol='✘✘'
+let g:ycm_extra_conf_globlist=['~/code/mongo/*']
+let g:ycm_goto_buffer_command='vertical-split'
+let g:ycm_key_detailed_diagnostics=''
+let g:ycm_key_invoke_completion='<C-N>'
+let g:ycm_key_list_previous_completion=['<S-TAB>', '<Up>', '<C-S-N>']
+let g:ycm_key_list_select_completion=['<TAB>', '<Down>', '<C-N>']
+let g:ycm_warning_symbol='!!'
+
 " Wild menu settings
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
 set wildmenu
