@@ -14,4 +14,7 @@ alias lt='ls -lAtr'
 # Superuser privileges
 alias slide='sudo -s'
 
+# Compiling
+alias cxx='/opt/mongodbtoolchain/v2/bin/clang++ --std=c++14'
+
 #" vim: filetype=zsh
