@@ -332,6 +332,7 @@ set cursorline                  " Highlight current line
 set hidden                      " Hide buffers after they're abandoned
 set hlsearch                    " Search highlighting
 set ignorecase
+set incsearch
 set laststatus=2                " Always show the status bar
 set modelines=5                 " Modelines for OSX
 set mouse=a                     " Use the mouse in all modes
