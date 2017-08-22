@@ -13,6 +13,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'wincent/command-t'
+Plugin 'majutsushi/tagbar'
 
 call vundle#end()
 
@@ -283,10 +285,17 @@ nmap <LEADER>gj :YcmCompleter GoTo<CR>
 nmap <LEADER>gp :YcmCompleter GoToDeclaration<CR>
 nmap <LEADER>gd :YcmCompleter GoToDefinition<CR>
 nmap <LEADER>gf :YcmCompleter GoToImprecise<CR>
-nmap <LEADER>gJ :vsplit<CR>:YcmCompleter GoTo<CR>
-nmap <LEADER>gP :vsplit<CR>:YcmCompleter GoToDeclaration<CR>
-nmap <LEADER>gD :vsplit<CR>:YcmCompleter GoToDefinition<CR>
-nmap <LEADER>gF :vsplit<CR>:YcmCompleter GoToImprecise<CR>
+
+" Open TagBar
+nmap <LEADER>n :TagbarOpenAutoClose<CR>
+
+" CommandT
+nmap <LEADER>t :CommandT<CR>
+nmap <LEADER>b :CommandTBuffer<CR>
+nmap <LEADER>j :CommandTJump<CR>
+nmap <LEADER>s :CommandTTag<CR>
+nmap <LEADER>/ :CommandTLine<CR>
+nmap <LEADER>? :CommandTHelp<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Settings
@@ -297,16 +306,28 @@ colorscheme solarized           " Solarized
 let g:solarized_termtrans=1     " Use a completely-transparent background
 
 " YouCompleteMe
+let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_autoclose_preview_window_after_insertion=1
 let g:ycm_error_symbol='✘✘'
-let g:ycm_extra_conf_globlist=['~/code/mongo/*']
-let g:ycm_goto_buffer_command='vertical-split'
+let g:ycm_extra_conf_globlist=['~/code/*', '~/code/mongo/*']
 let g:ycm_key_detailed_diagnostics=''
 let g:ycm_key_invoke_completion='<C-N>'
-let g:ycm_key_list_previous_completion=['<S-TAB>', '<Up>', '<C-S-N>']
+let g:ycm_key_list_previous_completion=['<S-TAB>', '<Up>', '<C-P>']
 let g:ycm_key_list_select_completion=['<TAB>', '<Down>', '<C-N>']
+let g:ycm_use_ultisnips_completer = 0
 let g:ycm_warning_symbol='!!'
+
+" TagBar
+let g:tagbar_autoclose = 1
+let g:tagbar_left = 1
+let g:tagbar_width = 60
+let g:tagbar_map_close = "<C-C>"
+
+" CommandT
+let g:CommandTFileScanner = "git"
+let g:CommandTIgnoreCase = 1
+let g:CommandTIgnoreSpaces = 1
 
 " Wild menu settings
 set wildignore=*.o,*.jpg,*.png,*.gif,*.pyc,*.tar,*.gz,*.zip,*.class,*.pdf
