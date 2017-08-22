@@ -292,7 +292,7 @@ nmap <LEADER>gF :vsplit<CR>:YcmCompleter GoToImprecise<CR>
 " General Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
-set background=dark
+set background=light
 colorscheme solarized           " Solarized
 let g:solarized_termtrans=1     " Use a completely-transparent background
 

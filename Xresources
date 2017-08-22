@@ -26,11 +26,11 @@ URxvt.colorUL: #86a2b0
 URxvt.depth: 32
 
 ! Fonts
-URxvt.font:     xft:Terminus:pixelsize=14:antialias=false
-URxvt.boldFont: xft:Terminus:bold:pixelsize=14:antialias=false
+URxvt.font:     xft:UbuntuMono:pixelsize=14:antialias=false
+URxvt.boldFont: xft:UbuntuMono:bold:pixelsize=14:antialias=false
 
 ! ----------------------------------------------------------------------------
-! Colors: Solarized Dark
+! Colors: Solarized
 ! ----------------------------------------------------------------------------
 #define solarized_yellow        #b58900
 #define solarized_orange        #cb4b16
@@ -41,7 +41,7 @@ URxvt.boldFont: xft:Terminus:bold:pixelsize=14:antialias=false
 #define solarized_cyan          #2aa198
 #define solarized_green         #859900
 
-#define solarized_base03        [90]#002b36
+#define solarized_base03        #002b36
 #define solarized_base02        #073642
 #define solarized_base01        #586e75
 #define solarized_base00        #657b83
@@ -50,27 +50,57 @@ URxvt.boldFont: xft:Terminus:bold:pixelsize=14:antialias=false
 #define solarized_base2         #eee8d5
 #define solarized_base3         #fdf6e3
 
-URxvt.background:              solarized_base03
-URxvt.foreground:              solarized_base0
-URxvt.fading:                  40
-URxvt.fadeColor:               solarized_base03
-URxvt.cursorColor:             solarized_base1
-URxvt.pointerColorBackground:  solarized_base01
-URxvt.pointerColorForeground:  solarized_base1
+! Solarized Light
+! Background is solarized_base3, with %85 opacity.
+URxvt.background:            solarized_base3
+URxvt.foreground:            solarized_base00
+URxvt.fading:                40
+URxvt.fadeColor:             solarized_base3
+URxvt.cursorColor:           solarized_base01
+URxvt.pointerColorBackground:solarized_base1
+URxvt.pointerColorForeground:solarized_base01
 
-URxvt.color0:                  solarized_base02
-URxvt.color1:                  solarized_red
-URxvt.color2:                  solarized_green
-URxvt.color3:                  solarized_yellow
-URxvt.color4:                  solarized_blue
-URxvt.color5:                  solarized_magenta
-URxvt.color6:                  solarized_cyan
-URxvt.color7:                  solarized_base2
-URxvt.color8:                  solarized_base03
-URxvt.color9:                  solarized_orange
-URxvt.color10:                 solarized_base01
-URxvt.color11:                 solarized_base00
-URxvt.color12:                 solarized_base0
-URxvt.color13:                 solarized_violet
-URxvt.color14:                 solarized_base1
-URxvt.color15:                 solarized_base3
+! Use a slightly darker version for black to make text pop more.
+URxvt.color0:                #002f3b
+URxvt.color10:               solarized_base01
+URxvt.color11:               solarized_base00
+URxvt.color12:               solarized_base0
+URxvt.color13:               solarized_violet
+URxvt.color14:               solarized_base1
+URxvt.color15:               solarized_base3
+URxvt.color1:                solarized_red
+URxvt.color2:                solarized_green
+URxvt.color3:                solarized_yellow
+URxvt.color4:                solarized_blue
+URxvt.color5:                solarized_magenta
+URxvt.color6:                solarized_cyan
+URxvt.color7:                solarized_base2
+URxvt.color8:                solarized_base03
+URxvt.color9:                solarized_orange
+
+! Solarized Dark
+! Background is solarized_base03, with 90% opacity.
+!URxvt.background:              [90]#002b36
+!URxvt.foreground:              solarized_base0
+!URxvt.fading:                  40
+!URxvt.fadeColor:               solarized_base03
+!URxvt.cursorColor:             solarized_base1
+!URxvt.pointerColorBackground:  solarized_base01
+!URxvt.pointerColorForeground:  solarized_base1
+!
+!URxvt.color0:                  solarized_base02
+!URxvt.color1:                  solarized_red
+!URxvt.color2:                  solarized_green
+!URxvt.color3:                  solarized_yellow
+!URxvt.color4:                  solarized_blue
+!URxvt.color5:                  solarized_magenta
+!URxvt.color6:                  solarized_cyan
+!URxvt.color7:                  solarized_base2
+!URxvt.color8:                  solarized_base03
+!URxvt.color9:                  solarized_orange
+!URxvt.color10:                 solarized_base01
+!URxvt.color11:                 solarized_base00
+!URxvt.color12:                 solarized_base0
+!URxvt.color13:                 solarized_violet
+!URxvt.color14:                 solarized_base1
+!URxvt.color15:                 solarized_base3
