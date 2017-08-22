@@ -232,53 +232,47 @@ endfunction
 " Sets the value of <LEADER> (default is the backslash)
 let mapleader=" "
 
-" Common mappings
+" Convenience key bindings for selecting and yanking lines.
 map Y y$
+nmap <LEADER>a ggVG
+vmap <LEADER>y :w !xclip -selection c<CR><CR>
+
+
+" Familiar keybindings for controlling history.
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
 
-" Mappings for braces and the like
+" Automatically complete braces and parentheses.
 inoremap {<CR>  {<CR>}<ESC>ko
 inoremap [<CR>  [<CR>]<ESC>ko
 inoremap (<CR>  (<CR>)<ESC>ko
 
-" Reload config file
+" Jump quickly between tabs.
+nnoremap <TAB> :tabnext<CR>
+nnoremap <S-TAB> :tabprevious<CR>
+
+" Shortcut for reloading vimrc.
 nmap <LEADER>r :source ~/.vimrc<CR>
 
-" Yanking and pasting
-nnoremap <LEADER>a ggVG
-noremap  <LEADER>y "+y
-noremap  <LEADER>p "+p
-vnoremap <LEADER>p "_dP
-
-" Clear search and match highlighting
+" Clear search and match highlighting.
 nmap <LEADER><LEADER> :match none<CR>:nohlsearch<CR>
 
-" Find annoying things in code
+" Find annoying things in code.
 nmap <LEADER>l :call ShowLongLines()<CR>
 nmap <LEADER>w :call DeleteTrailingWhitespace()<CR>
 
-" Tab navigation
-nnoremap tj :tabnext<CR>
-nnoremap tk :tabprevious<CR>
-nnoremap th :tabfirst<CR>
-nnoremap tl :tablast<CR>
-nnoremap tq :tabclose<CR>
-nmap gf :tabe <cfile><CR>
-
-" Manipulating lines
+" Manipulating lines.
 nmap <LEADER>- :call HeaderLine("-")<CR>
 nmap <LEADER>= :call HeaderLine("=")<CR>
 nmap <LEADER><CR> o<ESC>
 vmap > >gv
 vmap < <gv
 
-" Format the current file
+" Format the current file.
 nmap <LEADER>f :call ClangFormat()<CR>
 
 " Automatic block commenting and uncommenting
 vmap <LEADER>/ :call Comment()<CR>
-nmap <LEADER>/ :call Comment()<CR>
 
 " See what's changed in the current buffer
 nmap <LEADER>ds :call DiffSaved()<CR>
