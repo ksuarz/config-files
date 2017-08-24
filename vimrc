@@ -398,7 +398,7 @@ augroup end
 
 " Change indentation and text settings based on filetype
 augroup filetype_indentation
-    autocmd FileType c set shiftwidth=3 tabstop=3
+    autocmd FileType c set shiftwidth=4 tabstop=4
     autocmd FileType go set textwidth=0
     autocmd FileType html set shiftwidth=2 tabstop=2 textwidth=0
     autocmd FileType python set textwidth=80
