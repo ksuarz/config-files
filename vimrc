@@ -320,9 +320,10 @@ let g:ycm_warning_symbol='!!'
 
 " TagBar
 let g:tagbar_autoclose = 1
+let g:tagbar_case_insensitive = 1
 let g:tagbar_left = 1
-let g:tagbar_width = 60
 let g:tagbar_map_close = "<C-C>"
+let g:tagbar_width = 60
 
 " CommandT
 let g:CommandTFileScanner = "git"
