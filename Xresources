@@ -26,8 +26,8 @@ URxvt.colorUL: #86a2b0
 URxvt.depth: 32
 
 ! Fonts
-URxvt.font:     xft:UbuntuMono:pixelsize=14:antialias=false
-URxvt.boldFont: xft:UbuntuMono:bold:pixelsize=14:antialias=false
+URxvt.font:     xft:Input Mono:pixelsize=12:antialias=false
+URxvt.boldFont: xft:Input Mono:bold:pixelsize=12:antialias=false
 
 ! ----------------------------------------------------------------------------
 ! Colors: Solarized
@@ -51,8 +51,8 @@ URxvt.boldFont: xft:UbuntuMono:bold:pixelsize=14:antialias=false
 #define solarized_base3         #fdf6e3
 
 ! Solarized Light
-! Background is solarized_base3, with %85 opacity.
-URxvt.background:            solarized_base3
+! Background is solarized_base3, with %90 opacity.
+URxvt.background:            [90]#fdf6e3
 URxvt.foreground:            solarized_base00
 URxvt.fading:                40
 URxvt.fadeColor:             solarized_base3

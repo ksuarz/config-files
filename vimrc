@@ -24,11 +24,9 @@ call vundle#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run clang-format on the current file.
 function! ClangFormat()
-    if &ft == "cpp"
-        let cursor=getpos(".")
-        %!clang-format -style=file
-        call setpos(".", cursor)
-    endif
+    let cursor=getpos(".")
+    %!clang-format -style=file -assume-filename=%
+    call setpos(".", cursor)
 endfunction
 
 " Edit the current buffer in vimdiff mode, comparing changes since the last Git commit.
@@ -208,6 +206,17 @@ function! DeleteTrailingWhitespace()
     call setreg('/', query)
 endfunction
 
+" Wraps the current line as if it were an argument to the C-style function 'func'.
+function! WrapLineInFunctioncall(func)
+    let l:cmd=substitute(l:line, '^\s*\(.\{-}\);\s*$', '\1', '')
+    let l:ws=substitute(l:line, '^\(\s*\).\{-}\s*$', '\1', '')
+
+    if strlen(l:cmd) > 0
+        let l:block=l:ws.a:func."(".l:cmd.");"
+        .s/^.*$/\=l:block/g
+    endif
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -218,7 +227,6 @@ let mapleader=" "
 map Y y$
 nmap <LEADER>a ggVG
 vmap <LEADER>y :w !xclip -selection c<CR><CR>
-
 
 " Familiar keybindings for controlling history.
 nmap <C-z> :undo<CR>

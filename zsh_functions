@@ -14,6 +14,21 @@ up() {
     fi
 }
 
+ps1_prompt() {
+    x=$?
+    # Adjust the color based on the status of the last command.
+    if [ "$USER" = "root" ]; then
+        echo "%F{blue}#%f"
+        exit 0
+    fi
+
+    if [ $x -eq 0 ]; then
+        echo "%F{red}♥%f"
+    else
+        echo "%F{black}♥%f"
+    fi
+}
+
 git_prompt() {
     # Use the first line of git status
     git_status=$(git status --long 2> /dev/null | head -n 1 | sed 's/On branch //g')
