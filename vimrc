@@ -11,10 +11,11 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'wincent/command-t'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-commentary'
+Plugin 'wincent/command-t'
 
 call vundle#end()
 
@@ -198,27 +199,6 @@ function! ShowLongLines()
     call setreg('/', query)
 endfunction
 
-" Comment or uncomment code depending on filetype
-function! Comment()
-    if &filetype=="c" || &filetype=="cpp" || &filetype=="javascript"
-        let l:char="//"
-    elseif &filetype=="python" || &filetype=="conf" || &filetype=="sh"
-        let l:char="#"
-    elseif &filetype=="vim"
-        let l:char="\""
-    endif
-
-    " If the current line starts with the comment character, strip the comments;
-    " otherwise, comment out each line.
-    let l:line=getline(".")
-    let l:charLen = strlen(l:char)
-    if strpart(l:line, 0, l:charLen) ==# l:char
-        exec "normal 0".l:charLen."x"
-    else
-        exec "normal 0i".l:char
-    endif
-endfunction
-
 " Deletes all trailing whitespace.
 function! DeleteTrailingWhitespace()
     let cursor = getpos(".")
@@ -272,9 +252,6 @@ vmap < <gv
 
 " Format the current file.
 nmap <LEADER>f :call ClangFormat()<CR>
-
-" Automatic block commenting and uncommenting
-vmap <LEADER>/ :call Comment()<CR>
 
 " See what's changed in the current buffer
 nmap <LEADER>ds :call DiffSaved()<CR>
