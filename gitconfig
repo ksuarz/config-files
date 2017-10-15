@@ -46,6 +46,9 @@
     # Remove a file from staging
     unstage = reset --
 
+    # Commit a work in progress
+    wip = commit --all --message 'work in progress'
+
 [color]
     ui = auto
 
