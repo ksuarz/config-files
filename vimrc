@@ -237,7 +237,7 @@ let mapleader=" "
 " Convenience key bindings for selecting and yanking lines.
 map Y y$
 nmap <LEADER>a ggVG
-vmap <LEADER>y :w !xclip -selection c<CR><CR>
+vmap <LEADER>y :w !pbcopy<CR><CR>
 
 
 " Familiar keybindings for controlling history.
