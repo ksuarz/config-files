@@ -1,6 +1,10 @@
 #!/bin/bash
-# Shows how installed files differ from those in source control.
+# Shows how installed files differ from those in source control. Exit status is the number of
+# differing files.
 set -e
+
+# Count how many files are different.
+dirty=0
 
 # Show differences only for files listed as arguments.
 files=$@
@@ -13,7 +17,11 @@ fi
 
 for file in $files
 do
+    dirty=$((dirty+1))
     if ! diff -q "$file" "$HOME/.$file" > /dev/null 2>&1; then
         diff -u "$file" "$HOME/.$file" | pygmentize -l udiff
+        echo ""
     fi
 done
+
+exit $dirty
