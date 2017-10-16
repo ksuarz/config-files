@@ -26,6 +26,11 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=5000
 export SAVEHIST=15000
 
+# Ninja environment settings
+if which ninja > /dev/null 2>&1 && which icecc > /dev/null 2>&1; then
+    export NUM_CORES=400
+fi
+
 # Ignore . and .. in glob patterns like ".*"
 export GLOBIGNORE=.:..
 
