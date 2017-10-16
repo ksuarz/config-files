@@ -8,7 +8,7 @@ HYPHEN_INSENSITIVE="true"
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt PROMPT_SUBST
-export PS1=$'\n'"%n@%m:%~ %F{green}$%f "
+export PS1=$'\n%n@%m:%~ $(ps1_prompt) '
 export RPS1="%F{green}"'$(venv_prompt)'"%F{red}"'$(git_prompt)'"%F{blue}%D{%T}%f"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
