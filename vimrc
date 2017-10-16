@@ -24,11 +24,9 @@ call vundle#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Run clang-format on the current file.
 function! ClangFormat()
-    if &ft == "cpp"
-        let cursor=getpos(".")
-        %!clang-format -style=file
-        call setpos(".", cursor)
-    endif
+    let cursor=getpos(".")
+    %!clang-format -style=file -assume-filename=%
+    call setpos(".", cursor)
 endfunction
 
 " Edit the current buffer in vimdiff mode, comparing changes since the last Git commit.
