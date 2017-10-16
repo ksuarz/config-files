@@ -17,4 +17,7 @@ alias slide='sudo -s'
 # Compiling
 alias cxx='/opt/mongodbtoolchain/v2/bin/clang++ --std=c++14'
 
+# Formatting
+alias format='clang-format -style=file'
+
 #" vim: filetype=zsh
