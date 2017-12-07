@@ -17,8 +17,8 @@ fi
 
 for file in $files
 do
-    dirty=$((dirty+1))
     if ! diff -q "$file" "$HOME/.$file" > /dev/null 2>&1; then
+        dirty=$((dirty+1))
         diff -u "$file" "$HOME/.$file" | pygmentize -l udiff
         echo ""
     fi
