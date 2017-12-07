@@ -1,0 +1,41 @@
+#!/bin/bash
+# Gives nearby commit context when writing a commit message.
+#
+# This hook is invoked by git commit right after preparing the default log
+# message, and before the editor is started.
+#
+# It takes one to three parameters:
+#
+#  - the name of the file that contains the commit log message.
+#  - the source of the commit message, and can be:
+#    - message (if a -m or -F option was given);
+#    - template (if a -t option was given or the configuration option commit.template is set);
+#    - merge (if the commit is a merge or a .git/MERGE_MSG file exists);
+#    - squash (if a .git/SQUASH_MSG file exists);
+#    - commit, followed by a commit SHA-1 (if a -c, -C or --amend option was given).
+#
+# If the exit status is non-zero, git commit will abort.
+
+commit_msg_file=$1
+commit_type=$2
+commit_sha=$3
+
+if [ -z $commit_msg_file ]; then
+    exit 0
+fi
+
+if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then
+    exit 0
+fi
+
+if [ -n $commit_type ] && [ $commit_type != "commit" ]; then
+    exit 0
+fi
+
+if [ -z $commit_sha ]; then
+    echo "# Last commit:" >> $commit_msg_file
+    git show --stat @^ | sed 's/^/#\t/g' >> $commit_msg_file
+else
+    echo "# Commit summary:"
+    git show --stat $commit_sha | sed 's/^/#\t/g' >> $commit_msg_file
+fi
