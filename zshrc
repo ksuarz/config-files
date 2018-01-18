@@ -4,10 +4,15 @@
 CASE_INSENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 
-# Primary prompt
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt PROMPT_SUBST
+
+# Disable terminal flow control
+unsetopt FLOW_CONTROL
+stty -ixon -ixoff > /dev/null
+
+# Primary prompt
 export PS1=$'\n%n@%m:%~ $(ps1_prompt) '
 export RPS1="%F{green}"'$(venv_prompt)'"%F{red}"'$(git_prompt)'"%F{blue}%D{%T}%f"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
