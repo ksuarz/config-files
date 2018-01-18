@@ -94,9 +94,4 @@ open() {
     fi
 }
 
-weather() {
-    city=$(echo $@ | tr '[ ]' '[_]')
-    curl "wttr.in/$city"
-}
-
 #" vim: filetype=sh
