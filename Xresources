@@ -26,8 +26,8 @@ URxvt.colorUL: #86a2b0
 URxvt.depth: 32
 
 ! Fonts
-URxvt.font:     xft:Input Mono:pixelsize=12:antialias=false
-URxvt.boldFont: xft:Input Mono:bold:pixelsize=12:antialias=false
+URxvt.font:     xft:Input Mono:pixelsize=12:antialias=true
+URxvt.boldFont: xft:Input Mono:bold:pixelsize=12:antialias=true
 
 ! ----------------------------------------------------------------------------
 ! Colors: Solarized
