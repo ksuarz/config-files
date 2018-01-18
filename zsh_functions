@@ -54,14 +54,12 @@ goto() {
                 cd "$mongo/jstests" ;;
             m|mongo)
                 cd "$mongo" ;;
-            mmap|mmapv1)
-                cd "$mongo/src/mongo/db/storage/mmap_v1" ;;
+            r|resmoke)
+                cd "$mongo/buildscripts/resmokeconfig/suites" ;;
             src)
                 cd "$mongo/src/mongo" ;;
             storage)
                 cd "$mongo/src/mongo/db/storage" ;;
-            wt|wiredtiger|wiredTiger)
-                cd "$mongo/src/mongo/db/storage/wiredtiger" ;;
             *)
                 echo "Undefined label." ;;
         esac
