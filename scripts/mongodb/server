@@ -1,0 +1,86 @@
+#!/bin/bash -e
+# Start or restart MongoDB.
+
+dryrun=0
+
+# Useful setParameters for convenience.
+enableTestCommands="--setParameter enableTestCommands=true"
+disableTTL="--setParameter ttlMonitorEnabled=false"
+disableFTDC="--setParameter diagnosticDataCollectionEnabled=false"
+
+# The default location for the server and the shell.
+mongodir="$HOME/code/mongo"
+mongod="$mongodir/mongod"
+mongo="$mongodir/mongo"
+
+# The default directory for the server's data and logs.
+dbpath="/tmp/data/db"
+logpath="$dbpath/log"
+
+# Default runtime options for numactl and the server.
+numactl_options="--interleave=all"
+mongod_options="--fork --dbpath=$dbpath --logpath=$logpath --bind_ip=127.0.0.1 $enableTestCommands"
+
+while getopts "c:d:hnp" opt; do
+    case "$opt" in
+        c)
+            numactl_options="$numactl_options --physcpubind=$OPTARG"
+            ;;
+        d)
+            mongod="$OPTARG"
+            ;;
+        h)
+            echo "Usage: $(basename $0) [-c cores] [-d mongod] [-hnp] -- [mongod_options]"
+            echo "Available options:
+
+    -c  Bind mongod to these CPUs.
+    -d  Specify the mongod executable to use.
+    -h  Show this message and exit.
+    -n  Dry run - print the mongod invocation and exit.
+    -p  Disable some background jobs for performance testing."
+            exit 0
+            ;;
+        n)
+            dryrun=1
+            ;;
+        p)
+            mongod_options="$mongod_options $disableTTL $disableFTDC"
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ $dryrun -eq 1 ]; then
+    if [ -x /usr/bin/numactl ]; then
+        echo "numactl $numactl_options $mongod $mongod_options $@"
+    else
+        echo "$mongod $mongod_options $@"
+    fi
+    exit 0
+fi
+
+# Make sure we have a compiled mongod.
+if [ ! -x $mongod ]; then
+    echo "$0: error: $mongod is not a valid executable file"
+    exit 1
+fi
+
+# Clean up old instances.
+echo "$mongo --eval \"db.adminCommand('shutdown');\""
+$mongo --eval "db.adminCommand('shutdown');" > /dev/null 2>&1 || true
+
+# Create the data directory if it doesn't exist.
+echo "mkdir -p $dbpath"
+mkdir -p $dbpath
+
+# Launch mongod.
+if [ -x /usr/bin/numactl ]; then
+    echo "numactl $numactl_options $mongod $mongod_options $@"
+    numactl $numactl_options $mongod $mongod_options $@
+else
+    echo "$mongod $mongod_options $@"
+    $mongod $mongod_options $@
+fi
