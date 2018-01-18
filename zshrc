@@ -32,7 +32,8 @@ export HISTSIZE=15000
 export SAVEHIST=15000
 
 # Ninja environment settings
-if which ninja > /dev/null 2>&1 && which icecc > /dev/null 2>&1; then
+if which ninja > /dev/null 2>&1; then
+    export CCACHE_DISABLE=1
     export NUM_CORES=400
 fi
 
