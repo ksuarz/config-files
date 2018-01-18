@@ -54,7 +54,6 @@ URxvt.boldFont: xft:Input Mono:bold:pixelsize=12:antialias=false
 ! Background is solarized_base3, with %90 opacity.
 URxvt.background:            [90]#fdf6e3
 URxvt.foreground:            solarized_base00
-URxvt.fading:                40
 URxvt.fadeColor:             solarized_base3
 URxvt.cursorColor:           solarized_base01
 URxvt.pointerColorBackground:solarized_base1
@@ -82,7 +81,6 @@ URxvt.color9:                solarized_orange
 ! Background is solarized_base03, with 90% opacity.
 !URxvt.background:              [90]#002b36
 !URxvt.foreground:              solarized_base0
-!URxvt.fading:                  40
 !URxvt.fadeColor:               solarized_base03
 !URxvt.cursorColor:             solarized_base1
 !URxvt.pointerColorBackground:  solarized_base01
