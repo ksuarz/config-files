@@ -28,7 +28,7 @@ export SHELL="/bin/zsh"
 
 # History settings
 export HISTFILE=~/.zsh_history
-export HISTSIZE=2000
+export HISTSIZE=15000
 export SAVEHIST=15000
 
 # Ninja environment settings
