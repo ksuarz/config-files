@@ -34,7 +34,7 @@ fi
 
 if [ -z $commit_sha ]; then
     echo "# Last commit:" >> $commit_msg_file
-    git show --stat @^ | sed 's/^/#\t/g' >> $commit_msg_file
+    git show --stat @ | sed 's/^/#\t/g' >> $commit_msg_file
 else
     echo "# Commit summary:"
     git show --stat $commit_sha | sed 's/^/#\t/g' >> $commit_msg_file
