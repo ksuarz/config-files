@@ -20,7 +20,7 @@ commit_msg_file=$1
 commit_type=$2
 commit_sha=$3
 
-if [ -z $commit_msg_file ]; then
+if [ -z "$commit_msg_file" ]; then
     exit 0
 fi
 
@@ -28,11 +28,11 @@ if [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; then
     exit 0
 fi
 
-if [ -n $commit_type ] && [ $commit_type != "commit" ]; then
+if [ -n "$commit_type" ] && [ "$commit_type" != "commit" ]; then
     exit 0
 fi
 
-if [ -z $commit_sha ]; then
+if [ -z "$commit_sha" ]; then
     echo "# Last commit:" >> $commit_msg_file
     git show --stat @ | sed 's/^/#\t/g' >> $commit_msg_file
 else
