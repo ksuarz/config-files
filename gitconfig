@@ -22,57 +22,63 @@
     excludesfile = /home/ksuarz/.gitignore_global
 
 [alias]
-    # Show git aliases
+    # Show git aliases.
     alias = "!git config -l | grep alias | cut -c 7-"
 
-    # List all files with conflicts
+    # List all files with conflicts.
     conflicts = diff --name-only --diff-filter=U
 
-    # Display commits in graph format
+    # Takes a commit-ish as an argument and shows the files changed in that commit.
+    files-changed = diff-tree --no-commit-id --name-only -r
+
+    # Fetch the latest version of master from upstream, then update our fork.
+    update-fork = "!git fetch upstream master:master && git push origin upstream/master:master"
+
+    # Display commits in graph format.
     graph = log --graph
 
-    # Colorize grep output
+    # Colorize grep output.
     grep = grep --color=auto
 
-    # Selectively undo changes
+    # Selectively undo changes.
     rollback = checkout -p
 
-    # See what's staged
+    # See what's staged.
     staged = diff --cached
 
-    # Synchronize with upstream
-    sync = "!git fetch upstream master:master && git push origin upstream/master:master"
+    # Update our fork and grab all of the changes from upstream (even on non-master branches).
+    sync = "!git fetch upstream && git update-fork"
 
-    # Remove a file from staging
+    # Remove a file from staging.
     unstage = reset --
 
-    # Commit a work in progress
+    # Commit a work in progress.
     wip = commit --all --message 'work in progress'
 
 [color]
     ui = auto
 
 [merge]
-    # All merges are fast-forward only by default
+    # All merges are fast-forward only by default.
     ff = only
 
 [pull]
-    # When pulling from an upstream repository, only allow fast-forwards
+    # When pulling from an upstream repository, only allow fast-forwards.
     ff = only
 
 [push]
-    # By default, a push only pushes the current branch
+    # By default, a push only pushes the current branch.
     default = current
 
 [rebase]
-    # Automatically squash commits in an interactive rebase
+    # Automatically squash commits in an interactive rebase.
     autoSquash = true
 
-    # Warn if commits are deleted in an interactive rebase
+    # Warn if commits are deleted in an interactive rebase.
     missingCommitsCheck = warn
 
 [rerere]
-    # Activate recording of resolved conflicts
+    # Activate recording of resolved conflicts.
     enabled = true
 
 #" vim: filetype=config
