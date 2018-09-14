@@ -33,8 +33,7 @@ export SAVEHIST=15000
 
 # Ninja environment settings
 if which ninja > /dev/null 2>&1; then
-    export CCACHE_DISABLE=1
-    export NUM_CORES=400
+    export NUM_CORES=800
 fi
 
 # Ignore . and .. in glob patterns like ".*"

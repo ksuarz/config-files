@@ -55,7 +55,8 @@ URxvt.boldFont: xft:Input Mono:bold:pixelsize=12:antialias=true
 URxvt.background:            [90]#fdf6e3
 URxvt.foreground:            solarized_base00
 URxvt.fadeColor:             solarized_base3
-URxvt.cursorColor:           solarized_base01
+URxvt.cursorColor:           #002f3b
+URxvt.cursorColor2:          solarized_base3
 URxvt.pointerColorBackground:solarized_base1
 URxvt.pointerColorForeground:solarized_base01
 

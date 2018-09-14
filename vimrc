@@ -217,7 +217,6 @@ map Y y$
 nmap <LEADER>a ggVG
 vmap <LEADER>y :w !xclip -selection c<CR><CR>
 
-
 " Familiar keybindings for controlling history.
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
@@ -281,15 +280,18 @@ colorscheme solarized           " Solarized
 let g:solarized_termtrans=1     " Use a completely-transparent background
 
 " YouCompleteMe
-let g:ycm_always_populate_location_list = 1
+let g:ycm_always_populate_location_list=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_enable_diagnostic_signs=1
 let g:ycm_error_symbol='✘✘'
 let g:ycm_extra_conf_globlist=['~/code/*', '~/code/mongo/*']
 let g:ycm_key_detailed_diagnostics=''
 let g:ycm_key_invoke_completion='<C-N>'
 let g:ycm_key_list_previous_completion=['<S-TAB>', '<Up>', '<C-P>']
 let g:ycm_key_list_select_completion=['<TAB>', '<Down>', '<C-N>']
+let g:ycm_max_diagnostics_to_display=2000
+let g:ycm_show_diagnostics_ui = 1
 let g:ycm_use_ultisnips_completer = 0
 let g:ycm_warning_symbol='!!'
 
@@ -301,7 +303,7 @@ let g:tagbar_map_close = "<C-C>"
 let g:tagbar_width = 60
 
 " CommandT
-let g:CommandTFileScanner = "git"
+let g:CommandTFileScanner = "find"
 let g:CommandTIgnoreCase = 1
 let g:CommandTIgnoreSpaces = 1
 
@@ -374,6 +376,8 @@ augroup end
 " Change indentation and text settings based on filetype
 augroup filetype_indentation
     autocmd FileType c set shiftwidth=4 tabstop=4
+    autocmd FileType cpp set textwidth=100
+    autocmd FileType cpp set commentstring=//\ %s
     autocmd FileType go set textwidth=0
     autocmd FileType html set shiftwidth=2 tabstop=2 textwidth=0
     autocmd FileType python set textwidth=80

@@ -60,18 +60,24 @@ goto() {
         echo "$0: error: expected only one argument"
     elif [ $# -eq 1 ]; then
         case $1 in
+            bin)
+                cd "/usr/local/bin" ;;
             c|code)
                 cd "$workspace" ;;
             cfg|config)
                 cd "$workspace/config-files" ;;
-            d|docs)
+            docs)
                 cd "$workspace/docs" ;;
             db)
                 cd "$mongo/src/mongo/db" ;;
-            enterprise)
+            dl)
+                cd "$HOME/downloads" ;;
+            e|enterprise)
                 cd "$workspace/enterprise-modules" ;;
             js|jstests)
                 cd "$mongo/jstests" ;;
+            kv)
+                cd "$mongo/src/mongo/db/storage/kv" ;;
             m|mongo)
                 cd "$mongo" ;;
             r|resmoke)
@@ -80,6 +86,8 @@ goto() {
                 cd "$mongo/src/mongo" ;;
             storage)
                 cd "$mongo/src/mongo/db/storage" ;;
+            wt)
+                cd "$mongo/src/mongo/db/storage/wiredtiger" ;;
             *)
                 echo "Undefined label." ;;
         esac
