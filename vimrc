@@ -29,6 +29,15 @@ function! ClangFormat()
     call setpos(".", cursor)
 endfunction
 
+" Toggle a 'copy mode' where it's easy to copy text from the buffer.
+function! CopyModeToggle()
+    if &number
+        set nonumber paste mouse=
+    else
+        set number nopaste mouse=a
+    endif
+endfunction
+
 " Edit the current buffer in vimdiff mode, comparing changes since the last Git commit.
 function! DiffGit()
     let l:fileName=expand("%:p")
@@ -206,6 +215,13 @@ function! DeleteTrailingWhitespace()
     call setreg('/', query)
 endfunction
 
+" Given a MongoDB stack trace in JSON pasted into the buffer, extract the main
+" part of the stack trace (the part in the "C" field)
+function! CleanStack()
+    %substitute/.*"C":"//ge
+    %substitute/","s+":.*$//ge
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keybindings and mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -221,6 +237,9 @@ vmap <LEADER>y :w !pbcopy<CR><CR>
 " Familiar keybindings for controlling history.
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
+
+" Toggle copy mode.
+nmap <LEADER>c :call CopyModeToggle()<CR>
 
 " Automatically complete braces and parentheses.
 inoremap {<CR>  {<CR>}<ESC>ko
@@ -277,7 +296,7 @@ nmap <LEADER>? :CommandTHelp<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 set background=light
-colorscheme solarized           " Solarized
+colorscheme solarized
 let g:solarized_termtrans=1     " Use a completely-transparent background
 
 " YouCompleteMe
@@ -346,7 +365,6 @@ set spelllang=en_us             " Sets language if `set spell` is on
 set splitbelow                  " Horizontal split splits below
 set splitright                  " Vertical split splits right
 set t_Co=256                    " Use 256 colors
-set textwidth=100               " Stay within 100 characters
 set timeout                     " Time out on both mappings and keycodes
 set timeoutlen=300              " 300ms time-out length
 syntax enable                   " Syntax highlighting
@@ -373,11 +391,12 @@ augroup end
 
 " Change indentation and text settings based on filetype
 augroup filetype_indentation
-    autocmd FileType c set shiftwidth=4 tabstop=4
-    autocmd FileType go set textwidth=0
-    autocmd FileType html set shiftwidth=2 tabstop=2 textwidth=0
+    autocmd FileType c set textwidth=100 shiftwidth=4 tabstop=4
+    autocmd FileType cpp set textwidth=100
+    autocmd FileType cpp set commentstring=//\ %s
+    autocmd FileType html set shiftwidth=2 tabstop=2
     autocmd FileType python set textwidth=80
-    autocmd FileType xml setl shiftwidth=2 tabstop=2 textwidth=0
+    autocmd FileType xml setl shiftwidth=2 tabstop=2
 augroup end
 
 " Create these files from templates.
