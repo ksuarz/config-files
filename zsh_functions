@@ -44,6 +44,16 @@ git_prompt() {
     fi
 }
 
+rps1() {
+    if [ -z "$RPS1" ]; then
+        RPS1="$RPS1_SAVED"
+        echo "zsh right prompt enabled."
+    else
+        RPS1=""
+        echo "zsh right prompt disabled."
+    fi
+}
+
 venv_prompt() {
     if [ -z "$VIRTUAL_ENV" ]; then
         echo ""
@@ -91,12 +101,6 @@ goto() {
             *)
                 echo "Undefined label." ;;
         esac
-    fi
-}
-
-open() {
-    if [ -x /usr/bin/xdg-open ]; then
-        /usr/bin/xdg-open $1 > /dev/null 2>&1 &
     fi
 }
 
